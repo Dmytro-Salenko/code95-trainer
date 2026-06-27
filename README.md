@@ -1,96 +1,66 @@
-Driver95 MVP
+# Driver95 MVP
 
 A lightweight, open-source trainer for the Code 95 professional driver exam.
+
 ## Live Demo
 
 https://dmytro-salenko.github.io/code95-trainer/
 
-Features
+## Features
 
-* ✅ 298 questions imported from PDF
-* ✅ Correct answers detected automatically from the original document
-* ✅ Learning mode
-* ✅ Exam mode (40 random questions)
-* ✅ Review incorrect answers
-* ✅ Progress saved in LocalStorage
-* ✅ No server required
-* ✅ No registration
-* ✅ Works offline
+- ✅ All questions imported from the original PDF
+- ✅ Correct answers detected automatically from the original document
+- ✅ Learning mode
+- ✅ Exam mode with random questions
+- ✅ Review incorrect answers
+- ✅ Progress saved in LocalStorage
+- ✅ No server required
+- ✅ No registration
+- ✅ Works offline after loading
 
-Roadmap
+## Roadmap
 
-* Import questions from PDF
-* MVP trainer
-* Multi-language support (DE / EN / RU / UA / PL)
-* PWA installation
-* Smart learning algorithm
-* User profiles
-* AI explanations
-* AI learning assistant
+- [x] PDF import
+- [x] MVP trainer
+- [ ] German UI
+- [ ] Multi-language support (DE / EN / RU / UA / PL)
+- [ ] PWA installation
+- [ ] Improved statistics
+- [ ] Smart learning algorithm
+- [ ] User profiles
+- [ ] AI explanations
+- [ ] AI learning assistant
 
-Run locally
+## Run locally
 
-Simply open index.html in your browser.
-
-Or deploy the project to:
-
-* GitHub Pages
-* Vercel
-* Cloudflare Pages
-
-No build process is required.
-
-Vision
-
-Driver95 is not just another quiz application.
-
-The goal is to build an intelligent learning platform that helps professional drivers prepare for the Code 95 exam faster, understand difficult topics, and learn from their mistakes.
-
-Driver95 MVP
-
-A lightweight, open-source trainer for the Code 95 professional driver exam.
-
-Features
-
-* ✅ 298 questions imported from PDF
-* ✅ Correct answers detected automatically from the original document
-* ✅ Learning mode
-* ✅ Exam mode (40 random questions)
-* ✅ Review incorrect answers
-* ✅ Progress saved in LocalStorage
-* ✅ No server required
-* ✅ No registration
-* ✅ Works offline
-
-Roadmap
-
-* Import questions from PDF
-* MVP trainer
-* Multi-language support (DE / EN / RU / UA / PL)
-* PWA installation
-* Smart learning algorithm
-* User profiles
-* AI explanations
-* AI learning assistant
-
-Run locally
-
-Simply open index.html in your browser.
+Simply open `index.html` in your browser.
 
 Or deploy the project to:
 
-* GitHub Pages
-* Vercel
-* Cloudflare Pages
+- GitHub Pages
+- Vercel
+- Cloudflare Pages
 
 No build process is required.
 
-Vision
+## Vision
 
-Driver95 is not just another quiz application.
+Driver95 is an open-source learning platform for the Code 95 exam.
 
-The goal is to build an intelligent learning platform that helps professional drivers prepare for the Code 95 exam faster, understand difficult topics, and learn from their mistakes.
+The goal is not only to help users pass the exam, but also to understand the material through smart learning, statistics and, in future versions, AI-powered explanations.
 
-## Live Demo
+## Project principles
 
-https://dmytro-salenko.github.io/code95-trainer/
+- Start simple
+- Ship early
+- Keep the first version free and lightweight
+- Avoid registration until users get real value
+- Add AI only when there are real users and a clear reason
+
+## License
+
+License will be added later.
+
+---
+
+Made with ❤️ by Dmytro Salenko and the Driver95 community.
