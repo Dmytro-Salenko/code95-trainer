@@ -1,6 +1,9 @@
 Driver95 MVP
 
 A lightweight, open-source trainer for the Code 95 professional driver exam.
+## Live Demo
+
+https://dmytro-salenko.github.io/code95-trainer/
 
 Features
 
