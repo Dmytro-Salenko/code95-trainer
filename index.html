@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,17 +14,17 @@
       <div class="hero card">
         <div class="badge">MVP</div>
         <h1>Driver95</h1>
-        <p class="subtitle">Тренажёр Code 95. Без регистрации. Просто вопросы.</p>
+        <p class="subtitle">Code 95 Prüfungstrainer. Ohne Registrierung.</p>
         <div class="progressBlock">
           <div class="progressText"><span id="homeProgressText">0%</span><span id="homeScoreText">0 / 0</span></div>
           <div class="bar"><div id="homeBar"></div></div>
         </div>
-        <button id="continueBtn" class="primary">Продолжить обучение</button>
+        <button id="continueBtn" class="primary">Lernen fortsetzen</button>
         <div class="grid2">
-          <button id="examBtn">Экзамен 40 вопросов</button>
-          <button id="mistakesBtn">Повтор ошибок</button>
-          <button id="randomBtn">Случайные вопросы</button>
-          <button id="resetBtn" class="danger">Сбросить прогресс</button>
+          <button id="examBtn">Prüfung (40 Fragen)</button>
+          <button id="mistakesBtn">Fehler wiederholen</button>
+          <button id="randomBtn">Zufällige Fragen</button>
+          <button id="resetBtn" class="danger">Fortschritt zurücksetzen</button>
         </div>
       </div>
     </section>
@@ -33,21 +33,21 @@
       <header class="topbar">
         <button id="backBtn" class="iconBtn">←</button>
         <div>
-          <div id="modeTitle" class="modeTitle">Обучение</div>
+          <div id="modeTitle" class="modeTitle">Lernen</div>
           <div id="questionMeta" class="meta"></div>
         </div>
       </header>
 
       <div class="card questionCard">
         <div class="statsRow">
-          <span id="counter">Вопрос 1</span>
+          <span id="counter">Frage 1</span>
           <span id="score">✓ 0 ✕ 0</span>
         </div>
         <div class="bar small"><div id="quizBar"></div></div>
         <h2 id="questionText"></h2>
         <div id="answers" class="answers"></div>
         <div id="feedback" class="feedback hidden"></div>
-        <button id="nextBtn" class="primary hidden">Следующий →</button>
+        <button id="nextBtn" class="primary hidden">Weiter →</button>
       </div>
     </section>
   </main>

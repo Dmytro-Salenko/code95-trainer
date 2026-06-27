@@ -20,20 +20,20 @@ function updateHome(){
   const correctCount = Object.keys(state.correct).length;
   const p = pct(seenCount, QUESTIONS.length);
   $('homeProgressText').textContent = `${p}%`;
-  $('homeScoreText').textContent = `${correctCount} правильно / ${QUESTIONS.length}`;
+  $('homeScoreText').textContent = `${correctCount} richtig / ${QUESTIONS.length}`;
   $('homeBar').style.width = `${p}%`;
 }
 
 function startSession(mode){
   let list = [];
-  let title = 'Обучение';
-  if(mode === 'exam') { list = shuffle(QUESTIONS).slice(0,40); title = 'Экзамен 40 вопросов'; }
-  else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = 'Повтор ошибок'; }
-  else if(mode === 'random') { list = shuffle(QUESTIONS); title = 'Случайные вопросы'; }
-  else { list = QUESTIONS.slice(state.lastIndex).concat(QUESTIONS.slice(0,state.lastIndex)); title = 'Обучение'; }
+  let title = 'Lernen';
+  if(mode === 'exam') { list = shuffle(QUESTIONS).slice(0,40); title = 'Prüfung (40 Fragen)'; }
+  else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = 'Fehler wiederholen'; }
+  else if(mode === 'random') { list = shuffle(QUESTIONS); title = 'Zufällige Fragen'; }
+  else { list = QUESTIONS.slice(state.lastIndex).concat(QUESTIONS.slice(0,state.lastIndex)); title = 'Lernen'; }
 
   if(!list.length){
-    alert('Ошибок пока нет. Сначала пройди несколько вопросов.');
+    alert('Noch keine Fehler vorhanden.');
     return;
   }
   session = {mode, title, list, index:0, good:0, bad:0, answered:false};
@@ -45,7 +45,7 @@ function startSession(mode){
 function renderQuestion(){
   const q = session.list[session.index];
   session.answered = false;
-  $('counter').textContent = `Вопрос ${session.index + 1} из ${session.list.length}`;
+  $('counter').textContent = `Frage ${session.index + 1} von ${session.list.length}`;
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
   $('quizBar').style.width = `${pct(session.index, session.list.length)}%`;
   $('questionMeta').textContent = `Frage ${q.id} · ${q.topic} · ${q.class}`;
@@ -89,7 +89,7 @@ function chooseAnswer(idx){
     delete state.correct[q.id];
     if(!state.mistakes.includes(q.id)) state.mistakes.push(q.id);
     $('feedback').className = 'feedback bad';
-    $('feedback').textContent = `Неправильно. Правильный ответ: ${q.answers[q.correct]}`;
+    $('feedback').textContent = `Неrichtig. Правильный ответ: ${q.answers[q.correct]}`;
   }
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
   $('nextBtn').classList.remove('hidden');
