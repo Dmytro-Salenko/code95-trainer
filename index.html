@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  <title>Driver95 — Code 95 Trainer</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section id="home" class="screen active">
+      <div class="hero card">
+        <div class="badge">MVP</div>
+        <h1>Driver95</h1>
+        <p class="subtitle">Тренажёр Code 95. Без регистрации. Просто вопросы.</p>
+        <div class="progressBlock">
+          <div class="progressText"><span id="homeProgressText">0%</span><span id="homeScoreText">0 / 0</span></div>
+          <div class="bar"><div id="homeBar"></div></div>
+        </div>
+        <button id="continueBtn" class="primary">Продолжить обучение</button>
+        <div class="grid2">
+          <button id="examBtn">Экзамен 40 вопросов</button>
+          <button id="mistakesBtn">Повтор ошибок</button>
+          <button id="randomBtn">Случайные вопросы</button>
+          <button id="resetBtn" class="danger">Сбросить прогресс</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="screen">
+      <header class="topbar">
+        <button id="backBtn" class="iconBtn">←</button>
+        <div>
+          <div id="modeTitle" class="modeTitle">Обучение</div>
+          <div id="questionMeta" class="meta"></div>
+        </div>
+      </header>
+
+      <div class="card questionCard">
+        <div class="statsRow">
+          <span id="counter">Вопрос 1</span>
+          <span id="score">✓ 0 ✕ 0</span>
+        </div>
+        <div class="bar small"><div id="quizBar"></div></div>
+        <h2 id="questionText"></h2>
+        <div id="answers" class="answers"></div>
+        <div id="feedback" class="feedback hidden"></div>
+        <button id="nextBtn" class="primary hidden">Следующий →</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
