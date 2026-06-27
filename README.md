@@ -87,3 +87,7 @@ Vision
 Driver95 is not just another quiz application.
 
 The goal is to build an intelligent learning platform that helps professional drivers prepare for the Code 95 exam faster, understand difficult topics, and learn from their mistakes.
+
+## Live Demo
+
+https://dmytro-salenko.github.io/code95-trainer/
