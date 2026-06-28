@@ -14,17 +14,26 @@
       <div class="hero card">
         <div class="badge">MVP</div>
         <h1>Driver95</h1>
-        <p class="subtitle">Code 95 Prüfungstrainer. Ohne Registrierung.</p>
+        <p id="subtitle" class="subtitle">Code 95 Trainer. Ohne Registrierung. Einfach Fragen.</p>
+
+        <div class="languageBlock">
+          <div id="languageTitle" class="sectionTitle">Sprache / база вопросов</div>
+          <div class="languageGrid">
+            <button id="langDe" class="langBtn" data-lang="de">🇩🇪 Deutsch<br><span>Austria · 298</span></button>
+            <button id="langRu" class="langBtn" data-lang="ru">🇷🇺 Русский<br><span>StarTruck · 245</span></button>
+          </div>
+        </div>
+
         <div class="progressBlock">
           <div class="progressText"><span id="homeProgressText">0%</span><span id="homeScoreText">0 / 0</span></div>
           <div class="bar"><div id="homeBar"></div></div>
         </div>
         <button id="continueBtn" class="primary">Lernen fortsetzen</button>
         <div class="grid2">
-          <button id="examBtn">Prüfung (40 Fragen)</button>
+          <button id="examBtn">Prüfung: 40 Fragen</button>
           <button id="mistakesBtn">Fehler wiederholen</button>
           <button id="randomBtn">Zufällige Fragen</button>
-          <button id="resetBtn" class="danger">Fortschritt zurücksetzen</button>
+          <button id="resetBtn" class="danger">Fortschritt löschen</button>
         </div>
       </div>
     </section>
@@ -45,6 +54,7 @@
         </div>
         <div class="bar small"><div id="quizBar"></div></div>
         <h2 id="questionText"></h2>
+        <img id="questionImage" class="questionImage hidden" alt="Question image" />
         <div id="answers" class="answers"></div>
         <div id="feedback" class="feedback hidden"></div>
         <button id="nextBtn" class="primary hidden">Weiter →</button>
@@ -52,7 +62,7 @@
     </section>
   </main>
 
-  <script src="questions.js"></script>
+  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
