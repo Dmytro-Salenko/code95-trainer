@@ -265,5 +265,6 @@ $('resetBtn').onclick = () => {
 
 applyTheme(theme);
 updateOnboardingButtons();
-if(lang && DATA[lang]) selectLanguage(lang);
-else show('onboarding');
+// The first screen must always be language + theme selection.
+// We may preselect saved values, but we never skip this screen on startup.
+show('onboarding');

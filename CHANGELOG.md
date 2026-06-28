@@ -1,5 +1,13 @@
 # Changelog
 
+## driver95_always_onboarding_v1
+- First screen is always language + theme selection.
+- Saved language/theme are only preselected, not used to skip onboarding.
+- Continue opens the approved welcome/main menu.
+- No auto-resume into quiz or progress.
+
+# Changelog
+
 ## Driver95 v0.1.0
 
 ### Added
