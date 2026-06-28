@@ -1,10 +1,5 @@
-# Driver95
+Driver95 — Code 95 Trainer
 
-Code 95 Trainer.
+Files for GitHub Pages. Upload all files from this archive to repository root.
 
-## Что внутри
-- выбор языка на первом экране: Deutsch / Русский
-- отдельная база и прогресс для каждого языка
-- обучение
-- экзамен 40 случайных вопросов
-- повтор ошибок
+Languages: Deutsch, Русский.

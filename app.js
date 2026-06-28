@@ -42,6 +42,11 @@ function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
 function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
 function pct(n,d){ return d ? Math.round((n/d)*100) : 0; }
 function sameSet(a,b){ return a.size === b.length && b.every(x => a.has(x)); }
+function cleanText(value){
+  const el = document.createElement('textarea');
+  el.innerHTML = String(value ?? '');
+  return el.value.replace(/\u00a0/g, ' ').trim();
+}
 
 function selectLanguage(nextLang){
   lang = nextLang;
@@ -102,7 +107,7 @@ function renderQuestion(){
   $('quizBar').style.width = `${pct(session.index, session.list.length)}%`;
   const meta = [q.id ? `${t('question')} ${q.id}` : '', q.category || '', q.class || ''].filter(Boolean).join(' · ');
   $('questionMeta').textContent = meta;
-  $('questionText').textContent = q.question;
+  $('questionText').textContent = cleanText(q.question);
   $('feedback').className = 'feedback hidden';
   $('feedback').textContent = '';
   $('nextBtn').classList.add('hidden');
@@ -127,7 +132,7 @@ function renderQuestion(){
   q.answers.forEach((text, idx) => {
     const btn = document.createElement('button');
     btn.className = 'answer';
-    btn.textContent = text || '—';
+    btn.textContent = cleanText(text) || '—';
     btn.onclick = () => isMulti ? toggleAnswer(idx, btn) : chooseAnswer(idx);
     answers.appendChild(btn);
   });
@@ -169,16 +174,16 @@ function finishAnswer(){
     delete state.wrong[q.id];
     state.mistakes = state.mistakes.filter(id => id !== q.id);
     $('feedback').className = 'feedback ok';
-    $('feedback').textContent = q.explanation ? `${t('right')}. ${q.explanation}` : t('right');
+    $('feedback').textContent = q.explanation ? `${t('right')}. ${cleanText(q.explanation)}` : t('right');
   } else {
     session.bad++;
     [...selected].forEach(i => { if(!correctIndexes.includes(i)) buttons[i]?.classList.add('wrong'); });
     state.wrong[q.id] = true;
     delete state.correct[q.id];
     if(!state.mistakes.includes(q.id)) state.mistakes.push(q.id);
-    const correctText = correctIndexes.map(i => q.answers[i]).join('; ');
+    const correctText = correctIndexes.map(i => cleanText(q.answers[i])).join('; ');
     $('feedback').className = 'feedback bad';
-    $('feedback').textContent = `${t('wrong')} ${correctText}${q.explanation ? ' — ' + q.explanation : ''}`;
+    $('feedback').textContent = `${t('wrong')} ${correctText}${q.explanation ? ' — ' + cleanText(q.explanation) : ''}`;
   }
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
   $('checkBtn').classList.add('hidden');
