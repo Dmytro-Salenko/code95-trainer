@@ -1,61 +1,38 @@
-const DATA = window.DRIVER95_DATA || { de: [], ru: [] };
-const BASE_STORAGE_KEY = 'driver95_mvp_v3';
+const DATA = window.DRIVER95_DATA || {de: [], ru: []};
+const BASE_STORAGE_KEY = 'driver95_mvp_v2';
 
 const I18N = {
   de: {
-    htmlLang: 'de', chooseLanguage: 'Sprache wählen', theme: 'Thema', start: 'Weiter',
-    welcomeTitle: 'Willkommen!', welcomeText: 'Trainieren Sie weiter und verbessern Sie Ihr Wissen.',
-    randomTitle: 'Zufällige Fragen', randomDesc: 'Training in zufälliger Reihenfolge',
-    learnTitle: 'Lernen', learnDesc: 'Fragen der Reihe nach lernen',
-    mistakesTitle: 'Fehler', mistakesDesc: 'Ihre falschen Antworten',
-    examTitle: 'Prüfung', examDesc: '40 zufällige Fragen', examReady: 'Bereitschaft prüfen',
-    progress: 'Fortschritt', mistakesCount: 'Fehler', training: 'Training', stats: 'Statistik', favorites: 'Favoriten', settings: 'Einstellungen',
-    learnMode: 'Lernen', examMode: 'Prüfung', mistakesMode: 'Fehler wiederholen', randomMode: 'Zufällige Fragen',
-    question: 'Frage', of: 'von', check: 'Antwort prüfen', next: 'Nächste Frage',
-    multi: 'Mehrere Antworten möglich.', noMistakes: 'Noch keine Fehler vorhanden.',
-    right: 'Richtig', wrong: 'Falsch. Richtige Antwort:', doneTitle: 'Ergebnis', excellent: 'Sehr gut! 🎉', good: 'Gut gemacht!', morePractice: 'Weiter üben',
-    resultSummary: 'Sie haben {good} von {total} richtig beantwortet', correct: 'Richtig', incorrect: 'Falsch', repeat: 'Wiederholen', nextBlock: 'Nächster Block',
-    settingsLang: 'Sprache', settingsTheme: 'Thema', reset: 'Fortschritt zurücksetzen', resetConfirm: 'Fortschritt zurücksetzen?',
-    light: '☀️ Hell', dark: '🌙 Dunkel', statsAlert: 'Statistik kommt in der nächsten Version.'
+    code: 'DE', subtitle: 'Code 95 Trainer', continue: 'Lernen fortsetzen', exam: 'Prüfung (40 Fragen)',
+    mistakes: 'Fehler wiederholen', random: 'Zufällige Fragen', reset: 'Fortschritt zurücksetzen',
+    learnTitle: 'Lernen', examTitle: 'Prüfung (40 Fragen)', mistakesTitle: 'Fehler wiederholen', randomTitle: 'Zufällige Fragen',
+    correctWord: 'richtig', question: 'Frage', of: 'von', check: 'Prüfen', next: 'Weiter →',
+    noMistakes: 'Noch keine Fehler vorhanden.', resetConfirm: 'Fortschritt zurücksetzen?',
+    right: 'Richtig', wrong: 'Falsch. Richtige Antwort:', done: 'Fertig.', correct: 'Richtig', errors: 'Fehler',
+    multi: 'Mehrere Antworten möglich.'
   },
   ru: {
-    htmlLang: 'ru', chooseLanguage: 'Выберите язык', theme: 'Тема', start: 'Продолжить',
-    welcomeTitle: 'Добро пожаловать!', welcomeText: 'Продолжайте обучение и повышайте свои знания.',
-    randomTitle: 'Случайные вопросы', randomDesc: 'Тренировка в случайном порядке',
-    learnTitle: 'Темы', learnDesc: 'Вопросы по порядку',
-    mistakesTitle: 'Ошибки', mistakesDesc: 'Ваши неправильные ответы',
-    examTitle: 'Экзамен', examDesc: '40 случайных вопросов', examReady: 'Проверьте готовность',
-    progress: 'Прогресс', mistakesCount: 'ошибок', training: 'Тренировка', stats: 'Статистика', favorites: 'Избранное', settings: 'Настройки',
-    learnMode: 'Обучение', examMode: 'Экзамен', mistakesMode: 'Повтор ошибок', randomMode: 'Случайные вопросы',
-    question: 'Вопрос', of: 'из', check: 'Проверить ответ', next: 'Следующий вопрос',
-    multi: 'Возможны несколько правильных ответов.', noMistakes: 'Ошибок пока нет.',
-    right: 'Правильно', wrong: 'Неправильно. Правильный ответ:', doneTitle: 'Результат', excellent: 'Отлично! 🎉', good: 'Хорошо!', morePractice: 'Нужно повторить',
-    resultSummary: 'Вы ответили правильно на {good} из {total}', correct: 'Правильные', incorrect: 'Неправильные', repeat: 'Повторить', nextBlock: 'Следующий блок',
-    settingsLang: 'Язык', settingsTheme: 'Тема', reset: 'Сбросить прогресс', resetConfirm: 'Сбросить прогресс?',
-    light: '☀️ Светлая', dark: '🌙 Тёмная', statsAlert: 'Статистика будет в следующей версии.'
+    code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Продолжить обучение', exam: 'Экзамен (40 вопросов)',
+    mistakes: 'Повторить ошибки', random: 'Случайные вопросы', reset: 'Сбросить прогресс',
+    learnTitle: 'Обучение', examTitle: 'Экзамен (40 вопросов)', mistakesTitle: 'Повтор ошибок', randomTitle: 'Случайные вопросы',
+    correctWord: 'правильно', question: 'Вопрос', of: 'из', check: 'Проверить', next: 'Дальше →',
+    noMistakes: 'Ошибок пока нет.', resetConfirm: 'Сбросить прогресс?',
+    right: 'Правильно', wrong: 'Неправильно. Правильный ответ:', done: 'Готово.', correct: 'Правильно', errors: 'Ошибок',
+    multi: 'Возможны несколько правильных ответов.'
   }
 };
 
 const $ = (id) => document.getElementById(id);
-let lang = localStorage.getItem('driver95_lang') || 'de';
-let theme = localStorage.getItem('driver95_theme') || 'dark';
+let lang = localStorage.getItem('driver95_lang') || null;
+let onboardingLang = lang || 'de';
+let theme = localStorage.getItem('driver95_theme') || 'light';
 let QUESTIONS = [];
 let state = null;
 let session = null;
-let lastMode = 'random';
 let selected = new Set();
 
 function storageKey(){ return `${BASE_STORAGE_KEY}_${lang}`; }
-function t(key){ return (I18N[lang] || I18N.de)[key] || key; }
-function pct(n,d){ return d ? Math.round((n/d)*100) : 0; }
-function sameSet(a,b){ return a.size === b.length && b.every(x => a.has(x)); }
-function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
-function cleanText(value){
-  const el = document.createElement('textarea');
-  el.innerHTML = String(value ?? '');
-  return el.value.replace(/\u00a0/g, ' ').trim();
-}
-function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
+function t(key){ return I18N[lang][key]; }
 
 function loadState(){
   const fallback = {seen:{}, correct:{}, wrong:{}, mistakes:[], lastIndex:0};
@@ -63,85 +40,72 @@ function loadState(){
   catch { return fallback; }
 }
 function saveState(){ localStorage.setItem(storageKey(), JSON.stringify(state)); }
-
-function applyTheme(nextTheme = theme){
-  theme = nextTheme;
-  document.documentElement.dataset.theme = theme;
+function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
+function applyTheme(nextTheme){
+  theme = nextTheme === 'dark' ? 'dark' : 'light';
+  document.body.classList.toggle('dark', theme === 'dark');
   localStorage.setItem('driver95_theme', theme);
-  document.querySelectorAll('[data-theme]').forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
+  updateOnboardingButtons();
+}
+function updateOnboardingButtons(){
+  $('langDe')?.classList.toggle('selected', onboardingLang === 'de');
+  $('langRu')?.classList.toggle('selected', onboardingLang === 'ru');
+  $('themeLight')?.classList.toggle('selected', theme === 'light');
+  $('themeDark')?.classList.toggle('selected', theme === 'dark');
+}
+function pct(n,d){ return d ? Math.round((n/d)*100) : 0; }
+function sameSet(a,b){ return a.size === b.length && b.every(x => a.has(x)); }
+function cleanText(value){
+  const el = document.createElement('textarea');
+  el.innerHTML = String(value ?? '');
+  return el.value.replace(/\u00a0/g, ' ').trim();
 }
 
-function setLanguage(nextLang){
+function selectLanguage(nextLang){
   lang = nextLang;
   localStorage.setItem('driver95_lang', lang);
   QUESTIONS = DATA[lang] || [];
   state = loadState();
   applyLanguage();
   updateHome();
+  show('home');
 }
 
 function applyLanguage(){
-  document.documentElement.lang = t('htmlLang');
-  $('onboardLanguageTitle').textContent = t('chooseLanguage');
-  $('onboardThemeTitle').textContent = t('theme');
-  $('startBtn').textContent = t('start');
-  $('welcomeTitle').textContent = t('welcomeTitle');
-  $('welcomeText').textContent = t('welcomeText');
-  $('randomTitle').textContent = t('randomTitle');
-  $('randomDesc').textContent = t('randomDesc');
-  $('learnTitle').textContent = t('learnTitle');
-  $('learnDesc').textContent = t('learnDesc');
-  $('mistakesTitle').textContent = t('mistakesTitle');
-  $('mistakesDesc').textContent = t('mistakesDesc');
-  $('examTitle').textContent = t('examTitle');
-  $('examDesc').textContent = t('examDesc');
-  $('examProgress').textContent = t('examReady');
-  $('navTraining').textContent = t('training');
-  $('navStats').textContent = t('stats');
-  $('navFav').textContent = t('favorites');
-  $('navSettings').textContent = t('settings');
+  document.documentElement.lang = lang === 'ru' ? 'ru' : 'de';
+  $('langBadge').textContent = t('code');
+  $('homeSubtitle').textContent = t('subtitle');
+  $('continueBtn').textContent = t('continue');
+  $('examBtn').textContent = t('exam');
+  $('mistakesBtn').textContent = t('mistakes');
+  $('randomBtn').textContent = t('random');
+  $('resetBtn').textContent = t('reset');
   $('checkBtn').textContent = t('check');
   $('nextBtn').textContent = t('next');
-  $('resultTitle').textContent = t('doneTitle');
-  $('resultCorrectLabel').textContent = t('correct');
-  $('resultWrongLabel').textContent = t('incorrect');
-  $('repeatBtn').textContent = t('repeat');
-  $('nextBlockBtn').textContent = t('nextBlock');
-  $('settingsTitle').textContent = t('settings');
-  $('settingsLangTitle').textContent = t('settingsLang');
-  $('settingsThemeTitle').textContent = t('settingsTheme');
-  $('resetBtn').textContent = t('reset');
-  document.querySelectorAll('[data-lang]').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
-  document.querySelectorAll('[data-theme="light"]').forEach(btn => btn.textContent = t('light'));
-  document.querySelectorAll('[data-theme="dark"]').forEach(btn => btn.textContent = t('dark'));
 }
 
 function updateHome(){
-  if(!state) return;
   const seenCount = Object.keys(state.seen).length;
+  const correctCount = Object.keys(state.correct).length;
   const p = pct(seenCount, QUESTIONS.length);
-  $('randomProgress').textContent = `${t('progress')}: ${p}%`;
-  $('learnProgress').textContent = `${t('progress')}: ${p}%`;
-  $('mistakesProgress').textContent = `${state.mistakes.length} ${t('mistakesCount')}`;
-}
-
-function startApp(){
-  localStorage.setItem('driver95_onboarded', '1');
-  setLanguage(lang);
-  applyTheme(theme);
-  show('home');
+  $('homeProgressText').textContent = `${p}%`;
+  $('homeScoreText').textContent = `${correctCount} ${t('correctWord')} / ${QUESTIONS.length}`;
+  $('homeBar').style.width = `${p}%`;
 }
 
 function startSession(mode){
   let list = [];
-  let title = t('learnMode');
-  lastMode = mode;
-  if(mode === 'exam') { list = shuffle(QUESTIONS).slice(0,40); title = t('examMode'); }
-  else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = t('mistakesMode'); }
-  else if(mode === 'random') { list = shuffle(QUESTIONS); title = t('randomMode'); }
-  else { list = QUESTIONS.slice(state.lastIndex).concat(QUESTIONS.slice(0,state.lastIndex)); title = t('learnMode'); }
+  let title = t('learnTitle');
+  if(mode === 'exam') { list = shuffle(QUESTIONS).slice(0,40); title = t('examTitle'); }
+  else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = t('mistakesTitle'); }
+  else if(mode === 'random') { list = shuffle(QUESTIONS); title = t('randomTitle'); }
+  else { list = QUESTIONS.slice(state.lastIndex).concat(QUESTIONS.slice(0,state.lastIndex)); title = t('learnTitle'); }
 
-  if(!list.length){ alert(t('noMistakes')); return; }
+  if(!list.length){
+    alert(t('noMistakes'));
+    return;
+  }
   session = {mode, title, list, index:0, good:0, bad:0, answered:false};
   $('modeTitle').textContent = title;
   show('quiz');
@@ -190,16 +154,24 @@ function renderQuestion(){
 
 function toggleAnswer(idx, btn){
   if(session.answered) return;
-  if(selected.has(idx)){ selected.delete(idx); btn.classList.remove('selected'); }
-  else { selected.add(idx); btn.classList.add('selected'); }
+  if(selected.has(idx)){
+    selected.delete(idx);
+    btn.classList.remove('selected');
+  } else {
+    selected.add(idx);
+    btn.classList.add('selected');
+  }
 }
-function chooseAnswer(idx){ selected = new Set([idx]); finishAnswer(); }
+
+function chooseAnswer(idx){
+  selected = new Set([idx]);
+  finishAnswer();
+}
 
 function finishAnswer(){
   if(session.answered) return;
-  const q = session.list[session.index];
-  if((q.correctIndexes || []).length > 1 && selected.size === 0) return;
   session.answered = true;
+  const q = session.list[session.index];
   const correctIndexes = q.correctIndexes || [];
   const buttons = [...document.querySelectorAll('.answer')];
   buttons.forEach(b=>b.classList.add('disabled'));
@@ -236,60 +208,38 @@ function finishAnswer(){
 
 function nextQuestion(){
   session.index++;
-  if(session.index >= session.list.length){ showResult(); return; }
+  if(session.index >= session.list.length){
+    $('quizBar').style.width = '100%';
+    alert(`${t('done')} ${t('correct')}: ${session.good}. ${t('errors')}: ${session.bad}.`);
+    show('home');
+    updateHome();
+    return;
+  }
   renderQuestion();
 }
 
-function showResult(){
-  $('quizBar').style.width = '100%';
-  const total = session.list.length;
-  const p = pct(session.good, total);
-  $('resultGood').textContent = session.good;
-  $('resultTotal').textContent = `${t('of')} ${total}`;
-  $('resultMessage').textContent = p >= 80 ? t('excellent') : p >= 60 ? t('good') : t('morePractice');
-  $('resultSummary').textContent = t('resultSummary').replace('{good}', session.good).replace('{total}', total);
-  $('resultCorrect').textContent = session.good;
-  $('resultWrong').textContent = session.bad;
-  show('result');
-}
+$('langDe').onclick = () => { onboardingLang = 'de'; updateOnboardingButtons(); };
+$('langRu').onclick = () => { onboardingLang = 'ru'; updateOnboardingButtons(); };
+$('themeLight').onclick = () => applyTheme('light');
+$('themeDark').onclick = () => applyTheme('dark');
+$('onboardingContinue').onclick = () => selectLanguage(onboardingLang);
+$('changeLangBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
+$('continueBtn').onclick = () => startSession('learn');
+$('examBtn').onclick = () => startSession('exam');
+$('mistakesBtn').onclick = () => startSession('mistakes');
+$('randomBtn').onclick = () => startSession('random');
+$('nextBtn').onclick = nextQuestion;
+$('checkBtn').onclick = finishAnswer;
+$('backBtn').onclick = () => { show('home'); updateHome(); };
+$('resetBtn').onclick = () => {
+  if(confirm(t('resetConfirm'))){
+    localStorage.removeItem(storageKey());
+    state = loadState();
+    updateHome();
+  }
+};
 
-function openSettings(){ applyLanguage(); applyTheme(theme); show('settings'); }
-
-function bindEvents(){
-  document.querySelectorAll('.lang-choice,.settings-lang').forEach(btn => btn.onclick = () => { setLanguage(btn.dataset.lang); });
-  document.querySelectorAll('.theme-choice,.settings-theme').forEach(btn => btn.onclick = () => { applyTheme(btn.dataset.theme); });
-  $('startBtn').onclick = startApp;
-  $('homeLogoBtn').onclick = () => show('home');
-  $('settingsBtn').onclick = openSettings;
-  $('settingsBtn2').onclick = openSettings;
-  $('settingsBackBtn').onclick = () => { updateHome(); show('home'); };
-  $('continueBtn').onclick = () => startSession('learn');
-  $('examBtn').onclick = () => startSession('exam');
-  $('mistakesBtn').onclick = () => startSession('mistakes');
-  $('randomBtn').onclick = () => startSession('random');
-  $('statsBtn').onclick = () => alert(t('statsAlert'));
-  $('nextBtn').onclick = nextQuestion;
-  $('checkBtn').onclick = finishAnswer;
-  $('backBtn').onclick = () => { updateHome(); show('home'); };
-  $('resultBackBtn').onclick = () => { updateHome(); show('home'); };
-  $('repeatBtn').onclick = () => startSession(lastMode);
-  $('nextBlockBtn').onclick = () => startSession('random');
-  $('resetBtn').onclick = () => {
-    if(confirm(t('resetConfirm'))){
-      localStorage.removeItem(storageKey());
-      state = loadState();
-      updateHome();
-      show('home');
-    }
-  };
-}
-
-function init(){
-  bindEvents();
-  applyTheme(theme);
-  setLanguage(lang && DATA[lang] ? lang : 'de');
-  if(localStorage.getItem('driver95_onboarded') || localStorage.getItem('driver95_lang')) show('home');
-  else show('onboarding');
-}
-
-init();
+applyTheme(theme);
+updateOnboardingButtons();
+if(lang && DATA[lang]) selectLanguage(lang);
+else show('onboarding');

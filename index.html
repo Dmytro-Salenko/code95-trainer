@@ -1,153 +1,76 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#07111f" />
+  <meta name="theme-color" content="#111827" />
   <title>Driver95 — Code 95 Trainer</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="app">
-    <section id="onboarding" class="screen active start-screen">
-      <div class="brand-block">
-        <div class="logo-mark" aria-hidden="true"><span>95</span><i>✓</i></div>
-        <h1>Driver<span>95</span></h1>
-        <p>Code 95 Trainer</p>
-      </div>
+    <section id="onboarding" class="screen active">
+      <div class="hero card onboardingCard">
+        <h1>Driver95</h1>
+        <p class="subtitle">Code 95 Trainer</p>
 
-      <div class="panel start-panel">
-        <div class="section-title"><span>🌍</span><strong id="onboardLanguageTitle">Choose language</strong></div>
-        <button class="choice-card lang-choice active" data-lang="de">
-          <span class="flag de-flag"></span>
-          <span><strong>Deutsch</strong><small>Offizielle Fragen</small></span>
-          <b>›</b>
-        </button>
-        <button class="choice-card lang-choice" data-lang="ru">
-          <span class="flag ru-flag"></span>
-          <span><strong>Русский</strong><small>Переведённая база</small></span>
-          <b>›</b>
-        </button>
-
-        <div class="section-title theme-title"><span>🎨</span><strong id="onboardThemeTitle">Theme</strong></div>
-        <div class="theme-row">
-          <button class="theme-choice active" data-theme="dark">🌙 Dark</button>
-          <button class="theme-choice" data-theme="light">☀️ Light</button>
+        <div class="choiceGroup">
+          <button id="langDe" class="choiceBtn" type="button">Deutsch</button>
+          <button id="langRu" class="choiceBtn" type="button">Русский</button>
         </div>
 
-        <button id="startBtn" class="primary big">Continue</button>
-      </div>
+        <div class="choiceGroup">
+          <button id="themeLight" class="choiceBtn" type="button">Light</button>
+          <button id="themeDark" class="choiceBtn" type="button">Dark</button>
+        </div>
 
-      <p class="start-note">Повышайте знания. Будьте уверенны на дороге.</p>
+        <button id="onboardingContinue" class="primary" type="button">Continue</button>
+      </div>
     </section>
 
     <section id="home" class="screen">
-      <header class="app-header">
-        <button id="homeLogoBtn" class="mini-logo" aria-label="Home"><span>95</span><i>✓</i></button>
-        <div class="spacer"></div>
-        <button id="settingsBtn" class="round-btn" aria-label="Settings">⚙</button>
-      </header>
-
-      <div class="welcome">
-        <h2 id="welcomeTitle">Добро пожаловать!</h2>
-        <p id="welcomeText">Продолжайте обучение и повышайте свои знания.</p>
+      <div class="hero card">
+        <button id="changeLangBtn" class="iconBtn langBack" type="button">←</button>
+        <div class="badge" id="langBadge">DE</div>
+        <h1>Driver95</h1>
+        <p id="homeSubtitle" class="subtitle">Code 95 Trainer</p>
+        <div class="progressBlock">
+          <div class="progressText"><span id="homeProgressText">0%</span><span id="homeScoreText">0 / 0</span></div>
+          <div class="bar"><div id="homeBar"></div></div>
+        </div>
+        <button id="continueBtn" class="primary" type="button">Lernen fortsetzen</button>
+        <div class="grid2">
+          <button id="examBtn" type="button">Prüfung (40 Fragen)</button>
+          <button id="mistakesBtn" type="button">Fehler wiederholen</button>
+          <button id="randomBtn" type="button">Zufällige Fragen</button>
+          <button id="resetBtn" class="danger" type="button">Fortschritt zurücksetzen</button>
+        </div>
       </div>
-
-      <div class="menu-list">
-        <button id="randomBtn" class="menu-card blue">
-          <span class="icon-box">🎓</span>
-          <span><strong id="randomTitle">Случайные вопросы</strong><small id="randomDesc">Тренировка в случайном порядке</small><em id="randomProgress">Прогресс: 0%</em></span>
-          <b>›</b>
-        </button>
-        <button id="continueBtn" class="menu-card green">
-          <span class="icon-box">☷</span>
-          <span><strong id="learnTitle">Темы</strong><small id="learnDesc">Выберите тему для изучения</small><em id="learnProgress">Прогресс: 0%</em></span>
-          <b>›</b>
-        </button>
-        <button id="mistakesBtn" class="menu-card violet">
-          <span class="icon-box">☑</span>
-          <span><strong id="mistakesTitle">Ошибки</strong><small id="mistakesDesc">Ваши неправильные ответы</small><em id="mistakesProgress">0 ошибок</em></span>
-          <b>›</b>
-        </button>
-        <button id="examBtn" class="menu-card orange">
-          <span class="icon-box">▥</span>
-          <span><strong id="examTitle">Экзамен</strong><small id="examDesc">40 случайных вопросов</small><em id="examProgress">Проверьте готовность</em></span>
-          <b>›</b>
-        </button>
-      </div>
-
-      <nav class="bottom-nav" aria-label="Main navigation">
-        <button class="active">⌂<span id="navTraining">Тренировка</span></button>
-        <button id="statsBtn">▥<span id="navStats">Статистика</span></button>
-        <button>☆<span id="navFav">Избранное</span></button>
-        <button id="settingsBtn2">⚙<span id="navSettings">Настройки</span></button>
-      </nav>
     </section>
 
     <section id="quiz" class="screen">
-      <header class="quiz-header">
-        <button id="backBtn" class="round-btn back">←</button>
+      <header class="topbar">
+        <button id="backBtn" class="iconBtn" type="button">←</button>
         <div>
-          <h3 id="modeTitle">Случайные вопросы</h3>
-          <p id="questionMeta">Вопрос 1</p>
+          <div id="modeTitle" class="modeTitle">Lernen</div>
+          <div id="questionMeta" class="meta"></div>
         </div>
-        <button class="round-btn bookmark" aria-label="Bookmark">♡</button>
       </header>
 
-      <div class="panel quiz-panel">
-        <div class="quiz-topline">
-          <span id="counter">Вопрос 1 из 245</span>
-          <strong id="score">✓ 0 ✕ 0</strong>
+      <div class="card questionCard">
+        <div class="statsRow">
+          <span id="counter">Frage 1</span>
+          <span id="score">✓ 0 ✕ 0</span>
         </div>
-        <div class="progress-track"><div id="quizBar"></div></div>
-        <p id="multiHint" class="hint hidden"></p>
-        <img id="questionImage" class="question-image hidden" alt="" />
+        <div class="bar small"><div id="quizBar"></div></div>
+        <div id="multiHint" class="meta hidden"></div>
+        <img id="questionImage" class="questionImage hidden" alt="" />
         <h2 id="questionText"></h2>
         <div id="answers" class="answers"></div>
-        <button id="checkBtn" class="primary hidden">Проверить ответ</button>
+        <button id="checkBtn" class="primary hidden" type="button">Prüfen</button>
         <div id="feedback" class="feedback hidden"></div>
-        <button id="nextBtn" class="primary hidden">Следующий вопрос</button>
-      </div>
-    </section>
-
-    <section id="result" class="screen">
-      <header class="quiz-header">
-        <button id="resultBackBtn" class="round-btn back">←</button>
-        <div><h3 id="resultTitle">Результат</h3></div>
-      </header>
-      <div class="panel result-panel">
-        <div class="score-ring"><span id="resultGood">0</span><small id="resultTotal">из 0</small></div>
-        <h2 id="resultMessage">Отлично!</h2>
-        <p id="resultSummary">Вы ответили правильно на 0 из 0</p>
-        <div class="result-grid">
-          <div><span>✅</span><small id="resultCorrectLabel">Правильные</small><strong id="resultCorrect">0</strong></div>
-          <div><span>❌</span><small id="resultWrongLabel">Неправильные</small><strong id="resultWrong">0</strong></div>
-        </div>
-        <div class="result-actions">
-          <button id="repeatBtn">Повторить</button>
-          <button id="nextBlockBtn" class="primary">Следующий блок</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="settings" class="screen">
-      <header class="quiz-header">
-        <button id="settingsBackBtn" class="round-btn back">←</button>
-        <div><h3 id="settingsTitle">Настройки</h3></div>
-      </header>
-      <div class="panel settings-panel">
-        <div class="section-title"><span>🌍</span><strong id="settingsLangTitle">Язык</strong></div>
-        <div class="theme-row">
-          <button class="settings-lang" data-lang="de">Deutsch</button>
-          <button class="settings-lang" data-lang="ru">Русский</button>
-        </div>
-        <div class="section-title theme-title"><span>🎨</span><strong id="settingsThemeTitle">Тема</strong></div>
-        <div class="theme-row">
-          <button class="settings-theme" data-theme="light">☀️ Light</button>
-          <button class="settings-theme" data-theme="dark">🌙 Dark</button>
-        </div>
-        <button id="resetBtn" class="danger-link">Сбросить прогресс</button>
+        <button id="nextBtn" class="primary hidden" type="button">Weiter →</button>
       </div>
     </section>
   </main>
