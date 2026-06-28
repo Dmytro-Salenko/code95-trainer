@@ -14,5 +14,4 @@
 
 ## Запуск
 
-Открыть [[`index.html` в браузере или залить папку на GitHub Pages / Vercel / Cloudflare Pages.](https://dmytro-salenko.github.io/code95-trainer/)
-](https://dmytro-salenko.github.io/code95-trainer/)
+Открыть https://dmytro-salenko.github.io/code95-trainer/
