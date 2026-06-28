@@ -14,4 +14,4 @@
 
 ## Запуск
 
-Открыть https://dmytro-salenko.github.io/code95-trainer/
+## Live Demo https://dmytro-salenko.github.io/code95-trainer/
