@@ -17,3 +17,9 @@
 
 - Interface language is currently not fully matched with the German question database
 - Question order is random, which makes manual PDF comparison less convenient
+
+
+## v1 no-autoprogress
+- After onboarding/opening app, always show main menu.
+- Learning starts from the beginning instead of resuming last question.
+- Quiz finish returns to main menu.

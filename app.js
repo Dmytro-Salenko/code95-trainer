@@ -3,7 +3,7 @@ const BASE_STORAGE_KEY = 'driver95_mvp_v2';
 
 const I18N = {
   de: {
-    code: 'DE', subtitle: 'Code 95 Trainer', continue: 'Lernen fortsetzen', exam: 'Prüfung (40 Fragen)',
+    code: 'DE', subtitle: 'Code 95 Trainer', continue: 'Lernen', exam: 'Prüfung (40 Fragen)',
     mistakes: 'Fehler wiederholen', random: 'Zufällige Fragen', reset: 'Fortschritt zurücksetzen',
     learnTitle: 'Lernen', examTitle: 'Prüfung (40 Fragen)', mistakesTitle: 'Fehler wiederholen', randomTitle: 'Zufällige Fragen',
     correctWord: 'richtig', question: 'Frage', of: 'von', check: 'Prüfen', next: 'Weiter →',
@@ -18,7 +18,7 @@ const I18N = {
     statsAlert: 'Statistik ist im nächsten Schritt geplant.'
   },
   ru: {
-    code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Продолжить обучение', exam: 'Экзамен (40 вопросов)',
+    code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Обучение', exam: 'Экзамен (40 вопросов)',
     mistakes: 'Повторить ошибки', random: 'Случайные вопросы', reset: 'Сбросить прогресс',
     learnTitle: 'Обучение', examTitle: 'Экзамен (40 вопросов)', mistakesTitle: 'Повтор ошибок', randomTitle: 'Случайные вопросы',
     correctWord: 'правильно', question: 'Вопрос', of: 'из', check: 'Проверить', next: 'Дальше →',
@@ -123,7 +123,7 @@ function startSession(mode){
   if(mode === 'exam') { list = shuffle(QUESTIONS).slice(0,40); title = t('examTitle'); }
   else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = t('mistakesTitle'); }
   else if(mode === 'random') { list = shuffle(QUESTIONS); title = t('randomTitle'); }
-  else { list = QUESTIONS.slice(state.lastIndex).concat(QUESTIONS.slice(0,state.lastIndex)); title = t('learnTitle'); }
+  else { list = QUESTIONS.slice(); title = t('learnTitle'); }
 
   if(!list.length){
     alert(t('noMistakes'));
@@ -201,10 +201,6 @@ function finishAnswer(){
   correctIndexes.forEach(i => buttons[i]?.classList.add('correct'));
 
   state.seen[q.id] = true;
-  const originalIndex = QUESTIONS.findIndex(x => x.id === q.id);
-  state.lastIndex = originalIndex >= 0 ? originalIndex + 1 : 0;
-  if(state.lastIndex >= QUESTIONS.length) state.lastIndex = 0;
-
   if(sameSet(selected, correctIndexes)){
     session.good++;
     state.correct[q.id] = true;
@@ -234,7 +230,7 @@ function nextQuestion(){
   if(session.index >= session.list.length){
     $('quizBar').style.width = '100%';
     alert(`${t('done')} ${t('correct')}: ${session.good}. ${t('errors')}: ${session.bad}.`);
-    show('home');
+    show('mainMenu');
     updateHome();
     return;
   }
