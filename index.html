@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#111827" />
+  <meta name="theme-color" content="#07111f" />
   <title>Driver95 — Code 95 Trainer</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
@@ -11,28 +11,39 @@
 <body>
   <main class="app">
     <section id="onboarding" class="screen active">
-      <div class="hero card onboardingCard">
-        <h1>Driver95</h1>
-        <p class="subtitle">Code 95 Trainer</p>
-
-        <div class="choiceGroup">
-          <button id="langDe" class="choiceBtn" type="button">Deutsch</button>
-          <button id="langRu" class="choiceBtn" type="button">Русский</button>
+      <div class="onboardingLayout">
+        <div class="brandBlock">
+          <div class="logoMark"><span>9</span><span>5</span></div>
+          <h1>Driver<span>95</span></h1>
+          <p>Code 95 Trainer</p>
         </div>
 
-        <div class="choiceGroup">
-          <button id="themeLight" class="choiceBtn" type="button">Light</button>
-          <button id="themeDark" class="choiceBtn" type="button">Dark</button>
-        </div>
+        <div class="onboardingPanel glassPanel">
+          <h2 id="onboardingTitle">Choose language</h2>
+          <div class="choiceStack languageStack">
+            <button id="langDe" class="choiceBtn languageBtn" type="button">
+              <span class="flag">🇩🇪</span><span>Deutsch</span>
+            </button>
+            <button id="langRu" class="choiceBtn languageBtn" type="button">
+              <span class="flag">🇷🇺</span><span>Русский</span>
+            </button>
+          </div>
 
-        <button id="onboardingContinue" class="primary" type="button">Continue</button>
+          <h2 class="sectionLabel" id="themeTitle">Theme</h2>
+          <div class="choiceStack themeStack">
+            <button id="themeLight" class="choiceBtn themeBtn" type="button"><span>☀️</span><span>Light</span></button>
+            <button id="themeDark" class="choiceBtn themeBtn" type="button"><span>🌙</span><span>Dark</span></button>
+          </div>
+
+          <button id="onboardingContinue" class="primary cta" type="button">Continue</button>
+        </div>
       </div>
     </section>
 
     <section id="mainMenu" class="screen">
-      <div class="phoneShell">
+      <div class="phoneShell mainPhone">
         <header class="appHeader">
-          <div class="miniLogo">95</div>
+          <button class="miniLogo" type="button" aria-label="Driver95 home">95</button>
           <button id="settingsBtn" class="iconBtn" type="button">⚙</button>
         </header>
 
@@ -49,7 +60,7 @@
           </button>
           <button id="menuTopicsBtn" class="menuCard" type="button">
             <span class="menuIcon green">☰</span>
-            <span><b id="menuTopicsTitle">Темы</b><small id="menuTopicsSub">Выберите режим обучения</small></span>
+            <span><b id="menuTopicsTitle">Тренировка</b><small id="menuTopicsSub">Обучение, экзамен и прогресс</small></span>
             <em>›</em>
           </button>
           <button id="menuMistakesBtn" class="menuCard" type="button">
@@ -63,21 +74,37 @@
             <em>›</em>
           </button>
         </div>
+
+        <nav class="bottomNav" aria-label="Navigation">
+          <span class="active">⌂<small>Training</small></span>
+          <span>▥<small>Stats</small></span>
+          <span>☆<small>Saved</small></span>
+          <span>⚙<small>Settings</small></span>
+        </nav>
       </div>
     </section>
 
     <section id="home" class="screen">
-      <div class="hero card">
-        <button id="changeLangBtn" class="iconBtn langBack" type="button">←</button>
-        <div class="badge" id="langBadge">DE</div>
-        <h1>Driver95</h1>
-        <p id="homeSubtitle" class="subtitle">Code 95 Trainer</p>
-        <div class="progressBlock">
-          <div class="progressText"><span id="homeProgressText">0%</span><span id="homeScoreText">0 / 0</span></div>
-          <div class="bar"><div id="homeBar"></div></div>
+      <div class="phoneShell modePhone">
+        <header class="topbar">
+          <button id="changeLangBtn" class="iconBtn" type="button">←</button>
+          <div>
+            <div id="homeTitle" class="modeTitle">Driver95</div>
+            <div id="langBadge" class="meta pill">DE</div>
+          </div>
+        </header>
+
+        <div class="modeHero">
+          <h1>Driver95</h1>
+          <p id="homeSubtitle" class="subtitle">Code 95 Trainer</p>
+          <div class="progressBlock">
+            <div class="progressText"><span id="homeProgressText">0%</span><span id="homeScoreText">0 / 0</span></div>
+            <div class="bar"><div id="homeBar"></div></div>
+          </div>
         </div>
-        <button id="continueBtn" class="primary" type="button">Lernen</button>
-        <div class="grid2">
+
+        <button id="continueBtn" class="primary cta" type="button">Lernen</button>
+        <div class="modeGrid">
           <button id="examBtn" type="button">Prüfung (40 Fragen)</button>
           <button id="mistakesBtn" type="button">Fehler wiederholen</button>
           <button id="randomBtn" type="button">Zufällige Fragen</button>
@@ -87,27 +114,48 @@
     </section>
 
     <section id="quiz" class="screen">
-      <header class="topbar">
-        <button id="backBtn" class="iconBtn" type="button">←</button>
-        <div>
-          <div id="modeTitle" class="modeTitle">Lernen</div>
-          <div id="questionMeta" class="meta"></div>
-        </div>
-      </header>
+      <div class="phoneShell quizPhone">
+        <header class="topbar quizTopbar">
+          <button id="backBtn" class="iconBtn" type="button">←</button>
+          <div>
+            <div id="modeTitle" class="modeTitle">Lernen</div>
+            <div id="questionMeta" class="meta"></div>
+          </div>
+          <span class="bookmark">♡</span>
+        </header>
 
-      <div class="card questionCard">
-        <div class="statsRow">
-          <span id="counter">Frage 1</span>
-          <span id="score">✓ 0 ✕ 0</span>
+        <div class="questionCard">
+          <div class="statsRow">
+            <span id="counter">Frage 1</span>
+            <span id="score">✓ 0 ✕ 0</span>
+          </div>
+          <div class="bar small"><div id="quizBar"></div></div>
+          <div id="multiHint" class="meta hidden"></div>
+          <img id="questionImage" class="questionImage hidden" alt="" />
+          <h2 id="questionText"></h2>
+          <div id="answers" class="answers"></div>
+          <button id="checkBtn" class="primary hidden" type="button">Prüfen</button>
+          <div id="feedback" class="feedback hidden"></div>
+          <button id="nextBtn" class="primary hidden" type="button">Weiter →</button>
         </div>
-        <div class="bar small"><div id="quizBar"></div></div>
-        <div id="multiHint" class="meta hidden"></div>
-        <img id="questionImage" class="questionImage hidden" alt="" />
-        <h2 id="questionText"></h2>
-        <div id="answers" class="answers"></div>
-        <button id="checkBtn" class="primary hidden" type="button">Prüfen</button>
-        <div id="feedback" class="feedback hidden"></div>
-        <button id="nextBtn" class="primary hidden" type="button">Weiter →</button>
+      </div>
+    </section>
+
+    <section id="result" class="screen">
+      <div class="phoneShell resultPhone">
+        <header class="topbar">
+          <button id="resultBackBtn" class="iconBtn" type="button">←</button>
+          <div class="modeTitle" id="resultTitle">Result</div>
+        </header>
+        <div class="resultCircle"><strong id="resultScoreBig">0</strong><span id="resultScoreTotal">of 0</span></div>
+        <h2 id="resultMessage">Done</h2>
+        <p id="resultSummary" class="subtitle">You answered correctly.</p>
+        <div class="resultTiles">
+          <div><span>✓</span><small id="resultGoodLabel">Correct</small><b id="resultGood">0</b></div>
+          <div><span>✕</span><small id="resultBadLabel">Errors</small><b id="resultBad">0</b></div>
+        </div>
+        <button id="resultAgainBtn" class="primary" type="button">Repeat</button>
+        <button id="resultHomeBtn" type="button">Home</button>
       </div>
     </section>
   </main>

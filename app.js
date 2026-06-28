@@ -225,13 +225,33 @@ function finishAnswer(){
   updateHome();
 }
 
+
+function showResult(){
+  const total = session?.list?.length || 0;
+  const good = session?.good || 0;
+  const bad = session?.bad || 0;
+  $('resultTitle').textContent = lang === 'ru' ? 'Результат' : 'Ergebnis';
+  $('resultScoreBig').textContent = good;
+  $('resultScoreTotal').textContent = lang === 'ru' ? `из ${total}` : `von ${total}`;
+  $('resultMessage').textContent = good >= Math.ceil(total * 0.8) ? (lang === 'ru' ? 'Отлично!' : 'Sehr gut!') : (lang === 'ru' ? 'Нужно повторить' : 'Wiederholen');
+  $('resultSummary').textContent = lang === 'ru'
+    ? `Вы ответили правильно на ${good} из ${total}.`
+    : `Du hast ${good} von ${total} richtig beantwortet.`;
+  $('resultGoodLabel').textContent = t('correct');
+  $('resultBadLabel').textContent = t('errors');
+  $('resultGood').textContent = good;
+  $('resultBad').textContent = bad;
+  $('resultAgainBtn').textContent = lang === 'ru' ? 'Повторить' : 'Wiederholen';
+  $('resultHomeBtn').textContent = lang === 'ru' ? 'Главное меню' : 'Hauptmenü';
+  show('result');
+  updateHome();
+}
+
 function nextQuestion(){
   session.index++;
   if(session.index >= session.list.length){
     $('quizBar').style.width = '100%';
-    alert(`${t('done')} ${t('correct')}: ${session.good}. ${t('errors')}: ${session.bad}.`);
-    show('mainMenu');
-    updateHome();
+    showResult();
     return;
   }
   renderQuestion();
@@ -255,6 +275,9 @@ $('randomBtn').onclick = () => startSession('random');
 $('nextBtn').onclick = nextQuestion;
 $('checkBtn').onclick = finishAnswer;
 $('backBtn').onclick = () => { show('mainMenu'); updateHome(); };
+$('resultBackBtn').onclick = () => { show('mainMenu'); updateHome(); };
+$('resultHomeBtn').onclick = () => { show('mainMenu'); updateHome(); };
+$('resultAgainBtn').onclick = () => { if(session?.mode) startSession(session.mode); else show('mainMenu'); };
 $('resetBtn').onclick = () => {
   if(confirm(t('resetConfirm'))){
     localStorage.removeItem(storageKey());
