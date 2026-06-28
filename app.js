@@ -9,7 +9,13 @@ const I18N = {
     correctWord: 'richtig', question: 'Frage', of: 'von', check: 'Prüfen', next: 'Weiter →',
     noMistakes: 'Noch keine Fehler vorhanden.', resetConfirm: 'Fortschritt zurücksetzen?',
     right: 'Richtig', wrong: 'Falsch. Richtige Antwort:', done: 'Fertig.', correct: 'Richtig', errors: 'Fehler',
-    multi: 'Mehrere Antworten möglich.'
+    multi: 'Mehrere Antworten möglich.',
+    welcomeTitle: 'Willkommen!', welcomeSubtitle: 'Trainiere weiter und verbessere dein Wissen.',
+    menuRandomTitle: 'Zufällige Fragen', menuRandomSub: 'Training in zufälliger Reihenfolge',
+    menuTopicsTitle: 'Training', menuTopicsSub: 'Lernen, Prüfung und Fortschritt',
+    menuMistakesTitle: 'Fehler', menuMistakesSub: 'Deine falschen Antworten',
+    menuStatsTitle: 'Statistik', menuStatsSub: 'Deine Ergebnisse und Fortschritt',
+    statsAlert: 'Statistik ist im nächsten Schritt geplant.'
   },
   ru: {
     code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Продолжить обучение', exam: 'Экзамен (40 вопросов)',
@@ -18,7 +24,13 @@ const I18N = {
     correctWord: 'правильно', question: 'Вопрос', of: 'из', check: 'Проверить', next: 'Дальше →',
     noMistakes: 'Ошибок пока нет.', resetConfirm: 'Сбросить прогресс?',
     right: 'Правильно', wrong: 'Неправильно. Правильный ответ:', done: 'Готово.', correct: 'Правильно', errors: 'Ошибок',
-    multi: 'Возможны несколько правильных ответов.'
+    multi: 'Возможны несколько правильных ответов.',
+    welcomeTitle: 'Добро пожаловать!', welcomeSubtitle: 'Продолжайте обучение и повышайте свои знания.',
+    menuRandomTitle: 'Случайные вопросы', menuRandomSub: 'Тренировка в случайном порядке',
+    menuTopicsTitle: 'Тренировка', menuTopicsSub: 'Обучение, экзамен и прогресс',
+    menuMistakesTitle: 'Ошибки', menuMistakesSub: 'Ваши неправильные ответы',
+    menuStatsTitle: 'Статистика', menuStatsSub: 'Ваши результаты и прогресс',
+    statsAlert: 'Статистика будет следующим шагом.'
   }
 };
 
@@ -69,7 +81,7 @@ function selectLanguage(nextLang){
   state = loadState();
   applyLanguage();
   updateHome();
-  show('home');
+  show('mainMenu');
 }
 
 function applyLanguage(){
@@ -83,7 +95,18 @@ function applyLanguage(){
   $('resetBtn').textContent = t('reset');
   $('checkBtn').textContent = t('check');
   $('nextBtn').textContent = t('next');
+  $('welcomeTitle').textContent = t('welcomeTitle');
+  $('welcomeSubtitle').textContent = t('welcomeSubtitle');
+  $('menuRandomTitle').textContent = t('menuRandomTitle');
+  $('menuRandomSub').textContent = t('menuRandomSub');
+  $('menuTopicsTitle').textContent = t('menuTopicsTitle');
+  $('menuTopicsSub').textContent = t('menuTopicsSub');
+  $('menuMistakesTitle').textContent = t('menuMistakesTitle');
+  $('menuMistakesSub').textContent = t('menuMistakesSub');
+  $('menuStatsTitle').textContent = t('menuStatsTitle');
+  $('menuStatsSub').textContent = t('menuStatsSub');
 }
+
 
 function updateHome(){
   const seenCount = Object.keys(state.seen).length;
@@ -223,6 +246,11 @@ $('langRu').onclick = () => { onboardingLang = 'ru'; updateOnboardingButtons(); 
 $('themeLight').onclick = () => applyTheme('light');
 $('themeDark').onclick = () => applyTheme('dark');
 $('onboardingContinue').onclick = () => selectLanguage(onboardingLang);
+$('settingsBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
+$('menuRandomBtn').onclick = () => startSession('random');
+$('menuTopicsBtn').onclick = () => show('home');
+$('menuMistakesBtn').onclick = () => startSession('mistakes');
+$('menuStatsBtn').onclick = () => alert(t('statsAlert'));
 $('changeLangBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
 $('continueBtn').onclick = () => startSession('learn');
 $('examBtn').onclick = () => startSession('exam');
@@ -230,7 +258,7 @@ $('mistakesBtn').onclick = () => startSession('mistakes');
 $('randomBtn').onclick = () => startSession('random');
 $('nextBtn').onclick = nextQuestion;
 $('checkBtn').onclick = finishAnswer;
-$('backBtn').onclick = () => { show('home'); updateHome(); };
+$('backBtn').onclick = () => { show('mainMenu'); updateHome(); };
 $('resetBtn').onclick = () => {
   if(confirm(t('resetConfirm'))){
     localStorage.removeItem(storageKey());
