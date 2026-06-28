@@ -1,5 +1,8 @@
 const DATA = window.DRIVER95_DATA || {de: [], ru: []};
 const BASE_STORAGE_KEY = 'driver95_mvp_v2';
+const LANG_KEY = 'driver95_lang';
+const THEME_KEY = 'driver95_theme';
+const ONBOARDED_KEY = 'driver95_onboarded';
 
 const I18N = {
   de: {
@@ -9,7 +12,9 @@ const I18N = {
     correctWord: 'richtig', question: 'Frage', of: 'von', check: 'Prüfen', next: 'Weiter →',
     noMistakes: 'Noch keine Fehler vorhanden.', resetConfirm: 'Fortschritt zurücksetzen?',
     right: 'Richtig', wrong: 'Falsch. Richtige Antwort:', done: 'Fertig.', correct: 'Richtig', errors: 'Fehler',
-    multi: 'Mehrere Antworten möglich.'
+    multi: 'Mehrere Antworten möglich.',
+    language: 'Sprache', theme: 'Design', themeLight: 'Hell', themeDark: 'Dunkel',
+    onboardingContinue: 'Weiter', settings: 'Einstellungen', settingsSubtitle: 'Sprache und Design.'
   },
   ru: {
     code: 'RU', subtitle: 'Тренажёр Code 95.', continue: 'Продолжить обучение', exam: 'Экзамен (40 вопросов)',
@@ -18,12 +23,15 @@ const I18N = {
     correctWord: 'правильно', question: 'Вопрос', of: 'из', check: 'Проверить', next: 'Дальше →',
     noMistakes: 'Ошибок пока нет.', resetConfirm: 'Сбросить прогресс?',
     right: 'Правильно', wrong: 'Неправильно. Правильный ответ:', done: 'Готово.', correct: 'Правильно', errors: 'Ошибок',
-    multi: 'Возможны несколько правильных ответов.'
+    multi: 'Возможны несколько правильных ответов.',
+    language: 'Язык', theme: 'Тема', themeLight: 'Светлая', themeDark: 'Тёмная',
+    onboardingContinue: 'Продолжить', settings: 'Настройки', settingsSubtitle: 'Язык и тема.'
   }
 };
 
 const $ = (id) => document.getElementById(id);
-let lang = localStorage.getItem('driver95_lang') || null;
+let lang = localStorage.getItem(LANG_KEY) || 'de';
+let theme = localStorage.getItem(THEME_KEY) || 'light';
 let QUESTIONS = [];
 let state = null;
 let session = null;
@@ -31,6 +39,11 @@ let selected = new Set();
 
 function storageKey(){ return `${BASE_STORAGE_KEY}_${lang}`; }
 function t(key){ return I18N[lang][key]; }
+function isOnboarded(){
+  if(localStorage.getItem(ONBOARDED_KEY) === '1') return true;
+  const savedLang = localStorage.getItem(LANG_KEY);
+  return Boolean(savedLang && DATA[savedLang]);
+}
 
 function loadState(){
   const fallback = {seen:{}, correct:{}, wrong:{}, mistakes:[], lastIndex:0};
@@ -48,18 +61,35 @@ function cleanText(value){
   return el.value.replace(/\u00a0/g, ' ').trim();
 }
 
-function selectLanguage(nextLang){
+function applyTheme(nextTheme){
+  theme = nextTheme === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem(THEME_KEY, theme);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.content = theme === 'dark' ? '#111827' : '#f3f4f6';
+  syncChoiceButtons('theme', theme);
+}
+
+function syncChoiceButtons(kind, value){
+  document.querySelectorAll(`[data-${kind}]`).forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset[kind] === value);
+  });
+}
+
+function setLanguage(nextLang, { persist = true } = {}){
+  if(!DATA[nextLang]) return false;
   lang = nextLang;
-  localStorage.setItem('driver95_lang', lang);
+  if(persist) localStorage.setItem(LANG_KEY, lang);
   QUESTIONS = DATA[lang] || [];
   state = loadState();
+  document.documentElement.lang = lang === 'ru' ? 'ru' : 'de';
+  syncChoiceButtons('lang', lang);
   applyLanguage();
   updateHome();
-  show('home');
+  return true;
 }
 
 function applyLanguage(){
-  document.documentElement.lang = lang === 'ru' ? 'ru' : 'de';
   $('langBadge').textContent = t('code');
   $('homeSubtitle').textContent = t('subtitle');
   $('continueBtn').textContent = t('continue');
@@ -69,9 +99,66 @@ function applyLanguage(){
   $('resetBtn').textContent = t('reset');
   $('checkBtn').textContent = t('check');
   $('nextBtn').textContent = t('next');
+  applyPreferenceLabels();
+}
+
+function applyPreferenceLabels(){
+  const ids = [
+    ['onboardingLangLabel', 'language'],
+    ['onboardingThemeLabel', 'theme'],
+    ['onboardingSubtitle', 'subtitle'],
+    ['onboardingContinueBtn', 'onboardingContinue'],
+    ['settingsTitle', 'settings'],
+    ['settingsSubtitle', 'settingsSubtitle'],
+    ['settingsLangLabel', 'language'],
+    ['settingsThemeLabel', 'theme']
+  ];
+  ids.forEach(([id, key]) => {
+    const el = $(id);
+    if(el) el.textContent = t(key);
+  });
+  const themeLabels = [
+    ['onboardThemeLight', 'settingsThemeLight', 'themeLight'],
+    ['onboardThemeDark', 'settingsThemeDark', 'themeDark']
+  ];
+  themeLabels.forEach(([onboardId, settingsId, key]) => {
+    const label = t(key);
+    if($(onboardId)) $(onboardId).textContent = label;
+    if($(settingsId)) $(settingsId).textContent = label;
+  });
+  const settingsBtn = $('settingsBtn');
+  if(settingsBtn) settingsBtn.setAttribute('aria-label', t('settings'));
+}
+
+function enterHome(){
+  if(!setLanguage(lang)) return;
+  show('home');
+}
+
+function finishOnboarding(){
+  localStorage.setItem(ONBOARDED_KEY, '1');
+  applyTheme(theme);
+  enterHome();
+}
+
+function openSettings(){
+  syncChoiceButtons('lang', lang);
+  syncChoiceButtons('theme', theme);
+  applyPreferenceLabels();
+  show('settings');
+}
+
+function bindChoiceGroup(kind, onPick){
+  document.querySelectorAll(`[data-${kind}]`).forEach(btn => {
+    btn.onclick = () => {
+      onPick(btn.dataset[kind]);
+      syncChoiceButtons(kind, btn.dataset[kind]);
+    };
+  });
 }
 
 function updateHome(){
+  if(!state || !QUESTIONS.length) return;
   const seenCount = Object.keys(state.seen).length;
   const correctCount = Object.keys(state.correct).length;
   const p = pct(seenCount, QUESTIONS.length);
@@ -204,9 +291,30 @@ function nextQuestion(){
   renderQuestion();
 }
 
-$('langDe').onclick = () => selectLanguage('de');
-$('langRu').onclick = () => selectLanguage('ru');
-$('changeLangBtn').onclick = () => show('language');
+function bindLangChoices(prefix, persist){
+  document.querySelectorAll(`#${prefix === 'onboard' ? 'onboarding' : 'settings'} [data-lang]`).forEach(btn => {
+    btn.onclick = () => {
+      const value = btn.dataset.lang;
+      if(persist) setLanguage(value);
+      else {
+        lang = value;
+        syncChoiceButtons('lang', lang);
+        applyPreferenceLabels();
+      }
+    };
+  });
+}
+
+bindLangChoices('onboard', false);
+bindLangChoices('settings', true);
+
+bindChoiceGroup('theme', (value) => {
+  applyTheme(value);
+});
+
+$('onboardingContinueBtn').onclick = finishOnboarding;
+$('settingsBtn').onclick = openSettings;
+$('settingsBackBtn').onclick = () => show('home');
 $('continueBtn').onclick = () => startSession('learn');
 $('examBtn').onclick = () => startSession('exam');
 $('mistakesBtn').onclick = () => startSession('mistakes');
@@ -222,5 +330,16 @@ $('resetBtn').onclick = () => {
   }
 };
 
-if(lang && DATA[lang]) selectLanguage(lang);
-else show('language');
+applyTheme(theme);
+
+if(isOnboarded() && DATA[lang]){
+  if(localStorage.getItem(ONBOARDED_KEY) !== '1') localStorage.setItem(ONBOARDED_KEY, '1');
+  setLanguage(lang, { persist: false });
+  show('home');
+} else {
+  if(DATA[lang]) lang = localStorage.getItem(LANG_KEY) || lang;
+  syncChoiceButtons('lang', lang);
+  syncChoiceButtons('theme', theme);
+  applyPreferenceLabels();
+  show('onboarding');
+}

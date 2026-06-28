@@ -10,20 +10,34 @@
 </head>
 <body>
   <main class="app">
-    <section id="language" class="screen active">
+    <section id="onboarding" class="screen active">
       <div class="hero card">
         <h1>Driver95</h1>
-        <p class="subtitle">Code 95 Trainer.</p>
-        <div class="grid2 langGrid">
-          <button id="langDe" class="primary">Deutsch</button>
-          <button id="langRu" class="primary">Русский</button>
+        <p id="onboardingSubtitle" class="subtitle">Code 95 Trainer.</p>
+
+        <div class="choiceBlock">
+          <div id="onboardingLangLabel" class="choiceLabel">Sprache</div>
+          <div class="grid2">
+            <button id="onboardLangDe" type="button" class="choice selected" data-lang="de">Deutsch</button>
+            <button id="onboardLangRu" type="button" class="choice" data-lang="ru">Русский</button>
+          </div>
         </div>
+
+        <div class="choiceBlock">
+          <div id="onboardingThemeLabel" class="choiceLabel">Design</div>
+          <div class="grid2">
+            <button id="onboardThemeLight" type="button" class="choice selected" data-theme="light">Hell</button>
+            <button id="onboardThemeDark" type="button" class="choice" data-theme="dark">Dunkel</button>
+          </div>
+        </div>
+
+        <button id="onboardingContinueBtn" type="button" class="primary">Weiter</button>
       </div>
     </section>
 
     <section id="home" class="screen">
-      <div class="hero card">
-        <button id="changeLangBtn" class="iconBtn langBack">←</button>
+      <div class="hero card heroWithActions">
+        <button id="settingsBtn" type="button" class="iconBtn settingsBtn" aria-label="Settings">⚙</button>
         <div class="badge" id="langBadge">DE</div>
         <h1>Driver95</h1>
         <p id="homeSubtitle" class="subtitle">Code 95 Trainer.</p>
@@ -31,19 +45,43 @@
           <div class="progressText"><span id="homeProgressText">0%</span><span id="homeScoreText">0 / 0</span></div>
           <div class="bar"><div id="homeBar"></div></div>
         </div>
-        <button id="continueBtn" class="primary">Lernen fortsetzen</button>
+        <button id="continueBtn" type="button" class="primary">Lernen fortsetzen</button>
         <div class="grid2">
-          <button id="examBtn">Prüfung (40 Fragen)</button>
-          <button id="mistakesBtn">Fehler wiederholen</button>
-          <button id="randomBtn">Zufällige Fragen</button>
-          <button id="resetBtn" class="danger">Fortschritt zurücksetzen</button>
+          <button id="examBtn" type="button">Prüfung (40 Fragen)</button>
+          <button id="mistakesBtn" type="button">Fehler wiederholen</button>
+          <button id="randomBtn" type="button">Zufällige Fragen</button>
+          <button id="resetBtn" type="button" class="danger">Fortschritt zurücksetzen</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="settings" class="screen">
+      <div class="hero card heroWithActions">
+        <button id="settingsBackBtn" type="button" class="iconBtn settingsBack">←</button>
+        <h1 id="settingsTitle">Einstellungen</h1>
+        <p id="settingsSubtitle" class="subtitle">Code 95 Trainer.</p>
+
+        <div class="choiceBlock">
+          <div id="settingsLangLabel" class="choiceLabel">Sprache</div>
+          <div class="grid2">
+            <button id="settingsLangDe" type="button" class="choice selected" data-lang="de">Deutsch</button>
+            <button id="settingsLangRu" type="button" class="choice" data-lang="ru">Русский</button>
+          </div>
+        </div>
+
+        <div class="choiceBlock">
+          <div id="settingsThemeLabel" class="choiceLabel">Design</div>
+          <div class="grid2">
+            <button id="settingsThemeLight" type="button" class="choice selected" data-theme="light">Hell</button>
+            <button id="settingsThemeDark" type="button" class="choice" data-theme="dark">Dunkel</button>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="quiz" class="screen">
       <header class="topbar">
-        <button id="backBtn" class="iconBtn">←</button>
+        <button id="backBtn" type="button" class="iconBtn">←</button>
         <div>
           <div id="modeTitle" class="modeTitle">Lernen</div>
           <div id="questionMeta" class="meta"></div>
@@ -60,9 +98,9 @@
         <img id="questionImage" class="questionImage hidden" alt="" />
         <h2 id="questionText"></h2>
         <div id="answers" class="answers"></div>
-        <button id="checkBtn" class="primary hidden">Prüfen</button>
+        <button id="checkBtn" type="button" class="primary hidden">Prüfen</button>
         <div id="feedback" class="feedback hidden"></div>
-        <button id="nextBtn" class="primary hidden">Weiter →</button>
+        <button id="nextBtn" type="button" class="primary hidden">Weiter →</button>
       </div>
     </section>
   </main>
