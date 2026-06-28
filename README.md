@@ -1,5 +1,3 @@
-Driver95 — Code 95 Trainer
+Driver95 Code 95 Trainer
 
-Files for GitHub Pages. Upload all files from this archive to repository root.
-
-Languages: Deutsch, Русский.
+Fixed v3: language choice, RU/DE, decoded HTML entities, clearer multi-select UI.
