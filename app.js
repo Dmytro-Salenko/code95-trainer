@@ -15,7 +15,7 @@ const I18N = {
     menuTopicsTitle: 'Training', menuTopicsSub: 'Lernen, Prüfung und Fortschritt',
     menuMistakesTitle: 'Fehler', menuMistakesSub: 'Deine falschen Antworten',
     menuStatsTitle: 'Statistik', menuStatsSub: 'Deine Ergebnisse und Fortschritt',
-    statsAlert: 'Statistik ist im nächsten Schritt geplant.'
+    statsTitle: 'Statistik', statsTotalLabel: 'Fragen insgesamt', statsSeenLabel: 'Gesehene Fragen', statsProgressLabel: 'Fortschritt', statsMistakesLabel: 'Fehler'
   },
   ru: {
     code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Обучение', exam: 'Экзамен (40 вопросов)',
@@ -30,7 +30,7 @@ const I18N = {
     menuTopicsTitle: 'Тренировка', menuTopicsSub: 'Обучение, экзамен и прогресс',
     menuMistakesTitle: 'Ошибки', menuMistakesSub: 'Ваши неправильные ответы',
     menuStatsTitle: 'Статистика', menuStatsSub: 'Ваши результаты и прогресс',
-    statsAlert: 'Статистика будет следующим шагом.'
+    statsTitle: 'Статистика', statsTotalLabel: 'Всего вопросов', statsSeenLabel: 'Изучено вопросов', statsProgressLabel: 'Прогресс', statsMistakesLabel: 'Ошибки'
   }
 };
 
@@ -115,6 +115,31 @@ function updateHome(){
   $('homeProgressText').textContent = `${p}%`;
   $('homeScoreText').textContent = `${correctCount} ${t('correctWord')} / ${QUESTIONS.length}`;
   $('homeBar').style.width = `${p}%`;
+
+  const progLabel = lang === 'ru' ? 'Прогресс:' : 'Fortschritt:';
+  const errWord = lang === 'ru' ? (state.mistakes.length === 1 ? 'ошибка' : ([2,3,4].includes(state.mistakes.length % 10) && ![12,13,14].includes(state.mistakes.length % 100) ? 'ошибки' : 'ошибок')) : t('errors');
+
+  if ($('menuRandomProgress')) $('menuRandomProgress').textContent = `${progLabel} ${p}%`;
+  if ($('menuTopicsProgress')) $('menuTopicsProgress').textContent = `${progLabel} ${p}%`;
+  if ($('menuMistakesProgress')) $('menuMistakesProgress').textContent = `${state.mistakes.length} ${errWord}`;
+}
+
+function updateStats(){
+  const seenCount = Object.keys(state.seen).length;
+  const total = QUESTIONS.length;
+  const p = pct(seenCount, total);
+  const mistakesCount = state.mistakes.length;
+
+  $('statsTitle').textContent = t('statsTitle');
+  $('statsTotalLabel').textContent = t('statsTotalLabel');
+  $('statsSeenLabel').textContent = t('statsSeenLabel');
+  $('statsProgressLabel').textContent = t('statsProgressLabel');
+  $('statsMistakesLabel').textContent = t('statsMistakesLabel');
+
+  $('statsTotal').textContent = total;
+  $('statsSeen').textContent = seenCount;
+  $('statsProgress').textContent = `${p}%`;
+  $('statsMistakes').textContent = mistakesCount;
 }
 
 function startSession(mode){
@@ -266,7 +291,7 @@ $('settingsBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardi
 $('menuRandomBtn').onclick = () => startSession('random');
 $('menuTopicsBtn').onclick = () => show('home');
 $('menuMistakesBtn').onclick = () => startSession('mistakes');
-$('menuStatsBtn').onclick = () => alert(t('statsAlert'));
+$('menuStatsBtn').onclick = () => { show('stats'); updateStats(); };
 $('changeLangBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
 $('continueBtn').onclick = () => startSession('learn');
 $('examBtn').onclick = () => startSession('exam');
@@ -275,6 +300,7 @@ $('randomBtn').onclick = () => startSession('random');
 $('nextBtn').onclick = nextQuestion;
 $('checkBtn').onclick = finishAnswer;
 $('backBtn').onclick = () => { show('mainMenu'); updateHome(); };
+$('statsBackBtn').onclick = () => { show('mainMenu'); updateHome(); };
 $('resultBackBtn').onclick = () => { show('mainMenu'); updateHome(); };
 $('resultHomeBtn').onclick = () => { show('mainMenu'); updateHome(); };
 $('resultAgainBtn').onclick = () => { if(session?.mode) startSession(session.mode); else show('mainMenu'); };
@@ -285,6 +311,14 @@ $('resetBtn').onclick = () => {
     updateHome();
   }
 };
+
+document.querySelectorAll('.logoMark, .miniLogo').forEach(el => {
+  el.onclick = () => {
+    onboardingLang = lang || 'de';
+    updateOnboardingButtons();
+    show('onboarding');
+  };
+});
 
 applyTheme(theme);
 updateOnboardingButtons();
