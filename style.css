@@ -790,7 +790,118 @@ body.dark .phoneShell{
 
 
 /* result */
-.resultPhone{text-align:center}.resultCircle{width:172px;height:172px;margin:30px auto 18px;border-radius:999px;border:16px solid var(--green);display:grid;place-items:center;align-content:center}.resultCircle strong{font-size:66px;line-height:1}.resultCircle span{font-size:15px;color:var(--muted);font-weight:800}.resultPhone h2{font-size:30px;margin:10px 0;color:var(--green)}.resultTiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}.resultTiles div{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:4px}.resultTiles span{font-size:24px}.resultTiles small{color:var(--muted);font-weight:700}.resultTiles b{font-size:26px}.resultPhone>button:not(.primary){width:100%;border-radius:16px;padding:15px;background:var(--card2);border:1px solid var(--line);font-weight:850;margin-top:10px}
+.resultPhone {
+  max-width: 500px;
+  text-align: center;
+}
+.resultCircle {
+  width: 160px;
+  height: 160px;
+  margin: 30px auto 20px;
+  border-radius: 50%;
+  border: 12px solid var(--green);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(16, 185, 129, 0.04);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+.resultCircle strong {
+  font-size: 54px;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
+}
+.resultCircle span {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-top: 4px;
+}
+.resultPhone h2 {
+  font-size: 26px;
+  margin: 10px 0 6px;
+  color: var(--green);
+  font-weight: 900;
+}
+.resultPhone .subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 24px;
+  font-weight: 600;
+}
+.resultTiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+  text-align: left;
+}
+.resultTile {
+  background: var(--card2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.resultTile .tileIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.goodTile .tileIcon {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--green);
+}
+.badTile .tileIcon {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--red);
+}
+.timeTile .tileIcon, .bestTile .tileIcon {
+  background: rgba(124, 139, 161, 0.1);
+  color: var(--muted);
+}
+.resultTile .tileText {
+  display: flex;
+  flex-direction: column;
+}
+.resultTile small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.resultTile b {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+.resultActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+.secondaryBtn {
+  width: 100%;
+  border-radius: 16px;
+  padding: 16px;
+  background: var(--card2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 700;
+}
+.secondaryBtn:hover {
+  background: var(--line);
+}
 
 @media(max-width:760px){.app{padding:14px}.onboardingLayout{grid-template-columns:1fr;gap:16px;min-height:auto}.brandBlock{text-align:center;padding:16px 10px}.logoMark{margin:0 auto 16px}.brandBlock h1{font-size:48px}.brandBlock p{font-size:14px}.phoneShell{min-height:auto}.bottomNav{display:none}.modeGrid{grid-template-columns:1fr}.questionCard h2{font-size:24px}.languageBtn,.themeBtn{font-size:16px}}
 @media(max-width:430px){.onboardingPanel,.phoneShell{border-radius:22px;padding:18px}.brandBlock h1{font-size:42px}.choiceStack.themeStack{grid-template-columns:1fr 1fr}.themeBtn{justify-content:center;padding:14px 10px}.questionCard h2{font-size:22px}.answer{padding:15px}.app{padding:10px}}
