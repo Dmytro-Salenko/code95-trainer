@@ -13,38 +13,127 @@
     <section id="onboarding" class="screen active">
       <div class="onboardingLayout">
         <div class="brandBlock">
-          <div class="logoMark"><span>9</span><span>5</span></div>
+          <div class="logoMark">
+            <span class="num9">9<span class="roadPath"></span></span>
+            <span class="num5">5</span>
+          </div>
           <h1>Driver<span>95</span></h1>
-          <p>Code 95 Trainer</p>
+          <p class="brandSlogan">Code 95 Trainer</p>
         </div>
 
         <div class="onboardingPanel glassPanel">
-          <h2 id="onboardingTitle">Choose language</h2>
+          <div class="onboardingHeader">
+            <span class="globeIcon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <div>
+              <h2 id="onboardingTitle">Выберите язык</h2>
+              <p class="onboardingSubtitle">Выберите язык для начала обучения</p>
+            </div>
+          </div>
+          
           <div class="choiceStack languageStack">
             <button id="langDe" class="choiceBtn languageBtn" type="button">
-              <span class="flag">🇩🇪</span><span>Deutsch</span>
+              <span class="flag">🇩🇪</span>
+              <span class="btnText">
+                <span class="btnTitle">Deutsch</span>
+                <span class="btnSubtitle">Offizielle Fragen</span>
+              </span>
+              <span class="chevron">›</span>
             </button>
             <button id="langRu" class="choiceBtn languageBtn" type="button">
-              <span class="flag">🇷🇺</span><span>Русский</span>
+              <span class="flag">🇷🇺</span>
+              <span class="btnText">
+                <span class="btnTitle">Русский</span>
+                <span class="btnSubtitle">Переведённая база</span>
+              </span>
+              <span class="chevron">›</span>
             </button>
           </div>
 
-          <h2 class="sectionLabel" id="themeTitle">Theme</h2>
-          <div class="choiceStack themeStack">
-            <button id="themeLight" class="choiceBtn themeBtn" type="button"><span>☀️</span><span>Light</span></button>
-            <button id="themeDark" class="choiceBtn themeBtn" type="button"><span>🌙</span><span>Dark</span></button>
+          <div class="shieldStatus">
+            <span class="shieldIcon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <span>Повышайте знания. Будьте уверены на дороге.</span>
           </div>
 
           <button id="onboardingContinue" class="primary cta" type="button">Continue</button>
         </div>
+
+        <div class="themeSelectSection">
+          <h2 class="sectionLabel" id="themeTitle">← ТЕМЫ</h2>
+          <div class="choiceStack themeStack">
+            <button id="themeLight" class="choiceBtn themeBtn" type="button">
+              <div class="themeCardPreview lightPreview">
+                <div class="sunIcon">☀️</div>
+                <div class="mockupLine short"></div>
+                <div class="mockupLine long"></div>
+              </div>
+              <span class="themeName">Светлая</span>
+            </button>
+            <button id="themeDark" class="choiceBtn themeBtn" type="button">
+              <div class="themeCardPreview darkPreview">
+                <div class="moonIcon">🌙</div>
+                <div class="mockupLine short"></div>
+                <div class="mockupLine long"></div>
+              </div>
+              <span class="themeName">Тёмная</span>
+            </button>
+          </div>
+          <p class="themeHint">Выберите тему в настройках</p>
+        </div>
+
+        <footer class="onboardingFooter">
+          <div class="featureCol">
+            <span class="featureIcon blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </span>
+            <div class="featureText">
+              <h3>Актуальные вопросы</h3>
+              <p>Официальные вопросы согласно программе Code 95.</p>
+            </div>
+          </div>
+          <div class="featureCol">
+            <span class="featureIcon green">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <div class="featureText">
+              <h3>Официальная база</h3>
+              <p>Вопросы соответствуют требованиям ЕС и обновляются.</p>
+            </div>
+          </div>
+          <div class="featureCol">
+            <span class="featureIcon orange">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </span>
+            <div class="featureText">
+              <h3>Отслеживай прогресс</h3>
+              <p>Статистика, темы, ошибки и прогресс в одном месте.</p>
+            </div>
+          </div>
+          <div class="featureCol">
+            <span class="featureIcon purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </span>
+            <div class="featureText">
+              <h3>Готовься уверенно</h3>
+              <p>Тренируйся каждый день и будь уверен на экзамене.</p>
+            </div>
+          </div>
+        </footer>
       </div>
     </section>
 
     <section id="mainMenu" class="screen">
       <div class="phoneShell mainPhone">
         <header class="appHeader">
-          <button class="miniLogo" type="button" aria-label="Driver95 home">95</button>
-          <button id="settingsBtn" class="iconBtn" type="button">⚙</button>
+          <button class="miniLogo" type="button" aria-label="Driver95 home">
+            <span class="logoMarkMini">95<span class="roadMini"></span></span>
+          </button>
+          <button id="settingsBtn" class="iconBtn" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
         </header>
 
         <div class="welcomeBlock">
@@ -54,32 +143,67 @@
 
         <div class="menuCards">
           <button id="menuRandomBtn" class="menuCard" type="button">
-            <span class="menuIcon blue">▣</span>
-            <span><b id="menuRandomTitle">Случайные вопросы</b><small id="menuRandomSub">Тренировка в случайном порядке</small></span>
-            <em>›</em>
+            <span class="menuIcon blue">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+            </span>
+            <span class="menuCardContent">
+              <b id="menuRandomTitle">Случайные вопросы</b>
+              <small id="menuRandomSub">Тренировка в случайном порядке</small>
+              <span class="menuProgress">Прогресс: 12%</span>
+            </span>
+            <span class="menuChevron">›</span>
           </button>
           <button id="menuTopicsBtn" class="menuCard" type="button">
-            <span class="menuIcon green">☰</span>
-            <span><b id="menuTopicsTitle">Тренировка</b><small id="menuTopicsSub">Обучение, экзамен и прогресс</small></span>
-            <em>›</em>
+            <span class="menuIcon green">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </span>
+            <span class="menuCardContent">
+              <b id="menuTopicsTitle">Тренировка</b>
+              <small id="menuTopicsSub">Обучение, экзамен и прогресс</small>
+              <span class="menuProgress">Прогресс: 8%</span>
+            </span>
+            <span class="menuChevron">›</span>
           </button>
           <button id="menuMistakesBtn" class="menuCard" type="button">
-            <span class="menuIcon purple">☑</span>
-            <span><b id="menuMistakesTitle">Ошибки</b><small id="menuMistakesSub">Ваши неправильные ответы</small></span>
-            <em>›</em>
+            <span class="menuIcon purple">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg>
+            </span>
+            <span class="menuCardContent">
+              <b id="menuMistakesTitle">Ошибки</b>
+              <small id="menuMistakesSub">Ваши неправильные ответы</small>
+              <span class="menuProgress errorText">15 ошибок</span>
+            </span>
+            <span class="menuChevron">›</span>
           </button>
           <button id="menuStatsBtn" class="menuCard" type="button">
-            <span class="menuIcon orange">▥</span>
-            <span><b id="menuStatsTitle">Статистика</b><small id="menuStatsSub">Ваши результаты и прогресс</small></span>
-            <em>›</em>
+            <span class="menuIcon orange">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </span>
+            <span class="menuCardContent">
+              <b id="menuStatsTitle">Статистика</b>
+              <small id="menuStatsSub">Ваши результаты и прогресс</small>
+            </span>
+            <span class="menuChevron">›</span>
           </button>
         </div>
 
         <nav class="bottomNav" aria-label="Navigation">
-          <span class="active">⌂<small>Training</small></span>
-          <span>▥<small>Stats</small></span>
-          <span>☆<small>Saved</small></span>
-          <span>⚙<small>Settings</small></span>
+          <span class="active">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <small>Тренировка</small>
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <small>Статистика</small>
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <small>Избранное</small>
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <small>Настройки</small>
+          </span>
         </nav>
       </div>
     </section>
