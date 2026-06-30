@@ -1,4 +1,4 @@
-const DATA = window.DRIVER95_DATA || {de: [], ru: []};
+const DATA = window.DRIVER95_DATA || {de: [], ru: [], en: [], es: [], pl: [], it: [], tr: [], uk: []};
 const BASE_STORAGE_KEY = 'driver95_mvp_v2';
 
 const I18N = {
@@ -15,7 +15,28 @@ const I18N = {
     menuTopicsTitle: 'Training', menuTopicsSub: 'Lernen, Prüfung und Fortschritt',
     menuMistakesTitle: 'Fehler', menuMistakesSub: 'Deine falschen Antworten',
     menuStatsTitle: 'Statistik', menuStatsSub: 'Deine Ergebnisse und Fortschritt',
-    statsTitle: 'Statistik', statsTotalLabel: 'Fragen insgesamt', statsSeenLabel: 'Gesehene Fragen', statsProgressLabel: 'Fortschritt', statsMistakesLabel: 'Fehler'
+    statsTitle: 'Statistik', statsTotalLabel: 'Fragen insgesamt', statsSeenLabel: 'Gesehene Fragen', statsProgressLabel: 'Fortschritt', statsMistakesLabel: 'Fehler',
+    progLabel: 'Fortschritt:',
+    resultTitle: 'Ergebnis', resultOf: 'von {total}', resultSuccess: 'Sehr gut!', resultFail: 'Wiederholen',
+    resultSummary: 'Du hast {good} von {total} richtig beantwortet.', resultAgain: 'Wiederholen', resultHome: 'Hauptmenü'
+  },
+  en: {
+    code: 'EN', subtitle: 'Code 95 Trainer', continue: 'Learn', exam: 'Exam (40 questions)',
+    mistakes: 'Repeat mistakes', random: 'Random questions', reset: 'Reset progress',
+    learnTitle: 'Learn', examTitle: 'Exam (40 questions)', mistakesTitle: 'Repeat mistakes', randomTitle: 'Random questions',
+    correctWord: 'correct', question: 'Question', of: 'of', check: 'Check', next: 'Next →',
+    noMistakes: 'No mistakes yet.', resetConfirm: 'Reset progress?',
+    right: 'Correct', wrong: 'Incorrect. Correct answer:', done: 'Done.', correct: 'Correct', errors: 'Errors',
+    multi: 'Multiple answers possible.',
+    welcomeTitle: 'Welcome!', welcomeSubtitle: 'Keep training and improve your knowledge.',
+    menuRandomTitle: 'Random questions', menuRandomSub: 'Training in random order',
+    menuTopicsTitle: 'Training', menuTopicsSub: 'Learning, exam and progress',
+    menuMistakesTitle: 'Mistakes', menuMistakesSub: 'Your incorrect answers',
+    menuStatsTitle: 'Statistics', menuStatsSub: 'Your results and progress',
+    statsTitle: 'Statistics', statsTotalLabel: 'Total questions', statsSeenLabel: 'Seen questions', statsProgressLabel: 'Progress', statsMistakesLabel: 'Mistakes',
+    progLabel: 'Progress:',
+    resultTitle: 'Result', resultOf: 'of {total}', resultSuccess: 'Excellent!', resultFail: 'Need to repeat',
+    resultSummary: 'You answered {good} of {total} correctly.', resultAgain: 'Repeat', resultHome: 'Main Menu'
   },
   ru: {
     code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Обучение', exam: 'Экзамен (40 вопросов)',
@@ -30,7 +51,100 @@ const I18N = {
     menuTopicsTitle: 'Тренировка', menuTopicsSub: 'Обучение, экзамен и прогресс',
     menuMistakesTitle: 'Ошибки', menuMistakesSub: 'Ваши неправильные ответы',
     menuStatsTitle: 'Статистика', menuStatsSub: 'Ваши результаты и прогресс',
-    statsTitle: 'Статистика', statsTotalLabel: 'Всего вопросов', statsSeenLabel: 'Изучено вопросов', statsProgressLabel: 'Прогресс', statsMistakesLabel: 'Ошибки'
+    statsTitle: 'Статистика', statsTotalLabel: 'Всего вопросов', statsSeenLabel: 'Изучено вопросов', statsProgressLabel: 'Прогресс', statsMistakesLabel: 'Ошибки',
+    progLabel: 'Прогресс:',
+    resultTitle: 'Результат', resultOf: 'из {total}', resultSuccess: 'Отлично!', resultFail: 'Нужно повторить',
+    resultSummary: 'Вы ответили правильно на {good} из {total}.', resultAgain: 'Повторить', resultHome: 'Главное меню'
+  },
+  es: {
+    code: 'ES', subtitle: 'Entrenador de Code 95', continue: 'Estudiar', exam: 'Examen (40 preguntas)',
+    mistakes: 'Repetir errores', random: 'Preguntas aleatorias', reset: 'Restablecer progreso',
+    learnTitle: 'Estudiar', examTitle: 'Examen (40 preguntas)', mistakesTitle: 'Repetir errores', randomTitle: 'Preguntas aleatorias',
+    correctWord: 'correcto', question: 'Pregunta', of: 'de', check: 'Comprobar', next: 'Siguiente →',
+    noMistakes: 'Aún no hay errores.', resetConfirm: '¿Restablecer progreso?',
+    right: 'Correcto', wrong: 'Incorrecto. Respuesta correcta:', done: 'Hecho.', correct: 'Correcto', errors: 'Errores',
+    multi: 'Varias respuestas correctas posibles.',
+    welcomeTitle: '¡Bienvenido!', welcomeSubtitle: 'Sigue entrenando y mejora tus conocimientos.',
+    menuRandomTitle: 'Preguntas aleatorias', menuRandomSub: 'Entrenamiento en orden aleatorio',
+    menuTopicsTitle: 'Entrenamiento', menuTopicsSub: 'Estudio, examen y progreso',
+    menuMistakesTitle: 'Errores', menuMistakesSub: 'Tus respuestas incorrectas',
+    menuStatsTitle: 'Estadísticas', menuStatsSub: 'Tus resultados y progreso',
+    statsTitle: 'Estadísticas', statsTotalLabel: 'Preguntas totales', statsSeenLabel: 'Preguntas vistas', statsProgressLabel: 'Progreso', statsMistakesLabel: 'Errores',
+    progLabel: 'Progreso:',
+    resultTitle: 'Resultado', resultOf: 'de {total}', resultSuccess: '¡Excelente!', resultFail: 'Necesitas repetir',
+    resultSummary: 'Respondiste correctamente {good} de {total}.', resultAgain: 'Repetir', resultHome: 'Menú principal'
+  },
+  pl: {
+    code: 'PL', subtitle: 'Trener Code 95', continue: 'Nauka', exam: 'Egzamin (40 pytań)',
+    mistakes: 'Powtórz błędy', random: 'Losowe pytania', reset: 'Resetuj postęp',
+    learnTitle: 'Nauka', examTitle: 'Egzamin (40 pytań)', mistakesTitle: 'Powtórka błędów', randomTitle: 'Losowe pytania',
+    correctWord: 'poprawnie', question: 'Pytanie', of: 'z', check: 'Sprawdź', next: 'Dalej →',
+    noMistakes: 'Brak błędów.', resetConfirm: 'Resetować postęp?',
+    right: 'Prawidłowo', wrong: 'Nieprawidłowo. Prawidłowa odpowiedź:', done: 'Gotowe.', correct: 'Prawidłowo', errors: 'Błędy',
+    multi: 'Możliwe jest kilka prawidłowych odpowiedzi.',
+    welcomeTitle: 'Witaj!', welcomeSubtitle: 'Trenuj dalej i poszerzaj swoją wiedzę.',
+    menuRandomTitle: 'Losowe pytania', menuRandomSub: 'Trening w losowej kolejności',
+    menuTopicsTitle: 'Trening', menuTopicsSub: 'Nauka, egzamin i postęp',
+    menuMistakesTitle: 'Błędy', menuMistakesSub: 'Twoje błędne odpowiedzi',
+    menuStatsTitle: 'Statystyki', menuStatsSub: 'Twoje wyniki i postęp',
+    statsTitle: 'Statystyki', statsTotalLabel: 'Wszystkie pytania', statsSeenLabel: 'Zobaczone pytania', statsProgressLabel: 'Postęp', statsMistakesLabel: 'Błędy',
+    progLabel: 'Postęp:',
+    resultTitle: 'Wynik', resultOf: 'z {total}', resultSuccess: 'Świetnie!', resultFail: 'Spróbuj ponownie',
+    resultSummary: 'Odpowiedziałeś poprawnie na {good} z {total}.', resultAgain: 'Powtórz', resultHome: 'Menu główne'
+  },
+  it: {
+    code: 'IT', subtitle: 'Simulatore Code 95', continue: 'Studio', exam: 'Esame (40 domande)',
+    mistakes: 'Ripeti errori', random: 'Domande casuali', reset: 'Ripristina progressi',
+    learnTitle: 'Studio', examTitle: 'Esame (40 domande)', mistakesTitle: 'Ripeti errori', randomTitle: 'Domande casuali',
+    correctWord: 'corretto', question: 'Domanda', of: 'di', check: 'Verifica', next: 'Avanti →',
+    noMistakes: 'Ancora nessun errore.', resetConfirm: 'Ripristinare i progressi?',
+    right: 'Corretto', wrong: 'Errato. Risposta corretta:', done: 'Fatto.', correct: 'Corretto', errors: 'Errori',
+    multi: 'Sono possibili più risposte corrette.',
+    welcomeTitle: 'Benvenuto!', welcomeSubtitle: 'Continua ad allenarti e migliora le tue conoscenze.',
+    menuRandomTitle: 'Domande casuali', menuRandomSub: 'Allenamento in ordine casuale',
+    menuTopicsTitle: 'Allenamento', menuTopicsSub: 'Studio, esame e progressi',
+    menuMistakesTitle: 'Errori', menuMistakesSub: 'Le tue risposte errate',
+    menuStatsTitle: 'Statistiche', menuStatsSub: 'I tuoi risultati e progressi',
+    statsTitle: 'Statistiche', statsTotalLabel: 'Domande totali', statsSeenLabel: 'Domande viste', statsProgressLabel: 'Progresso', statsMistakesLabel: 'Errori',
+    progLabel: 'Progresso:',
+    resultTitle: 'Risultato', resultOf: 'di {total}', resultSuccess: 'Eccellente!', resultFail: 'Da ripetere',
+    resultSummary: 'Hai risposto correttamente a {good} su {total}.', resultAgain: 'Ripeti', resultHome: 'Menu principale'
+  },
+  tr: {
+    code: 'TR', subtitle: 'Code 95 Eğitmeni', continue: 'Çalışma', exam: 'Sınav (40 soru)',
+    mistakes: 'Hataları tekrar et', random: 'Rastgele sorular', reset: 'İlerlemeyi sıfırla',
+    learnTitle: 'Çalışma', examTitle: 'Sınav (40 Soru)', mistakesTitle: 'Hata Tekrarı', randomTitle: 'Rastgele Sorular',
+    correctWord: 'doğru', question: 'Soru', of: '/', check: 'Kontrol Et', next: 'Sonraki →',
+    noMistakes: 'Henüz hata yok.', resetConfirm: 'İlerlemeyi sıfırlamak istiyor musunuz?',
+    right: 'Doğru', wrong: 'Yanlış. Doğru cevap:', done: 'Tamamlandı.', correct: 'Doğru', errors: 'Hatalar',
+    multi: 'Birden fazla doğru cevap olabilir.',
+    welcomeTitle: 'Hoş Geldiniz!', welcomeSubtitle: 'Çalışmaya devam edin ve bilginizi geliştirin.',
+    menuRandomTitle: 'Rastgele Sorular', menuRandomSub: 'Rastgele sırada çalışma',
+    menuTopicsTitle: 'Çalışma', menuTopicsSub: 'Öğrenme, sınav ve ilerleme',
+    menuMistakesTitle: 'Hatalar', menuMistakesSub: 'Yanlış cevaplarınız',
+    menuStatsTitle: 'İstatistikler', menuStatsSub: 'Sonuçlarınız ve ilerlemeniz',
+    statsTitle: 'İstatistikler', statsTotalLabel: 'Toplam Soru', statsSeenLabel: 'Görülen Soru', statsProgressLabel: 'İlerleme', statsMistakesLabel: 'Hatalar',
+    progLabel: 'İlerleme:',
+    resultTitle: 'Sonuç', resultOf: '/ {total}', resultSuccess: 'Harika!', resultFail: 'Tekrar edilmeli',
+    resultSummary: '{total} sorudan {good} tanesini doğru cevapladınız.', resultAgain: 'Tekrar et', resultHome: 'Ana menü'
+  },
+  uk: {
+    code: 'UK', subtitle: 'Тренажер Code 95', continue: 'Навчання', exam: 'Іспит (40 питань)',
+    mistakes: 'Повторити помилки', random: 'Випадкові питання', reset: 'Скинути прогрес',
+    learnTitle: 'Навчання', examTitle: 'Іспит (40 питань)', mistakesTitle: 'Повторення помилок', randomTitle: 'Випадкові питання',
+    correctWord: 'правильно', question: 'Вопрос', of: 'з', check: 'Перевірити', next: 'Далі →',
+    noMistakes: 'Помилок поки немає.', resetConfirm: 'Скинути прогрес?',
+    right: 'Правильно', wrong: 'Неправильно. Правильна відповідь:', done: 'Готово.', correct: 'Правильно', errors: 'Помилок',
+    multi: 'Можливі кілька правильних відповідей.',
+    welcomeTitle: 'Ласкаво просимо!', welcomeSubtitle: 'Продовжуйте навчання та вдосконалюйте свої знання.',
+    menuRandomTitle: 'Випадкові питання', menuRandomSub: 'Тренування у випадковому порядку',
+    menuTopicsTitle: 'Тренировка', menuTopicsSub: 'Навчання, іспит та прогрес',
+    menuMistakesTitle: 'Помилки', menuMistakesSub: 'Ваші неправильні відповіді',
+    menuStatsTitle: 'Статистика', menuStatsSub: 'Ваші результати та прогрес',
+    statsTitle: 'Статистика', statsTotalLabel: 'Всього питань', statsSeenLabel: 'Вивчено питань', statsProgressLabel: 'Прогрес', statsMistakesLabel: 'Помилки',
+    progLabel: 'Прогрес:',
+    resultTitle: 'Результат', resultOf: 'з {total}', resultSuccess: 'Відмінно!', resultFail: 'Потрібно повторити',
+    resultSummary: 'Ви відповіли правильно на {good} з {total}.', resultAgain: 'Повторити', resultHome: 'Головне меню'
   }
 };
 
@@ -61,8 +175,10 @@ function applyTheme(nextTheme){
   updateOnboardingButtons();
 }
 function updateOnboardingButtons(){
-  $('langDe')?.classList.toggle('selected', onboardingLang === 'de');
-  $('langRu')?.classList.toggle('selected', onboardingLang === 'ru');
+  ['de', 'en', 'ru', 'es', 'pl', 'it', 'tr', 'uk'].forEach(l => {
+    const el = $('lang' + l.charAt(0).toUpperCase() + l.slice(1));
+    if (el) el.classList.toggle('selected', onboardingLang === l);
+  });
   $('themeLight')?.classList.toggle('selected', theme === 'light');
   $('themeDark')?.classList.toggle('selected', theme === 'dark');
 }
@@ -85,7 +201,7 @@ function selectLanguage(nextLang){
 }
 
 function applyLanguage(){
-  document.documentElement.lang = lang === 'ru' ? 'ru' : 'de';
+  document.documentElement.lang = lang;
   $('langBadge').textContent = t('code');
   $('homeSubtitle').textContent = t('subtitle');
   $('continueBtn').textContent = t('continue');
@@ -107,6 +223,39 @@ function applyLanguage(){
   $('menuStatsSub').textContent = t('menuStatsSub');
 }
 
+function getErrorsWord(count) {
+  if (lang === 'ru') {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (mod10 === 1 && mod100 !== 11) return 'ошибка';
+    if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return 'ошибки';
+    return 'ошибок';
+  }
+  if (lang === 'uk') {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (mod10 === 1 && mod100 !== 11) return 'помилка';
+    if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return 'помилки';
+    return 'помилок';
+  }
+  if (lang === 'pl') {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (count === 1) return 'błąd';
+    if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return 'błędy';
+    return 'błędów';
+  }
+  if (['en', 'es', 'it'].includes(lang)) {
+    if (count === 1) {
+      return lang === 'it' ? 'errore' : 'error';
+    }
+    return lang === 'es' ? 'errores' : (lang === 'it' ? 'errori' : 'errors');
+  }
+  if (lang === 'tr') {
+    return 'hata';
+  }
+  return t('errors');
+}
 
 function updateHome(){
   const seenCount = Object.keys(state.seen).length;
@@ -116,8 +265,8 @@ function updateHome(){
   $('homeScoreText').textContent = `${correctCount} ${t('correctWord')} / ${QUESTIONS.length}`;
   $('homeBar').style.width = `${p}%`;
 
-  const progLabel = lang === 'ru' ? 'Прогресс:' : 'Fortschritt:';
-  const errWord = lang === 'ru' ? (state.mistakes.length === 1 ? 'ошибка' : ([2,3,4].includes(state.mistakes.length % 10) && ![12,13,14].includes(state.mistakes.length % 100) ? 'ошибки' : 'ошибок')) : t('errors');
+  const progLabel = t('progLabel');
+  const errWord = getErrorsWord(state.mistakes.length);
 
   if ($('menuRandomProgress')) $('menuRandomProgress').textContent = `${progLabel} ${p}%`;
   if ($('menuTopicsProgress')) $('menuTopicsProgress').textContent = `${progLabel} ${p}%`;
@@ -255,19 +404,17 @@ function showResult(){
   const total = session?.list?.length || 0;
   const good = session?.good || 0;
   const bad = session?.bad || 0;
-  $('resultTitle').textContent = lang === 'ru' ? 'Результат' : 'Ergebnis';
+  $('resultTitle').textContent = t('resultTitle');
   $('resultScoreBig').textContent = good;
-  $('resultScoreTotal').textContent = lang === 'ru' ? `из ${total}` : `von ${total}`;
-  $('resultMessage').textContent = good >= Math.ceil(total * 0.8) ? (lang === 'ru' ? 'Отлично!' : 'Sehr gut!') : (lang === 'ru' ? 'Нужно повторить' : 'Wiederholen');
-  $('resultSummary').textContent = lang === 'ru'
-    ? `Вы ответили правильно на ${good} из ${total}.`
-    : `Du hast ${good} von ${total} richtig beantwortet.`;
+  $('resultScoreTotal').textContent = t('resultOf').replace('{total}', total);
+  $('resultMessage').textContent = good >= Math.ceil(total * 0.8) ? t('resultSuccess') : t('resultFail');
+  $('resultSummary').textContent = t('resultSummary').replace('{good}', good).replace('{total}', total);
   $('resultGoodLabel').textContent = t('correct');
   $('resultBadLabel').textContent = t('errors');
   $('resultGood').textContent = good;
   $('resultBad').textContent = bad;
-  $('resultAgainBtn').textContent = lang === 'ru' ? 'Повторить' : 'Wiederholen';
-  $('resultHomeBtn').textContent = lang === 'ru' ? 'Главное меню' : 'Hauptmenü';
+  $('resultAgainBtn').textContent = t('resultAgain');
+  $('resultHomeBtn').textContent = t('resultHome');
   show('result');
   updateHome();
 }
@@ -282,8 +429,12 @@ function nextQuestion(){
   renderQuestion();
 }
 
-$('langDe').onclick = () => { onboardingLang = 'de'; updateOnboardingButtons(); };
-$('langRu').onclick = () => { onboardingLang = 'ru'; updateOnboardingButtons(); };
+['de', 'en', 'ru', 'es', 'pl', 'it', 'tr', 'uk'].forEach(l => {
+  const el = $('lang' + l.charAt(0).toUpperCase() + l.slice(1));
+  if (el) {
+    el.onclick = () => { onboardingLang = l; updateOnboardingButtons(); };
+  }
+});
 $('themeLight').onclick = () => applyTheme('light');
 $('themeDark').onclick = () => applyTheme('dark');
 $('onboardingContinue').onclick = () => selectLanguage(onboardingLang);
