@@ -157,6 +157,8 @@ let state = null;
 let session = null;
 let selected = new Set();
 
+const Analytics = window.Analytics || { track: () => {} };
+
 function storageKey(){ return `${BASE_STORAGE_KEY}_${lang}`; }
 function t(key){ return I18N[lang][key]; }
 
@@ -198,6 +200,7 @@ function selectLanguage(nextLang){
   applyLanguage();
   updateHome();
   show('mainMenu');
+  Analytics.track('language_selected', { selected_language: lang });
 }
 
 function applyLanguage(){
@@ -307,12 +310,14 @@ function startSession(mode){
   $('modeTitle').textContent = title;
   show('quiz');
   renderQuestion();
+  Analytics.track('test_started', { mode, question_count: list.length });
 }
 
 function renderQuestion(){
   const q = session.list[session.index];
   selected = new Set();
   session.answered = false;
+  session.questionStart = Date.now();
   $('counter').textContent = `${t('question')} ${session.index + 1} ${t('of')} ${session.list.length}`;
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
   $('quizBar').style.width = `${pct(session.index, session.list.length)}%`;
@@ -374,8 +379,11 @@ function finishAnswer(){
   buttons.forEach(b=>b.classList.add('disabled'));
   correctIndexes.forEach(i => buttons[i]?.classList.add('correct'));
 
+  const isCorrect = sameSet(selected, correctIndexes);
+  const timeSpent = session.questionStart ? Math.round((Date.now() - session.questionStart) / 1000) : 0;
+
   state.seen[q.id] = true;
-  if(sameSet(selected, correctIndexes)){
+  if(isCorrect){
     session.good++;
     state.correct[q.id] = true;
     delete state.wrong[q.id];
@@ -392,6 +400,16 @@ function finishAnswer(){
     $('feedback').className = 'feedback bad';
     $('feedback').textContent = `${t('wrong')} ${correctText}${q.explanation ? ' — ' + cleanText(q.explanation) : ''}`;
   }
+
+  Analytics.track('question_answered', {
+    mode: session.mode,
+    question_id: q.id,
+    selected_answer: [...selected],
+    correct_answer: correctIndexes,
+    is_correct: isCorrect,
+    time_spent: timeSpent
+  });
+
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
   $('checkBtn').classList.add('hidden');
   $('nextBtn').classList.remove('hidden');
@@ -417,6 +435,16 @@ function showResult(){
   $('resultHomeBtn').textContent = t('resultHome');
   show('result');
   updateHome();
+
+  if (session) {
+    Analytics.track('test_finished', {
+      mode: session.mode,
+      score: good,
+      total: total,
+      correct_percentage: pct(good, total)
+    });
+    session = null;
+  }
 }
 
 function nextQuestion(){
@@ -450,7 +478,14 @@ $('mistakesBtn').onclick = () => startSession('mistakes');
 $('randomBtn').onclick = () => startSession('random');
 $('nextBtn').onclick = nextQuestion;
 $('checkBtn').onclick = finishAnswer;
-$('backBtn').onclick = () => { show('mainMenu'); updateHome(); };
+$('backBtn').onclick = () => {
+  if (session) {
+    Analytics.track('test_abandoned', { mode: session.mode, questions_answered: session.index });
+    session = null;
+  }
+  show('mainMenu');
+  updateHome();
+};
 $('statsBackBtn').onclick = () => { show('mainMenu'); updateHome(); };
 $('resultBackBtn').onclick = () => { show('mainMenu'); updateHome(); };
 $('resultHomeBtn').onclick = () => { show('mainMenu'); updateHome(); };
@@ -465,6 +500,10 @@ $('resetBtn').onclick = () => {
 
 document.querySelectorAll('.logoMark, .miniLogo').forEach(el => {
   el.onclick = () => {
+    if (session) {
+      Analytics.track('test_abandoned', { mode: session.mode, questions_answered: session.index });
+      session = null;
+    }
     onboardingLang = lang || 'de';
     updateOnboardingButtons();
     show('onboarding');
@@ -476,6 +515,14 @@ updateOnboardingButtons();
 // The first screen must always be language + theme selection.
 // We may preselect saved values, but we never skip this screen on startup.
 show('onboarding');
+
+// Track PWA Installation
+window.addEventListener('appinstalled', () => {
+  Analytics.track('pwa_installed');
+});
+
+// Track App Open
+Analytics.track('app_open');
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
