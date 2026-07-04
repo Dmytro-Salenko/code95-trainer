@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Driver95 Analytics Dashboard</title>
+  <style>
+    :root {
+      --bg: #060b13;
+      --card: rgba(15, 23, 42, 0.45);
+      --card-hover: rgba(15, 23, 42, 0.65);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+    .header-logo span {
+      color: var(--accent);
+    }
+    .logout-btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .logout-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--muted);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+    .grid-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .card-stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .card-stat:hover {
+      transform: translateY(-2px);
+      background: var(--card-hover);
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+    .grid-charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .card-chart {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .chart-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    /* Native CSS bar chart styling */
+    .bar-chart-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 200px;
+      padding-top: 20px;
+      border-bottom: 1px solid var(--line);
+      gap: 8px;
+      overflow-x: auto;
+    }
+    .bar-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 20px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar-fill {
+      width: 100%;
+      background: var(--accent);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease-out;
+      position: relative;
+    }
+    .bar-fill:hover {
+      background: #3b82f6;
+    }
+    .bar-fill::after {
+      content: attr(data-value);
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: bold;
+      color: var(--text);
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .bar-fill:hover::after {
+      opacity: 1;
+    }
+    .bar-label {
+      font-size: 9px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    /* Language list progress styling */
+    .lang-row {
+      margin-bottom: 16px;
+    }
+    .lang-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .lang-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .lang-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      width: 0;
+      transition: width 0.5s ease-out;
+    }
+    /* Grid for other statistics */
+    .grid-tables {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+    .table-container {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    th {
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .failure-rate-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .badge-high {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+    }
+    .badge-med {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+    }
+    .badge-low {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+    }
+    .version-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .version-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-logo">Driver<span>95</span> Analytics</div>
+    <button id="logoutBtn" class="logout-btn">Log Out</button>
+  </header>
+
+  <div class="container">
+    <!-- Overview Grid -->
+    <div class="grid-overview">
+      <div class="card-stat">
+        <div class="stat-label">Users Today</div>
+        <div id="valUsersToday" class="stat-value">—</div>
+      </div>
+      <div class="card-stat">
+        <div class="stat-label">Users Yesterday</div>
+        <div id="valUsersYesterday" class="stat-value">—</div>
+      </div>
+      <div class="card-stat">
+        <div class="stat-label">Total Unique Users</div>
+        <div id="valTotalUsers" class="stat-value">—</div>
+      </div>
+      <div class="card-stat">
+        <div class="stat-label">Total Sessions</div>
+        <div id="valTotalSessions" class="stat-value">—</div>
+      </div>
+      <div class="card-stat">
+        <div class="stat-label">Avg Session Time</div>
+        <div id="valAvgSession" class="stat-value">—</div>
+      </div>
+      <div class="card-stat">
+        <div class="stat-label">Avg Thinking Time</div>
+        <div id="valAvgThinking" class="stat-value">—</div>
+      </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid-charts">
+      <!-- Daily Activity Chart -->
+      <div class="card-chart">
+        <div class="chart-title">
+          <span>Daily Active Users (Last 30 Days)</span>
+          <span style="font-size: 12px; color: var(--muted);">Hover for details</span>
+        </div>
+        <div id="dailyChart" class="bar-chart-container">
+          <!-- Dynamically populated bars -->
+        </div>
+      </div>
+
+      <!-- Languages & Exam Rate -->
+      <div class="card-chart">
+        <div class="chart-title">Languages Used</div>
+        <div id="languagesContainer">
+          <!-- Dynamically populated progress bars -->
+        </div>
+        <div class="chart-title" style="margin-top: 24px; margin-bottom: 12px;">Exam Completion Rate</div>
+        <div style="display: flex; gap: 16px; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid var(--line);">
+          <div>
+            <div id="examCompletionRate" style="font-size: 32px; font-weight: 800; color: var(--success);">0%</div>
+            <div style="font-size: 11px; color: var(--muted); text-transform: uppercase;">Completion Rate</div>
+          </div>
+          <div style="font-size: 13px; color: var(--muted); text-align: right;">
+            <div>Started: <span id="examStarted" style="color: var(--text); font-weight: 600;">0</span></div>
+            <div>Finished: <span id="examFinished" style="color: var(--text); font-weight: 600;">0</span></div>
+            <div>Abandoned: <span id="examAbandoned" style="color: var(--text); font-weight: 600;">0</span></div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid var(--line); margin-top: 14px;">
+          <div>
+            <div style="font-size: 13px; color: var(--muted); text-transform: uppercase;">PWA Installations</div>
+          </div>
+          <div>
+            <span id="pwaInstalls" style="font-size: 20px; font-weight: 800; color: var(--accent);">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Tables Grid -->
+    <div class="grid-tables">
+      <!-- Top 20 Difficult Questions -->
+      <div class="table-container">
+        <div class="chart-title" style="margin-bottom: 16px;">Top 20 Most Difficult Questions</div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Total Answers</th>
+              <th>Failure Rate</th>
+              <th>Avg Time</th>
+            </tr>
+          </thead>
+          <tbody id="questionsTableBody">
+            <tr>
+              <td colspan="4" style="text-align: center; color: var(--muted);">Loading data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Versions Breakdown -->
+      <div class="table-container" style="align-self: flex-start;">
+        <div class="chart-title" style="margin-bottom: 16px;">System Versions</div>
+        <div style="font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 8px; text-transform: uppercase;">App Versions</div>
+        <div id="appVersionsContainer" style="margin-bottom: 24px;">
+          <!-- Dynamically populated app versions -->
+        </div>
+        <div style="font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 8px; text-transform: uppercase;">Question DB Versions</div>
+        <div id="dbVersionsContainer">
+          <!-- Dynamically populated db versions -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function formatTime(seconds) {
+      if (!seconds) return '0s';
+      if (seconds < 60) return seconds + 's';
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return mins + 'm ' + secs + 's';
+    }
+
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/admin/stats');
+        if (res.status === 401) {
+          window.location.href = '/admin/login';
+          return;
+        }
+        const data = await res.json();
+
+        // 1. Overview Cards
+        document.getElementById('valUsersToday').textContent = data.overview.users_today;
+        document.getElementById('valUsersYesterday').textContent = data.overview.users_yesterday;
+        document.getElementById('valTotalUsers').textContent = data.overview.total_users;
+        document.getElementById('valTotalSessions').textContent = data.overview.total_sessions;
+        document.getElementById('valAvgSession').textContent = formatTime(data.overview.avg_session_duration);
+        document.getElementById('valAvgThinking').textContent = data.overview.avg_thinking_time + 's';
+
+        // 2. Populate Daily Activity Chart
+        const chartContainer = document.getElementById('dailyChart');
+        chartContainer.innerHTML = '';
+        if (data.daily_activity.length === 0) {
+          chartContainer.innerHTML = '<div style="align-self: center; width: 100%; text-align: center; color: var(--muted);">No event records found.</div>';
+        } else {
+          const maxVal = Math.max(...data.daily_activity.map(d => d.users), 1);
+          data.daily_activity.forEach(day => {
+            const pct = (day.users / maxVal) * 100;
+            const formattedDate = new Date(day.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+            
+            const col = document.createElement('div');
+            col.className = 'bar-column';
+            col.innerHTML = `
+              <div class="bar-fill" style="height: ${pct}%" data-value="${day.users} users, ${day.sessions} sessions"></div>
+              <div class="bar-label">${formattedDate}</div>
+            `;
+            chartContainer.appendChild(col);
+          });
+        }
+
+        // 3. Populate Languages
+        const langContainer = document.getElementById('languagesContainer');
+        langContainer.innerHTML = '';
+        const maxLangUsers = Math.max(...data.languages.map(l => l.count), 1);
+        if (data.languages.length === 0) {
+          langContainer.innerHTML = '<div style="color: var(--muted);">No data available</div>';
+        } else {
+          data.languages.forEach(l => {
+            const pct = Math.round((l.count / maxLangUsers) * 100);
+            const row = document.createElement('div');
+            row.className = 'lang-row';
+            row.innerHTML = `
+              <div class="lang-header">
+                <span>${l.language.toUpperCase()}</span>
+                <span>${l.count} users</span>
+              </div>
+              <div class="lang-bar">
+                <div class="lang-fill" style="width: ${pct}%"></div>
+              </div>
+            `;
+            langContainer.appendChild(row);
+          });
+        }
+
+        // 4. Exams & PWA
+        document.getElementById('examCompletionRate').textContent = data.exams.completion_rate + '%';
+        document.getElementById('examStarted').textContent = data.exams.started;
+        document.getElementById('examFinished').textContent = data.exams.finished;
+        document.getElementById('examAbandoned').textContent = data.exams.abandoned;
+        document.getElementById('pwaInstalls').textContent = data.pwa_installs;
+
+        // 5. Populate Questions Table
+        const qTableBody = document.getElementById('questionsTableBody');
+        qTableBody.innerHTML = '';
+        if (data.difficult_questions.length === 0) {
+          qTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--muted);">No question statistics recorded.</td></tr>';
+        } else {
+          data.difficult_questions.forEach(q => {
+            const failRate = Math.round(q.failure_rate);
+            let badgeClass = 'badge-low';
+            if (failRate > 60) badgeClass = 'badge-high';
+            else if (failRate > 30) badgeClass = 'badge-med';
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td style="font-weight: 700; color: var(--accent);">Q-${q.question_id}</td>
+              <td>${q.total}</td>
+              <td><span class="failure-rate-badge ${badgeClass}">${failRate}%</span></td>
+              <td>${Math.round(q.avg_time)}s</td>
+            `;
+            qTableBody.appendChild(tr);
+          });
+        }
+
+        // 6. Versions
+        const appVersionsContainer = document.getElementById('appVersionsContainer');
+        appVersionsContainer.innerHTML = '';
+        data.app_versions.forEach(v => {
+          appVersionsContainer.innerHTML += `
+            <div class="version-item">
+              <span>${v.app_version || 'unknown'}</span>
+              <span style="font-weight: 700;">${v.count} users</span>
+            </div>
+          `;
+        });
+
+        const dbVersionsContainer = document.getElementById('dbVersionsContainer');
+        dbVersionsContainer.innerHTML = '';
+        data.db_versions.forEach(v => {
+          dbVersionsContainer.innerHTML += `
+            <div class="version-item">
+              <span>${v.question_database_version || 'unknown'}</span>
+              <span style="font-weight: 700;">${v.count} users</span>
+            </div>
+          `;
+        });
+
+      } catch (err) {
+        console.error('Failed to load dashboard statistics', err);
+      }
+    }
+
+    document.getElementById('logoutBtn').onclick = async () => {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      window.location.href = '/admin/login';
+    };
+
+    // Load stats immediately
+    loadStats();
+  </script>
+</body>
+</html>

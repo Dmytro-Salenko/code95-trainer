@@ -1,5 +1,5 @@
 const ANALYTICS_CONFIG = {
-  useBackend: false, // Set to true when backend endpoint is ready
+  useBackend: true, // Enable backend reporting by default
   apiEndpoint: '/api/analytics',
   appVersion: '0.2.1'
 };
@@ -54,6 +54,7 @@ class AnalyticsModule {
         time_spent: typeof eventData.time_spent === 'number' ? eventData.time_spent : null,
         device_type: this.deviceType,
         app_version: ANALYTICS_CONFIG.appVersion,
+        question_database_version: eventData.question_database_version || 'v2.0',
         metadata: eventData.metadata || {}
       };
 
