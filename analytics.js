@@ -2,7 +2,7 @@ const ANALYTICS_CONFIG = {
   useBackend: false, // Set to true when self-hosted backend is ready
   apiEndpoint: '/api/analytics',
   appVersion: '0.2.1',
-  gaMeasurementId: '' // PASTE YOUR GA4 MEASUREMENT ID HERE (e.g., 'G-XXXXXXXXXX')
+  gaMeasurementId: 'G-78SW1YDT85'
 };
 
 class AnalyticsModule {
@@ -57,7 +57,8 @@ class AnalyticsModule {
       window.gtag('js', new Date());
       window.gtag('config', id, {
         send_page_view: false, // manual tracking
-        user_id: this.userId
+        user_id: this.userId,
+        debug_mode: true // Force events to appear in GA4 DebugView
       });
       console.log('[Analytics] GA4 initialized with ID:', id);
     } catch (err) {
