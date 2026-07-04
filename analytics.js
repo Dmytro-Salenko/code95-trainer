@@ -1,7 +1,8 @@
 const ANALYTICS_CONFIG = {
-  useBackend: true, // Enable backend reporting by default
+  useBackend: false, // Set to true when self-hosted backend is ready
   apiEndpoint: '/api/analytics',
-  appVersion: '0.2.1'
+  appVersion: '0.2.1',
+  gaMeasurementId: '' // PASTE YOUR GA4 MEASUREMENT ID HERE (e.g., 'G-XXXXXXXXXX')
 };
 
 class AnalyticsModule {
@@ -9,6 +10,7 @@ class AnalyticsModule {
     this.userId = this._initUserId();
     this.sessionId = this._generateUUID();
     this.deviceType = this._getDeviceType();
+    this._initGA();
   }
 
   _initUserId() {
@@ -38,6 +40,31 @@ class AnalyticsModule {
     return "desktop";
   }
 
+  _initGA() {
+    const id = ANALYTICS_CONFIG.gaMeasurementId;
+    if (!id) {
+      console.log('[Analytics] GA4 Measurement ID not configured. GA4 disabled.');
+      return;
+    }
+    try {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', id, {
+        send_page_view: false, // manual tracking
+        user_id: this.userId
+      });
+      console.log('[Analytics] GA4 initialized with ID:', id);
+    } catch (err) {
+      console.error('[Analytics] Failed to initialize GA4:', err);
+    }
+  }
+
   track(eventName, eventData = {}) {
     try {
       const payload = {
@@ -60,10 +87,27 @@ class AnalyticsModule {
 
       console.log('[Analytics Event]', eventName, payload);
 
+      // Save to local queue (always keep local queue for MVP fallback)
+      this._saveToLocalQueue(payload);
+
+      // Track via GA4 if configured
+      if (ANALYTICS_CONFIG.gaMeasurementId && typeof window.gtag === 'function') {
+        window.gtag('event', eventName, {
+          language: payload.language,
+          mode: payload.mode,
+          question_id: payload.question_id,
+          is_correct: payload.is_correct,
+          time_spent: payload.time_spent,
+          app_version: payload.app_version,
+          question_database_version: payload.question_database_version,
+          device_type: payload.device_type,
+          session_id: payload.session_id
+        });
+      }
+
+      // If backend is enabled, send to backend
       if (ANALYTICS_CONFIG.useBackend) {
         this._sendToBackend(payload);
-      } else {
-        this._saveToLocalQueue(payload);
       }
     } catch (err) {
       console.error('Analytics error (silent):', err);
@@ -90,7 +134,6 @@ class AnalyticsModule {
       body: JSON.stringify(payload)
     }).catch(err => {
       console.error('Failed to send event to backend, fallback to local storage', err);
-      this._saveToLocalQueue(payload);
     });
   }
 }
