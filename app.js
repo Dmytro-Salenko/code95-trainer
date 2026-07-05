@@ -497,7 +497,8 @@ function renderQuestion(){
   updateBookmarkVisual();
 
   // Control Favorites Navigation controls
-  if (session.mode === 'favorites') {
+  const isNavMode = ['favorites', 'mistakes', 'lastCorrect', 'lastIncorrect'].includes(session.mode);
+  if (isNavMode) {
     $('favPrevBtn').classList.remove('hidden');
     $('favNextBtn').classList.remove('hidden');
     $('favPrevBtn').disabled = (session.index === 0);
@@ -794,14 +795,16 @@ $('bookmarkBtn').onclick = () => {
 };
 
 $('favPrevBtn').onclick = () => {
-  if (session && session.mode === 'favorites' && session.index > 0) {
+  const isNavMode = session && ['favorites', 'mistakes', 'lastCorrect', 'lastIncorrect'].includes(session.mode);
+  if (isNavMode && session.index > 0) {
     session.index--;
     renderQuestion();
   }
 };
 
 $('favNextBtn').onclick = () => {
-  if (session && session.mode === 'favorites' && session.index < session.list.length - 1) {
+  const isNavMode = session && ['favorites', 'mistakes', 'lastCorrect', 'lastIncorrect'].includes(session.mode);
+  if (isNavMode && session.index < session.list.length - 1) {
     session.index++;
     renderQuestion();
   }
