@@ -333,8 +333,9 @@ function startSession(mode){
   else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = t('mistakesTitle'); }
   else if(mode === 'random') { list = shuffle(QUESTIONS); title = t('randomTitle'); }
   else if(mode === 'favorites') {
-    const favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
-    list = QUESTIONS.filter(q => favs.includes(q.id));
+    const prog = getProgress();
+    const questionIds = new Set(QUESTIONS.map(q => q.id));
+    list = QUESTIONS.filter(q => prog[q.id] && prog[q.id].favorite === true && questionIds.has(q.id));
     title = `${t('favoritesTitle') || 'Favorites'} (${list.length})`;
   }
   else if(mode === 'lastCorrect' || mode === 'lastIncorrect') {
@@ -349,11 +350,11 @@ function startSession(mode){
 
   if(!list.length){
     if (mode === 'favorites') {
-      alert(t('noFavorites') || 'No favorite questions yet.');
+      showToast(t('noFavorites') || 'No favorite questions yet.');
     } else if (mode === 'lastCorrect' || mode === 'lastIncorrect') {
-      alert(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
+      showToast(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
     } else {
-      alert(t('noMistakes'));
+      showToast(t('noMistakes'));
     }
     return;
   }
@@ -364,9 +365,34 @@ function startSession(mode){
   Analytics.track('test_started', { mode, question_count: list.length });
 }
 
+function showToast(message) {
+  const toast = $('toast');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.remove('hidden');
+  toast.offsetHeight; // force reflow
+  toast.classList.add('show');
+  
+  if (window.toastTimeout) clearTimeout(window.toastTimeout);
+  window.toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 300);
+  }, 2500);
+}
+
 function updateFavoritesBadge() {
-  const favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
-  const count = favs.length;
+  const prog = getProgress();
+  const questionIds = new Set(QUESTIONS.map(q => q.id));
+  let count = 0;
+  Object.keys(prog).forEach(qId => {
+    const id = Number(qId);
+    if (questionIds.has(id) && prog[qId].favorite === true) {
+      count++;
+    }
+  });
+
   const badgeText = count > 99 ? '99+' : count.toString();
   document.querySelectorAll('.favBadge').forEach(el => {
     if (count > 0) {
@@ -385,19 +411,22 @@ function getProgress() {
   } catch(e) {}
   
   // Migration fallback for old favorites format
-  const oldFavs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
-  let modified = false;
-  oldFavs.forEach(id => {
-    if (!prog[id]) {
-      prog[id] = { correct: 0, incorrect: 0, lastResult: null, favorite: true, lastSeen: null };
-      modified = true;
-    } else if (!prog[id].favorite) {
-      prog[id].favorite = true;
-      modified = true;
+  if (localStorage.getItem('driver95_favorites')) {
+    const oldFavs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
+    let modified = false;
+    oldFavs.forEach(id => {
+      if (!prog[id]) {
+        prog[id] = { correct: 0, incorrect: 0, lastResult: null, favorite: true, lastSeen: null };
+        modified = true;
+      } else if (!prog[id].favorite) {
+        prog[id].favorite = true;
+        modified = true;
+      }
+    });
+    if (modified) {
+      localStorage.setItem('driver95_progress', JSON.stringify(prog));
     }
-  });
-  if (modified) {
-    localStorage.setItem('driver95_progress', JSON.stringify(prog));
+    localStorage.removeItem('driver95_favorites');
   }
   return prog;
 }
@@ -481,10 +510,11 @@ function getQuestionsWord(count) {
 }
 
 function updateBookmarkVisual() {
-  const favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
   if (!session || !session.list || !session.list[session.index]) return;
   const q = session.list[session.index];
-  if (favs.includes(q.id)) {
+  const prog = getProgress();
+  const isFav = prog[q.id] && prog[q.id].favorite === true;
+  if (isFav) {
     $('bookmarkBtn').textContent = '♥';
     $('bookmarkBtn').classList.add('active');
   } else {
@@ -655,7 +685,7 @@ function nextQuestion(){
       session.list.splice(session.index, 1);
       
       if (session.list.length === 0) {
-        alert(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
+        showToast(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
         session = null;
         show('mainMenu');
         updateHome();
@@ -753,12 +783,18 @@ $('settingsResetBtn').onclick = () => {
 $('bookmarkBtn').onclick = () => {
   if (!session || !session.list || !session.list[session.index]) return;
   const q = session.list[session.index];
-  let favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
+  const prog = getProgress();
   
-  if (favs.includes(q.id)) {
+  if (!prog[q.id]) {
+    prog[q.id] = { correct: 0, incorrect: 0, lastResult: null, favorite: false, lastSeen: null };
+  }
+  
+  const isFav = prog[q.id].favorite === true;
+  
+  if (isFav) {
     // Remove from favorites
-    favs = favs.filter(id => id !== q.id);
-    localStorage.setItem('driver95_favorites', JSON.stringify(favs));
+    prog[q.id].favorite = false;
+    saveProgress(prog);
     updateFavoritesBadge();
 
     if (session.mode === 'favorites') {
@@ -766,7 +802,7 @@ $('bookmarkBtn').onclick = () => {
       session.list = session.list.filter(item => item.id !== q.id);
       
       if (session.list.length === 0) {
-        alert(t('emptyFavorites') || 'У вас больше нет избранных вопросов.');
+        showToast(t('emptyFavorites') || 'У вас больше нет избранных вопросов.');
         session = null;
         show('mainMenu');
         updateHome();
@@ -788,8 +824,8 @@ $('bookmarkBtn').onclick = () => {
     }
   } else {
     // Add to favorites
-    favs.push(q.id);
-    localStorage.setItem('driver95_favorites', JSON.stringify(favs));
+    prog[q.id].favorite = true;
+    saveProgress(prog);
     updateBookmarkVisual();
     updateFavoritesBadge();
   }
