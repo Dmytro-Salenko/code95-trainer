@@ -302,11 +302,9 @@ function updateHome(){
   $('homeBar').style.width = `${p}%`;
 
   const progLabel = t('progLabel');
-  const errWord = getErrorsWord(state.mistakes.length);
 
   if ($('menuRandomProgress')) $('menuRandomProgress').textContent = `${progLabel} ${p}%`;
   if ($('menuTopicsProgress')) $('menuTopicsProgress').textContent = `${progLabel} ${p}%`;
-  if ($('menuMistakesProgress')) $('menuMistakesProgress').textContent = `${state.mistakes.length} ${errWord}`;
   updateHomeProgressCards();
 }
 
@@ -447,10 +445,13 @@ function updateHomeProgressCards() {
   });
 
   const correctEl = $('menuCorrectAnswersProgress');
-  const incorrectEl = $('menuIncorrectAnswersProgress');
+  const incorrectEl = $('menuMistakesProgress');
   
   if (correctEl) correctEl.textContent = `${correctCount} ${getQuestionsWord(correctCount)}`;
-  if (incorrectEl) incorrectEl.textContent = `${incorrectCount} ${getQuestionsWord(incorrectCount)}`;
+  if (incorrectEl) {
+    const errWord = getErrorsWord(incorrectCount);
+    incorrectEl.textContent = `${incorrectCount} ${errWord}`;
+  }
 }
 
 function getQuestionsWord(count) {
@@ -735,6 +736,7 @@ $('settingsThemeDark').onclick = () => applyTheme('dark');
 $('settingsResetBtn').onclick = () => {
   if (confirm(t('resetConfirm'))) {
     localStorage.removeItem(storageKey());
+    localStorage.removeItem('driver95_progress');
     state = loadState();
     updateHome();
     show('mainMenu');
@@ -829,6 +831,7 @@ $('resultAgainBtn').onclick = () => { if(session?.mode) startSession(session.mod
 $('resetBtn').onclick = () => {
   if(confirm(t('resetConfirm'))){
     localStorage.removeItem(storageKey());
+    localStorage.removeItem('driver95_progress');
     state = loadState();
     updateHome();
     updateActiveTab('home');
