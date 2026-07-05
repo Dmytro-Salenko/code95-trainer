@@ -331,6 +331,14 @@ body.dark .phoneShell{
   color: var(--text);
   background: var(--line);
 }
+.bookmark.active {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+.bookmark.active:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
 .questionCard {
   display: flex;
   flex-direction: column;

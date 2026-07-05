@@ -8,6 +8,7 @@ const I18N = {
     learnTitle: 'Lernen', examTitle: 'Prüfung (40 Fragen)', mistakesTitle: 'Fehler wiederholen', randomTitle: 'Zufällige Fragen',
     correctWord: 'richtig', question: 'Frage', of: 'von', check: 'Prüfen', next: 'Weiter →',
     noMistakes: 'Noch keine Fehler vorhanden.', resetConfirm: 'Fortschritt zurücksetzen?',
+    favoritesTitle: 'Favoriten', noFavorites: 'Noch keine Favoriten vorhanden.',
     right: 'Richtig', wrong: 'Falsch. Richtige Antwort:', done: 'Fertig.', correct: 'Richtig', errors: 'Fehler',
     multi: 'Mehrere Antworten möglich.',
     welcomeTitle: 'Willkommen!', welcomeSubtitle: 'Trainiere weiter und verbessere dein Wissen.',
@@ -26,6 +27,7 @@ const I18N = {
     learnTitle: 'Learn', examTitle: 'Exam (40 questions)', mistakesTitle: 'Repeat mistakes', randomTitle: 'Random questions',
     correctWord: 'correct', question: 'Question', of: 'of', check: 'Check', next: 'Next →',
     noMistakes: 'No mistakes yet.', resetConfirm: 'Reset progress?',
+    favoritesTitle: 'Favorites', noFavorites: 'No favorite questions yet.',
     right: 'Correct', wrong: 'Incorrect. Correct answer:', done: 'Done.', correct: 'Correct', errors: 'Errors',
     multi: 'Multiple answers possible.',
     welcomeTitle: 'Welcome!', welcomeSubtitle: 'Keep training and improve your knowledge.',
@@ -44,6 +46,7 @@ const I18N = {
     learnTitle: 'Обучение', examTitle: 'Экзамен (40 вопросов)', mistakesTitle: 'Повтор ошибок', randomTitle: 'Случайные вопросы',
     correctWord: 'правильно', question: 'Вопрос', of: 'из', check: 'Проверить', next: 'Дальше →',
     noMistakes: 'Ошибок пока нет.', resetConfirm: 'Сбросить прогресс?',
+    favoritesTitle: 'Избранное', noFavorites: 'В избранном пока нет вопросов.',
     right: 'Правильно', wrong: 'Неправильно. Правильный ответ:', done: 'Готово.', correct: 'Правильно', errors: 'Ошибок',
     multi: 'Возможны несколько правильных ответов.',
     welcomeTitle: 'Добро пожаловать!', welcomeSubtitle: 'Продолжайте обучение и повышайте свои знания.',
@@ -62,6 +65,7 @@ const I18N = {
     learnTitle: 'Estudiar', examTitle: 'Examen (40 preguntas)', mistakesTitle: 'Repetir errores', randomTitle: 'Preguntas aleatorias',
     correctWord: 'correcto', question: 'Pregunta', of: 'de', check: 'Comprobar', next: 'Siguiente →',
     noMistakes: 'Aún no hay errores.', resetConfirm: '¿Restablecer progreso?',
+    favoritesTitle: 'Favoritos', noFavorites: 'Aún no hay preguntas favoritas.',
     right: 'Correcto', wrong: 'Incorrecto. Respuesta correcta:', done: 'Hecho.', correct: 'Correcto', errors: 'Errores',
     multi: 'Varias respuestas correctas posibles.',
     welcomeTitle: '¡Bienvenido!', welcomeSubtitle: 'Sigue entrenando y mejora tus conocimientos.',
@@ -80,6 +84,7 @@ const I18N = {
     learnTitle: 'Nauka', examTitle: 'Egzamin (40 pytań)', mistakesTitle: 'Powtórka błędów', randomTitle: 'Losowe pytania',
     correctWord: 'poprawnie', question: 'Pytanie', of: 'z', check: 'Sprawdź', next: 'Dalej →',
     noMistakes: 'Brak błędów.', resetConfirm: 'Resetować postęp?',
+    favoritesTitle: 'Ulubione', noFavorites: 'Brak ulubionych pytań.',
     right: 'Prawidłowo', wrong: 'Nieprawidłowo. Prawidłowa odpowiedź:', done: 'Gotowe.', correct: 'Prawidłowo', errors: 'Błędy',
     multi: 'Możliwe jest kilka prawidłowych odpowiedzi.',
     welcomeTitle: 'Witaj!', welcomeSubtitle: 'Trenuj dalej i poszerzaj swoją wiedzę.',
@@ -98,6 +103,7 @@ const I18N = {
     learnTitle: 'Studio', examTitle: 'Esame (40 domande)', mistakesTitle: 'Ripeti errori', randomTitle: 'Domande casuali',
     correctWord: 'corretto', question: 'Domanda', of: 'di', check: 'Verifica', next: 'Avanti →',
     noMistakes: 'Ancora nessun errore.', resetConfirm: 'Ripristinare i progressi?',
+    favoritesTitle: 'Preferiti', noFavorites: 'Ancora nessuna domanda preferita.',
     right: 'Corretto', wrong: 'Errato. Risposta corretta:', done: 'Fatto.', correct: 'Corretto', errors: 'Errori',
     multi: 'Sono possibili più risposte corrette.',
     welcomeTitle: 'Benvenuto!', welcomeSubtitle: 'Continua ad allenarti e migliora le tue conoscenze.',
@@ -116,6 +122,7 @@ const I18N = {
     learnTitle: 'Çalışma', examTitle: 'Sınav (40 Soru)', mistakesTitle: 'Hata Tekrarı', randomTitle: 'Rastgele Sorular',
     correctWord: 'doğru', question: 'Soru', of: '/', check: 'Kontrol Et', next: 'Sonraki →',
     noMistakes: 'Henüz hata yok.', resetConfirm: 'İlerlemeyi sıfırlamak istiyor musunuz?',
+    favoritesTitle: 'Favoriler', noFavorites: 'Henüz favori soru yok.',
     right: 'Doğru', wrong: 'Yanlış. Doğru cevap:', done: 'Tamamlandı.', correct: 'Doğru', errors: 'Hatalar',
     multi: 'Birden fazla doğru cevap olabilir.',
     welcomeTitle: 'Hoş Geldiniz!', welcomeSubtitle: 'Çalışmaya devam edin ve bilginizi geliştirin.',
@@ -134,6 +141,7 @@ const I18N = {
     learnTitle: 'Навчання', examTitle: 'Іспит (40 питань)', mistakesTitle: 'Повторення помилок', randomTitle: 'Випадкові питання',
     correctWord: 'правильно', question: 'Вопрос', of: 'з', check: 'Перевірити', next: 'Далі →',
     noMistakes: 'Помилок поки немає.', resetConfirm: 'Скинути прогрес?',
+    favoritesTitle: 'Обране', noFavorites: 'В обраному ще немає питань.',
     right: 'Правильно', wrong: 'Неправильно. Правильна відповідь:', done: 'Готово.', correct: 'Правильно', errors: 'Помилок',
     multi: 'Можливі кілька правильних відповідей.',
     welcomeTitle: 'Ласкаво просимо!', welcomeSubtitle: 'Продовжуйте навчання та вдосконалюйте свої знання.',
@@ -300,10 +308,19 @@ function startSession(mode){
   if(mode === 'exam') { list = shuffle(QUESTIONS).slice(0,40); title = t('examTitle'); }
   else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = t('mistakesTitle'); }
   else if(mode === 'random') { list = shuffle(QUESTIONS); title = t('randomTitle'); }
+  else if(mode === 'favorites') {
+    const favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
+    list = QUESTIONS.filter(q => favs.includes(q.id));
+    title = t('favoritesTitle') || 'Favorites';
+  }
   else { list = QUESTIONS.slice(); title = t('learnTitle'); }
 
   if(!list.length){
-    alert(t('noMistakes'));
+    if (mode === 'favorites') {
+      alert(t('noFavorites') || 'No favorite questions yet.');
+    } else {
+      alert(t('noMistakes'));
+    }
     return;
   }
   session = {mode, title, list, index:0, good:0, bad:0, answered:false};
@@ -313,8 +330,22 @@ function startSession(mode){
   Analytics.track('test_started', { mode, question_count: list.length });
 }
 
+function updateBookmarkVisual() {
+  const favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
+  if (!session || !session.list || !session.list[session.index]) return;
+  const q = session.list[session.index];
+  if (favs.includes(q.id)) {
+    $('bookmarkBtn').textContent = '♥';
+    $('bookmarkBtn').classList.add('active');
+  } else {
+    $('bookmarkBtn').textContent = '♡';
+    $('bookmarkBtn').classList.remove('active');
+  }
+}
+
 function renderQuestion(){
   const q = session.list[session.index];
+  updateBookmarkVisual();
   selected = new Set();
   session.answered = false;
   session.questionStart = Date.now();
@@ -476,6 +507,27 @@ $('continueBtn').onclick = () => startSession('learn');
 $('examBtn').onclick = () => startSession('exam');
 $('mistakesBtn').onclick = () => startSession('mistakes');
 $('randomBtn').onclick = () => startSession('random');
+
+// Bottom Nav Bindings
+$('navHome').onclick = () => { show('mainMenu'); updateHome(); };
+$('navStats').onclick = () => { show('stats'); updateStats(); };
+$('navFavorites').onclick = () => startSession('favorites');
+$('navSettings').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
+
+// Bookmark (Favorites) toggle button
+$('bookmarkBtn').onclick = () => {
+  if (!session || !session.list || !session.list[session.index]) return;
+  const q = session.list[session.index];
+  let favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
+  if (favs.includes(q.id)) {
+    favs = favs.filter(id => id !== q.id);
+  } else {
+    favs.push(q.id);
+  }
+  localStorage.setItem('driver95_favorites', JSON.stringify(favs));
+  updateBookmarkVisual();
+};
+
 $('nextBtn').onclick = nextQuestion;
 $('checkBtn').onclick = finishAnswer;
 $('backBtn').onclick = () => {
