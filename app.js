@@ -17,6 +17,7 @@ const I18N = {
     menuMistakesTitle: 'Fehler', menuMistakesSub: 'Deine falschen Antworten',
     menuStatsTitle: 'Statistik', menuStatsSub: 'Deine Ergebnisse und Fortschritt',
     statsTitle: 'Statistik', statsTotalLabel: 'Fragen insgesamt', statsSeenLabel: 'Gesehene Fragen', statsProgressLabel: 'Fortschritt', statsMistakesLabel: 'Fehler',
+    settingsTitle: 'Einstellungen', settingsLangTitle: 'Sprache', settingsThemeTitle: 'Design', settingsReset: 'Fortschritt zurücksetzen',
     progLabel: 'Fortschritt:',
     resultTitle: 'Ergebnis', resultOf: 'von {total}', resultSuccess: 'Sehr gut!', resultFail: 'Wiederholen',
     resultSummary: 'Du hast {good} von {total} richtig beantwortet.', resultAgain: 'Wiederholen', resultHome: 'Hauptmenü'
@@ -35,7 +36,8 @@ const I18N = {
     menuTopicsTitle: 'Training', menuTopicsSub: 'Learning, exam and progress',
     menuMistakesTitle: 'Mistakes', menuMistakesSub: 'Your incorrect answers',
     menuStatsTitle: 'Statistics', menuStatsSub: 'Your results and progress',
-    statsTitle: 'Statistics', statsTotalLabel: 'Total questions', statsSeenLabel: 'Seen questions', statsProgressLabel: 'Progress', statsMistakesLabel: 'Mistakes',
+    statsTitle: 'Statistics', statsTotalLabel: 'Total Questions', statsSeenLabel: 'Seen Questions', statsProgressLabel: 'Progress', statsMistakesLabel: 'Mistakes',
+    settingsTitle: 'Settings', settingsLangTitle: 'Language', settingsThemeTitle: 'Theme', settingsReset: 'Reset Progress',
     progLabel: 'Progress:',
     resultTitle: 'Result', resultOf: 'of {total}', resultSuccess: 'Excellent!', resultFail: 'Need to repeat',
     resultSummary: 'You answered {good} of {total} correctly.', resultAgain: 'Repeat', resultHome: 'Main Menu'
@@ -55,6 +57,7 @@ const I18N = {
     menuMistakesTitle: 'Ошибки', menuMistakesSub: 'Ваши неправильные ответы',
     menuStatsTitle: 'Статистика', menuStatsSub: 'Ваши результаты и прогресс',
     statsTitle: 'Статистика', statsTotalLabel: 'Всего вопросов', statsSeenLabel: 'Изучено вопросов', statsProgressLabel: 'Прогресс', statsMistakesLabel: 'Ошибки',
+    settingsTitle: 'Настройки', settingsLangTitle: 'Язык', settingsThemeTitle: 'Тема', settingsReset: 'Сбросить прогресс',
     progLabel: 'Прогресс:',
     resultTitle: 'Результат', resultOf: 'из {total}', resultSuccess: 'Отлично!', resultFail: 'Нужно повторить',
     resultSummary: 'Вы ответили правильно на {good} из {total}.', resultAgain: 'Повторить', resultHome: 'Главное меню'
@@ -73,7 +76,8 @@ const I18N = {
     menuTopicsTitle: 'Entrenamiento', menuTopicsSub: 'Estudio, examen y progreso',
     menuMistakesTitle: 'Errores', menuMistakesSub: 'Tus respuestas incorrectas',
     menuStatsTitle: 'Estadísticas', menuStatsSub: 'Tus resultados y progreso',
-    statsTitle: 'Estadísticas', statsTotalLabel: 'Preguntas totales', statsSeenLabel: 'Preguntas vistas', statsProgressLabel: 'Progreso', statsMistakesLabel: 'Errores',
+    statsTitle: 'Estadísticas', statsTotalLabel: 'Total de preguntas', statsSeenLabel: 'Preguntas vistas', statsProgressLabel: 'Progreso', statsMistakesLabel: 'Errores',
+    settingsTitle: 'Ajustes', settingsLangTitle: 'Idioma', settingsThemeTitle: 'Tema', settingsReset: 'Restablecer progreso',
     progLabel: 'Progreso:',
     resultTitle: 'Resultado', resultOf: 'de {total}', resultSuccess: '¡Excelente!', resultFail: 'Necesitas repetir',
     resultSummary: 'Respondiste correctamente {good} de {total}.', resultAgain: 'Repetir', resultHome: 'Menú principal'
@@ -92,7 +96,8 @@ const I18N = {
     menuTopicsTitle: 'Trening', menuTopicsSub: 'Nauka, egzamin i postęp',
     menuMistakesTitle: 'Błędy', menuMistakesSub: 'Twoje błędne odpowiedzi',
     menuStatsTitle: 'Statystyki', menuStatsSub: 'Twoje wyniki i postęp',
-    statsTitle: 'Statystyki', statsTotalLabel: 'Wszystkie pytania', statsSeenLabel: 'Zobaczone pytania', statsProgressLabel: 'Postęp', statsMistakesLabel: 'Błędy',
+    statsTitle: 'Statystyki', statsTotalLabel: 'Wszystkie pytania', statsSeenLabel: 'Obejrzane pytania', statsProgressLabel: 'Postęp', statsMistakesLabel: 'Błędy',
+    settingsTitle: 'Ustawienia', settingsLangTitle: 'Język', settingsThemeTitle: 'Motyw', settingsReset: 'Resetuj postęp',
     progLabel: 'Postęp:',
     resultTitle: 'Wynik', resultOf: 'z {total}', resultSuccess: 'Świetnie!', resultFail: 'Spróbuj ponownie',
     resultSummary: 'Odpowiedziałeś poprawnie na {good} z {total}.', resultAgain: 'Powtórz', resultHome: 'Menu główne'
@@ -111,7 +116,8 @@ const I18N = {
     menuTopicsTitle: 'Allenamento', menuTopicsSub: 'Studio, esame e progressi',
     menuMistakesTitle: 'Errori', menuMistakesSub: 'Le tue risposte errate',
     menuStatsTitle: 'Statistiche', menuStatsSub: 'I tuoi risultati e progressi',
-    statsTitle: 'Statistiche', statsTotalLabel: 'Domande totali', statsSeenLabel: 'Domande viste', statsProgressLabel: 'Progresso', statsMistakesLabel: 'Errori',
+    statsTitle: 'Statistiche', statsTotalLabel: 'Domande totali', statsSeenLabel: 'Domande visualizzate', statsProgressLabel: 'Progresso', statsMistakesLabel: 'Errori',
+    settingsTitle: 'Impostazioni', settingsLangTitle: 'Lingua', settingsThemeTitle: 'Tema', settingsReset: 'Ripristina i progressi',
     progLabel: 'Progresso:',
     resultTitle: 'Risultato', resultOf: 'di {total}', resultSuccess: 'Eccellente!', resultFail: 'Da ripetere',
     resultSummary: 'Hai risposto correttamente a {good} su {total}.', resultAgain: 'Ripeti', resultHome: 'Menu principale'
@@ -130,7 +136,8 @@ const I18N = {
     menuTopicsTitle: 'Çalışma', menuTopicsSub: 'Öğrenme, sınav ve ilerleme',
     menuMistakesTitle: 'Hatalar', menuMistakesSub: 'Yanlış cevaplarınız',
     menuStatsTitle: 'İstatistikler', menuStatsSub: 'Sonuçlarınız ve ilerlemeniz',
-    statsTitle: 'İstatistikler', statsTotalLabel: 'Toplam Soru', statsSeenLabel: 'Görülen Soru', statsProgressLabel: 'İlerleme', statsMistakesLabel: 'Hatalar',
+    statsTitle: 'İstatistikler', statsTotalLabel: 'Toplam Soru', statsSeenLabel: 'Görülen Sorular', statsProgressLabel: 'İlerleme', statsMistakesLabel: 'Hatalar',
+    settingsTitle: 'Ayarlar', settingsLangTitle: 'Dil', settingsThemeTitle: 'Tema', settingsReset: 'İlerlemeyi Sıfırla',
     progLabel: 'İlerleme:',
     resultTitle: 'Sonuç', resultOf: '/ {total}', resultSuccess: 'Harika!', resultFail: 'Tekrar edilmeli',
     resultSummary: '{total} sorudan {good} tanesini doğru cevapladınız.', resultAgain: 'Tekrar et', resultHome: 'Ana menü'
@@ -149,7 +156,8 @@ const I18N = {
     menuTopicsTitle: 'Тренировка', menuTopicsSub: 'Навчання, іспит та прогрес',
     menuMistakesTitle: 'Помилки', menuMistakesSub: 'Ваші неправильні відповіді',
     menuStatsTitle: 'Статистика', menuStatsSub: 'Ваші результати та прогрес',
-    statsTitle: 'Статистика', statsTotalLabel: 'Всього питань', statsSeenLabel: 'Вивчено питань', statsProgressLabel: 'Прогрес', statsMistakesLabel: 'Помилки',
+    statsTitle: 'Статистика', statsTotalLabel: 'Всього питань', statsSeenLabel: 'Переглянуто питань', statsProgressLabel: 'Прогрес', statsMistakesLabel: 'Помилки',
+    settingsTitle: 'Настройки', settingsLangTitle: 'Мова', settingsThemeTitle: 'Тема', settingsReset: 'Скинути прогрес',
     progLabel: 'Прогрес:',
     resultTitle: 'Результат', resultOf: 'з {total}', resultSuccess: 'Відмінно!', resultFail: 'Потрібно повторити',
     resultSummary: 'Ви відповіли правильно на {good} з {total}.', resultAgain: 'Повторити', resultHome: 'Головне меню'
@@ -232,6 +240,11 @@ function applyLanguage(){
   $('menuMistakesSub').textContent = t('menuMistakesSub');
   $('menuStatsTitle').textContent = t('menuStatsTitle');
   $('menuStatsSub').textContent = t('menuStatsSub');
+  // Settings translation
+  if ($('settingsTitle')) $('settingsTitle').textContent = t('settingsTitle');
+  if ($('settingsLangTitle')) $('settingsLangTitle').textContent = t('settingsLangTitle');
+  if ($('settingsThemeTitle')) $('settingsThemeTitle').textContent = t('settingsThemeTitle');
+  if ($('settingsResetBtn')) $('settingsResetBtn').textContent = t('settingsReset');
 }
 
 function getErrorsWord(count) {
@@ -497,22 +510,59 @@ function nextQuestion(){
 $('themeLight').onclick = () => applyTheme('light');
 $('themeDark').onclick = () => applyTheme('dark');
 $('onboardingContinue').onclick = () => selectLanguage(onboardingLang);
-$('settingsBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
+function updateActiveTab(tabClass) {
+  document.querySelectorAll('.bottomNav span').forEach(el => {
+    el.classList.remove('active');
+  });
+  document.querySelectorAll('.navTab' + tabClass.charAt(0).toUpperCase() + tabClass.slice(1)).forEach(el => {
+    el.classList.add('active');
+  });
+}
+
+$('settingsBtn').onclick = () => { show('settings'); updateActiveTab('settings'); };
 $('menuRandomBtn').onclick = () => startSession('random');
 $('menuTopicsBtn').onclick = () => show('home');
 $('menuMistakesBtn').onclick = () => startSession('mistakes');
-$('menuStatsBtn').onclick = () => { show('stats'); updateStats(); };
+$('menuStatsBtn').onclick = () => { show('stats'); updateStats(); updateActiveTab('stats'); };
 $('changeLangBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
 $('continueBtn').onclick = () => startSession('learn');
 $('examBtn').onclick = () => startSession('exam');
 $('mistakesBtn').onclick = () => startSession('mistakes');
 $('randomBtn').onclick = () => startSession('random');
 
-// Bottom Nav Bindings
-$('navHome').onclick = () => { show('mainMenu'); updateHome(); };
-$('navStats').onclick = () => { show('stats'); updateStats(); };
-$('navFavorites').onclick = () => startSession('favorites');
-$('navSettings').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
+// Bottom Nav Bindings using Classes
+document.querySelectorAll('.navTabHome').forEach(el => {
+  el.onclick = () => { show('mainMenu'); updateHome(); updateActiveTab('home'); };
+});
+document.querySelectorAll('.navTabStats').forEach(el => {
+  el.onclick = () => { show('stats'); updateStats(); updateActiveTab('stats'); };
+});
+document.querySelectorAll('.navTabFavorites').forEach(el => {
+  el.onclick = () => startSession('favorites');
+});
+document.querySelectorAll('.navTabSettings').forEach(el => {
+  el.onclick = () => { show('settings'); updateActiveTab('settings'); };
+});
+
+// Settings screen handlers
+$('settingsBackBtn').onclick = () => { show('mainMenu'); updateActiveTab('home'); };
+$('settingsThemeLight').onclick = () => applyTheme('light');
+$('settingsThemeDark').onclick = () => applyTheme('dark');
+$('settingsResetBtn').onclick = () => {
+  if (confirm(t('resetConfirm'))) {
+    localStorage.removeItem(storageKey());
+    state = loadState();
+    updateHome();
+    show('mainMenu');
+    updateActiveTab('home');
+  }
+};
+['de', 'en', 'ru', 'es', 'pl', 'it', 'tr', 'uk'].forEach(l => {
+  const el = $('settingsLang' + l.charAt(0).toUpperCase() + l.slice(1));
+  if (el) {
+    el.onclick = () => { selectLanguage(l); show('mainMenu'); updateActiveTab('home'); };
+  }
+});
 
 // Bookmark (Favorites) toggle button
 $('bookmarkBtn').onclick = () => {
@@ -537,16 +587,18 @@ $('backBtn').onclick = () => {
   }
   show('mainMenu');
   updateHome();
+  updateActiveTab('home');
 };
-$('statsBackBtn').onclick = () => { show('mainMenu'); updateHome(); };
-$('resultBackBtn').onclick = () => { show('mainMenu'); updateHome(); };
-$('resultHomeBtn').onclick = () => { show('mainMenu'); updateHome(); };
-$('resultAgainBtn').onclick = () => { if(session?.mode) startSession(session.mode); else show('mainMenu'); };
+$('statsBackBtn').onclick = () => { show('mainMenu'); updateHome(); updateActiveTab('home'); };
+$('resultBackBtn').onclick = () => { show('mainMenu'); updateHome(); updateActiveTab('home'); };
+$('resultHomeBtn').onclick = () => { show('mainMenu'); updateHome(); updateActiveTab('home'); };
+$('resultAgainBtn').onclick = () => { if(session?.mode) startSession(session.mode); else { show('mainMenu'); updateActiveTab('home'); } };
 $('resetBtn').onclick = () => {
   if(confirm(t('resetConfirm'))){
     localStorage.removeItem(storageKey());
     state = loadState();
     updateHome();
+    updateActiveTab('home');
   }
 };
 
