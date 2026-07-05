@@ -311,7 +311,7 @@ body.dark .phoneShell{
   align-items: center;
   margin-bottom: 24px;
 }
-.quizTopbar div {
+.quizTitleWrapper {
   text-align: center;
   flex-grow: 1;
 }
