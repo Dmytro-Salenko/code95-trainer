@@ -333,9 +333,7 @@ function startSession(mode){
   else if(mode === 'mistakes') { list = QUESTIONS.filter(q => state.mistakes.includes(q.id)); title = t('mistakesTitle'); }
   else if(mode === 'random') { list = shuffle(QUESTIONS); title = t('randomTitle'); }
   else if(mode === 'favorites') {
-    const prog = getProgress();
-    const questionIds = new Set(QUESTIONS.map(q => q.id));
-    list = QUESTIONS.filter(q => prog[q.id] && prog[q.id].favorite === true && questionIds.has(q.id));
+    list = getFavoriteQuestionsForCurrentLanguage();
     title = `${t('favoritesTitle') || 'Favorites'} (${list.length})`;
   }
   else if(mode === 'lastCorrect' || mode === 'lastIncorrect') {
@@ -382,17 +380,14 @@ function showToast(message) {
   }, 2500);
 }
 
-function updateFavoritesBadge() {
+function getFavoriteQuestionsForCurrentLanguage() {
   const prog = getProgress();
-  const questionIds = new Set(QUESTIONS.map(q => q.id));
-  let count = 0;
-  Object.keys(prog).forEach(qId => {
-    const id = Number(qId);
-    if (questionIds.has(id) && prog[qId].favorite === true) {
-      count++;
-    }
-  });
+  return QUESTIONS.filter(q => prog[q.id] && prog[q.id].favorite === true);
+}
 
+function updateFavoritesBadge() {
+  const favQuestions = getFavoriteQuestionsForCurrentLanguage();
+  const count = favQuestions.length;
   const badgeText = count > 99 ? '99+' : count.toString();
   document.querySelectorAll('.favBadge').forEach(el => {
     if (count > 0) {
