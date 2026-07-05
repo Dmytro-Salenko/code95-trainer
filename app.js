@@ -705,14 +705,13 @@ function updateActiveTab(tabClass) {
 $('settingsBtn').onclick = () => { show('settings'); updateActiveTab('settings'); };
 $('menuRandomBtn').onclick = () => startSession('random');
 $('menuTopicsBtn').onclick = () => show('home');
-$('menuMistakesBtn').onclick = () => startSession('mistakes');
+$('menuMistakesBtn').onclick = () => startSession('lastIncorrect');
 $('menuCorrectAnswersBtn').onclick = () => startSession('lastCorrect');
-$('menuIncorrectAnswersBtn').onclick = () => startSession('lastIncorrect');
 $('menuStatsBtn').onclick = () => { show('stats'); updateStats(); updateActiveTab('stats'); };
 $('changeLangBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
 $('continueBtn').onclick = () => startSession('learn');
 $('examBtn').onclick = () => startSession('exam');
-$('mistakesBtn').onclick = () => startSession('mistakes');
+$('mistakesBtn').onclick = () => startSession('lastIncorrect');
 $('randomBtn').onclick = () => startSession('random');
 
 // Bottom Nav Bindings using Classes
@@ -752,6 +751,7 @@ $('settingsResetBtn').onclick = () => {
 
 // Bookmark (Favorites) toggle button
 $('bookmarkBtn').onclick = () => {
+  console.log('favorite clicked');
   if (!session || !session.list || !session.list[session.index]) return;
   const q = session.list[session.index];
   let favs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
@@ -797,6 +797,7 @@ $('bookmarkBtn').onclick = () => {
 };
 
 $('favPrevBtn').onclick = () => {
+  console.log('prev clicked');
   const isNavMode = session && ['favorites', 'mistakes', 'lastCorrect', 'lastIncorrect'].includes(session.mode);
   if (isNavMode && session.index > 0) {
     session.index--;
@@ -805,6 +806,7 @@ $('favPrevBtn').onclick = () => {
 };
 
 $('favNextBtn').onclick = () => {
+  console.log('next clicked');
   const isNavMode = session && ['favorites', 'mistakes', 'lastCorrect', 'lastIncorrect'].includes(session.mode);
   if (isNavMode && session.index < session.list.length - 1) {
     session.index++;
@@ -815,6 +817,7 @@ $('favNextBtn').onclick = () => {
 $('nextBtn').onclick = nextQuestion;
 $('checkBtn').onclick = finishAnswer;
 $('backBtn').onclick = () => {
+  console.log('back clicked');
   if (session) {
     Analytics.track('test_abandoned', { mode: session.mode, questions_answered: session.index });
     session = null;
