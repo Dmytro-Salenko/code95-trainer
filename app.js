@@ -9,6 +9,7 @@ const I18N = {
     correctWord: 'richtig', question: 'Frage', of: 'von', check: 'Prüfen', next: 'Weiter →',
     noMistakes: 'Noch keine Fehler vorhanden.', resetConfirm: 'Fortschritt zurücksetzen?',
     favoritesTitle: 'Favoriten', noFavorites: 'Du hast noch keine Favoriten. Tippe während des Tests auf ❤️, um schwierige Fragen zu speichern.', emptyFavorites: 'Du hast keine Favoriten mehr.',
+    menuCorrectTitle: 'Richtig beantwortet', menuCorrectSub: 'Zuletzt richtig gelöste Fragen', menuIncorrectTitle: 'Falsch beantwortet', menuIncorrectSub: 'Zuletzt falsch gelöste Fragen', emptySection: 'Herzlichen Glückwunsch! In diesem Bereich sind derzeit keine Fragen vorhanden.',
     right: 'Richtig', wrong: 'Falsch. Richtige Antwort:', done: 'Fertig.', correct: 'Richtig', errors: 'Fehler',
     multi: 'Mehrere Antworten möglich.',
     welcomeTitle: 'Willkommen!', welcomeSubtitle: 'Trainiere weiter und verbessere dein Wissen.',
@@ -29,6 +30,7 @@ const I18N = {
     correctWord: 'correct', question: 'Question', of: 'of', check: 'Check', next: 'Next →',
     noMistakes: 'No mistakes yet.', resetConfirm: 'Reset progress?',
     favoritesTitle: 'Favorites', noFavorites: 'You have no favorite questions yet. Tap ❤️ during the test to save difficult questions.', emptyFavorites: 'You have no more favorite questions.',
+    menuCorrectTitle: 'Correct answers', menuCorrectSub: 'Questions answered correctly last time', menuIncorrectTitle: 'Incorrect answers', menuIncorrectSub: 'Questions answered incorrectly last time', emptySection: 'Congratulations! There are currently no questions in this section.',
     right: 'Correct', wrong: 'Incorrect. Correct answer:', done: 'Done.', correct: 'Correct', errors: 'Errors',
     multi: 'Multiple answers possible.',
     welcomeTitle: 'Welcome!', welcomeSubtitle: 'Keep training and improve your knowledge.',
@@ -49,6 +51,7 @@ const I18N = {
     correctWord: 'правильно', question: 'Вопрос', of: 'из', check: 'Проверить', next: 'Дальше →',
     noMistakes: 'Ошибок пока нет.', resetConfirm: 'Сбросить прогресс?',
     favoritesTitle: 'Избранное', noFavorites: 'У вас пока нет избранных вопросов. Нажимайте ❤️ во время прохождения тестов, чтобы сохранить сложные вопросы.', emptyFavorites: 'У вас больше нет избранных вопросов.',
+    menuCorrectTitle: 'Правильные ответы', menuCorrectSub: 'Вопросы, решенные верно в последний раз', menuIncorrectTitle: 'Неправильные ответы', menuIncorrectSub: 'Вопросы, решенные неверно в последний раз', emptySection: 'Поздравляем! Сейчас в этом разделе больше нет вопросов.',
     right: 'Правильно', wrong: 'Неправильно. Правильный ответ:', done: 'Готово.', correct: 'Правильно', errors: 'Ошибок',
     multi: 'Возможны несколько правильных ответов.',
     welcomeTitle: 'Добро пожаловать!', welcomeSubtitle: 'Продолжайте обучение и повышайте свои знания.',
@@ -69,6 +72,7 @@ const I18N = {
     correctWord: 'correcto', question: 'Pregunta', of: 'de', check: 'Comprobar', next: 'Siguiente →',
     noMistakes: 'Aún no hay errores.', resetConfirm: '¿Restablecer progreso?',
     favoritesTitle: 'Favoritos', noFavorites: 'Aún no tienes preguntas favoritas. Toca ❤️ durante la prueba para guardar las preguntas difíciles.', emptyFavorites: 'No tienes más preguntas favoritas.',
+    menuCorrectTitle: 'Respuestas correctas', menuCorrectSub: 'Preguntas respondidas correctamente la última vez', menuIncorrectTitle: 'Respuestas incorrectas', menuIncorrectSub: 'Preguntas respondidas incorrectamente la última vez', emptySection: '¡Felicidades! Actualmente no hay preguntas en esta sección.',
     right: 'Correcto', wrong: 'Incorrecto. Respuesta correcta:', done: 'Hecho.', correct: 'Correcto', errors: 'Errores',
     multi: 'Varias respuestas correctas posibles.',
     welcomeTitle: '¡Bienvenido!', welcomeSubtitle: 'Sigue entrenando y mejora tus conocimientos.',
@@ -89,6 +93,7 @@ const I18N = {
     correctWord: 'poprawnie', question: 'Pytanie', of: 'z', check: 'Sprawdź', next: 'Dalej →',
     noMistakes: 'Brak błędów.', resetConfirm: 'Resetować postęp?',
     favoritesTitle: 'Ulubione', noFavorites: 'Nie masz jeszcze ulubionych pytań. Stuknij ❤️ podczas testu, aby zapisać trudne pytania.', emptyFavorites: 'Nie masz już ulubionych pytań.',
+    menuCorrectTitle: 'Prawidłowe odpowiedzi', menuCorrectSub: 'Pytania rozwiązane poprawnie ostatnim razem', menuIncorrectTitle: 'Nieprawidłowe odpowiedzi', menuIncorrectSub: 'Pytania rozwiązane niepoprawnie ostatnim razem', emptySection: 'Gratulacje! W tej sekcji nie ma obecnie żadnych pytań.',
     right: 'Prawidłowo', wrong: 'Nieprawidłowo. Prawidłowa odpowiedź:', done: 'Gotowe.', correct: 'Prawidłowo', errors: 'Błędy',
     multi: 'Możliwe jest kilka prawidłowych odpowiedzi.',
     welcomeTitle: 'Witaj!', welcomeSubtitle: 'Trenuj dalej i poszerzaj swoją wiedzę.',
@@ -109,6 +114,7 @@ const I18N = {
     correctWord: 'corretto', question: 'Domanda', of: 'di', check: 'Verifica', next: 'Avanti →',
     noMistakes: 'Ancora nessun errore.', resetConfirm: 'Ripristinare i progressi?',
     favoritesTitle: 'Preferiti', noFavorites: 'Non hai ancora domande preferite. Tocca ❤️ durante il test per salvare le domande difficili.', emptyFavorites: 'Non hai più domande preferite.',
+    menuCorrectTitle: 'Risposte corrette', menuCorrectSub: 'Domande risposte correttamente l\'ultima volta', menuIncorrectTitle: 'Risposte incorrette', menuIncorrectSub: 'Domande risposte in modo errato l\'ultima volta', emptySection: 'Congratulazioni! Al momento non ci sono domande in questa sezione.',
     right: 'Corretto', wrong: 'Errato. Risposta corretta:', done: 'Fatto.', correct: 'Corretto', errors: 'Errori',
     multi: 'Sono possibili più risposte corrette.',
     welcomeTitle: 'Benvenuto!', welcomeSubtitle: 'Continua ad allenarti e migliora le tue conoscenze.',
@@ -129,6 +135,7 @@ const I18N = {
     correctWord: 'doğru', question: 'Soru', of: '/', check: 'Kontrol Et', next: 'Sonraki →',
     noMistakes: 'Henüz hata yok.', resetConfirm: 'İlerlemeyi sıfırlamak istiyor musunuz?',
     favoritesTitle: 'Favoriler', noFavorites: 'Henüz favori sorunuz yok. Zor soruları kaydetmek için test sırasında ❤️ simgesine dokunun.', emptyFavorites: 'Başka favori sorunuz kalmadı.',
+    menuCorrectTitle: 'Doğru cevaplar', menuCorrectSub: 'Son seferde doğru cevaplanan sorular', menuIncorrectTitle: 'Yanlış cevaplar', menuIncorrectSub: 'Son seferde yanlış cevaplanan sorular', emptySection: 'Tebrikler! Bu bölümde şu anda soru bulunmamaktadır.',
     right: 'Doğru', wrong: 'Yanlış. Doğru cevap:', done: 'Tamamlandı.', correct: 'Doğru', errors: 'Hatalar',
     multi: 'Birden fazla doğru cevap olabilir.',
     welcomeTitle: 'Hoş Geldiniz!', welcomeSubtitle: 'Çalışmaya devam edin ve bilginizi geliştirin.',
@@ -149,6 +156,7 @@ const I18N = {
     correctWord: 'правильно', question: 'Вопрос', of: 'з', check: 'Перевірити', next: 'Далі →',
     noMistakes: 'Помилок поки немає.', resetConfirm: 'Скинути прогрес?',
     favoritesTitle: 'Обране', noFavorites: 'У вас поки немає обраних питань. Натискайте ❤️ під час проходження тестів, щоб зберегти складні питання.', emptyFavorites: 'У вас більше немає обраних питань.',
+    menuCorrectTitle: 'Правильні відповіді', menuCorrectSub: 'Питання, вирішені вірно в останній раз', menuIncorrectTitle: 'Неправильні відповіді', menuIncorrectSub: 'Питання, вирішені невірно в останній раз', emptySection: 'Вітаємо! Зараз у цьому розділі більше немає питань.',
     right: 'Правильно', wrong: 'Неправильно. Правильна відповідь:', done: 'Готово.', correct: 'Правильно', errors: 'Помилок',
     multi: 'Можливі кілька правильних відповідей.',
     welcomeTitle: 'Ласкаво просимо!', welcomeSubtitle: 'Продовжуйте навчання та вдосконалюйте свої знання.',
@@ -240,6 +248,10 @@ function applyLanguage(){
   $('menuMistakesSub').textContent = t('menuMistakesSub');
   $('menuStatsTitle').textContent = t('menuStatsTitle');
   $('menuStatsSub').textContent = t('menuStatsSub');
+  if ($('menuCorrectAnswersTitle')) $('menuCorrectAnswersTitle').textContent = t('menuCorrectTitle');
+  if ($('menuCorrectAnswersSub')) $('menuCorrectAnswersSub').textContent = t('menuCorrectSub');
+  if ($('menuIncorrectAnswersTitle')) $('menuIncorrectAnswersTitle').textContent = t('menuIncorrectTitle');
+  if ($('menuIncorrectAnswersSub')) $('menuIncorrectAnswersSub').textContent = t('menuIncorrectSub');
   // Settings translation
   if ($('settingsTitle')) $('settingsTitle').textContent = t('settingsTitle');
   if ($('settingsLangTitle')) $('settingsLangTitle').textContent = t('settingsLangTitle');
@@ -295,6 +307,7 @@ function updateHome(){
   if ($('menuRandomProgress')) $('menuRandomProgress').textContent = `${progLabel} ${p}%`;
   if ($('menuTopicsProgress')) $('menuTopicsProgress').textContent = `${progLabel} ${p}%`;
   if ($('menuMistakesProgress')) $('menuMistakesProgress').textContent = `${state.mistakes.length} ${errWord}`;
+  updateHomeProgressCards();
 }
 
 function updateStats(){
@@ -326,11 +339,21 @@ function startSession(mode){
     list = QUESTIONS.filter(q => favs.includes(q.id));
     title = `${t('favoritesTitle') || 'Favorites'} (${list.length})`;
   }
+  else if(mode === 'lastCorrect' || mode === 'lastIncorrect') {
+    const prog = getProgress();
+    const target = mode === 'lastCorrect' ? 'correct' : 'incorrect';
+    const qIds = new Set(QUESTIONS.map(q => q.id));
+    list = QUESTIONS.filter(q => prog[q.id] && prog[q.id].lastResult === target && qIds.has(q.id));
+    const modeKey = mode === 'lastCorrect' ? 'menuCorrectTitle' : 'menuIncorrectTitle';
+    title = `${t(modeKey)} (${list.length})`;
+  }
   else { list = QUESTIONS.slice(); title = t('learnTitle'); }
 
   if(!list.length){
     if (mode === 'favorites') {
       alert(t('noFavorites') || 'No favorite questions yet.');
+    } else if (mode === 'lastCorrect' || mode === 'lastIncorrect') {
+      alert(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
     } else {
       alert(t('noMistakes'));
     }
@@ -355,6 +378,105 @@ function updateFavoritesBadge() {
       el.classList.add('hidden');
     }
   });
+}
+
+function getProgress() {
+  let prog = {};
+  try {
+    prog = JSON.parse(localStorage.getItem('driver95_progress') || '{}');
+  } catch(e) {}
+  
+  // Migration fallback for old favorites format
+  const oldFavs = JSON.parse(localStorage.getItem('driver95_favorites') || '[]');
+  let modified = false;
+  oldFavs.forEach(id => {
+    if (!prog[id]) {
+      prog[id] = { correct: 0, incorrect: 0, lastResult: null, favorite: true, lastSeen: null };
+      modified = true;
+    } else if (!prog[id].favorite) {
+      prog[id].favorite = true;
+      modified = true;
+    }
+  });
+  if (modified) {
+    localStorage.setItem('driver95_progress', JSON.stringify(prog));
+  }
+  return prog;
+}
+
+function saveProgress(prog) {
+  localStorage.setItem('driver95_progress', JSON.stringify(prog));
+}
+
+function recordQuestionResult(qId, isCorrect) {
+  const prog = getProgress();
+  if (!prog[qId]) {
+    prog[qId] = { correct: 0, incorrect: 0, lastResult: null, favorite: false, lastSeen: null };
+  }
+  
+  const card = prog[qId];
+  if (isCorrect) {
+    card.correct = (card.correct || 0) + 1;
+    card.lastResult = 'correct';
+  } else {
+    card.incorrect = (card.incorrect || 0) + 1;
+    card.lastResult = 'incorrect';
+  }
+  card.lastSeen = new Date().toISOString();
+  
+  saveProgress(prog);
+  updateFavoritesBadge();
+  updateHomeProgressCards();
+}
+
+function updateHomeProgressCards() {
+  const prog = getProgress();
+  let correctCount = 0;
+  let incorrectCount = 0;
+  const questionIds = new Set(QUESTIONS.map(q => q.id));
+  
+  Object.keys(prog).forEach(qId => {
+    const id = Number(qId);
+    if (questionIds.has(id)) {
+      if (prog[qId].lastResult === 'correct') {
+        correctCount++;
+      } else if (prog[qId].lastResult === 'incorrect') {
+        incorrectCount++;
+      }
+    }
+  });
+
+  const correctEl = $('menuCorrectAnswersProgress');
+  const incorrectEl = $('menuIncorrectAnswersProgress');
+  
+  if (correctEl) correctEl.textContent = `${correctCount} ${getQuestionsWord(correctCount)}`;
+  if (incorrectEl) incorrectEl.textContent = `${incorrectCount} ${getQuestionsWord(incorrectCount)}`;
+}
+
+function getQuestionsWord(count) {
+  if (lang === 'ru' || lang === 'uk') {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+      return lang === 'ru' ? 'вопросов' : 'питань';
+    }
+    if (lastDigit === 1) {
+      return lang === 'ru' ? 'вопрос' : 'питання';
+    }
+    if (lastDigit >= 2 && lastDigit <= 4) {
+      return lang === 'ru' ? 'вопроса' : 'питання';
+    }
+    return lang === 'ru' ? 'вопросов' : 'питань';
+  }
+  if (lang === 'pl') {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'pytań';
+    if (lastDigit === 1) return 'pytanie';
+    if (lastDigit >= 2 && lastDigit <= 4) return 'pytania';
+    return 'pytań';
+  }
+  return 'questions';
 }
 
 function updateBookmarkVisual() {
@@ -452,6 +574,8 @@ function finishAnswer(){
   const isCorrect = sameSet(selected, correctIndexes);
   const timeSpent = session.questionStart ? Math.round((Date.now() - session.questionStart) / 1000) : 0;
 
+  recordQuestionResult(q.id, isCorrect);
+
   state.seen[q.id] = true;
   if(isCorrect){
     session.good++;
@@ -518,6 +642,37 @@ function showResult(){
 }
 
 function nextQuestion(){
+  if (session.mode === 'lastCorrect' || session.mode === 'lastIncorrect') {
+    const q = session.list[session.index];
+    const prog = getProgress();
+    const card = prog[q.id];
+    const target = session.mode === 'lastCorrect' ? 'correct' : 'incorrect';
+    const shouldKeep = card && card.lastResult === target;
+
+    if (!shouldKeep) {
+      session.list.splice(session.index, 1);
+      
+      if (session.list.length === 0) {
+        alert(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
+        session = null;
+        show('mainMenu');
+        updateHome();
+        updateActiveTab('home');
+        updateFavoritesBadge();
+        return;
+      }
+      
+      if (session.index >= session.list.length) {
+        session.index = session.list.length - 1;
+      }
+      
+      const modeKey = session.mode === 'lastCorrect' ? 'menuCorrectTitle' : 'menuIncorrectTitle';
+      $('modeTitle').textContent = `${t(modeKey)} (${session.list.length})`;
+      renderQuestion();
+      return;
+    }
+  }
+
   session.index++;
   if(session.index >= session.list.length){
     $('quizBar').style.width = '100%';
@@ -549,6 +704,8 @@ $('settingsBtn').onclick = () => { show('settings'); updateActiveTab('settings')
 $('menuRandomBtn').onclick = () => startSession('random');
 $('menuTopicsBtn').onclick = () => show('home');
 $('menuMistakesBtn').onclick = () => startSession('mistakes');
+$('menuCorrectAnswersBtn').onclick = () => startSession('lastCorrect');
+$('menuIncorrectAnswersBtn').onclick = () => startSession('lastIncorrect');
 $('menuStatsBtn').onclick = () => { show('stats'); updateStats(); updateActiveTab('stats'); };
 $('changeLangBtn').onclick = () => { onboardingLang = lang || 'de'; updateOnboardingButtons(); show('onboarding'); };
 $('continueBtn').onclick = () => startSession('learn');
@@ -688,6 +845,7 @@ document.querySelectorAll('.logoMark, .miniLogo').forEach(el => {
 });
 
 updateFavoritesBadge();
+updateHomeProgressCards();
 applyTheme(theme);
 updateOnboardingButtons();
 // The first screen must always be language + theme selection.
