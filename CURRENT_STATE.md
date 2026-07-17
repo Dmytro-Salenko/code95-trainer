@@ -2,8 +2,8 @@
 
 ## Последнее обновление
 * **Дата**: 17 июля 2026 г.
-* **Текущая версия**: `v0.3.0`
-* **Последний коммит**: `21e03e1` (feat(learn): refactor learn mode to display and study remaining (unlearned) questions only)
+* **Последний коммит**: `e8f295d` (docs(current-state): update status log to reflect v0.3.0 and Learn mode improvements)
+* **Статус**: Опубликован на GitHub (Релиз `v0.3.0` завершен)
 
 ---
 
