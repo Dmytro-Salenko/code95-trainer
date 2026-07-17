@@ -193,7 +193,29 @@ function loadState(){
 }
 function saveState(){ localStorage.setItem(storageKey(), JSON.stringify(state)); }
 function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
-function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
+function trackAbandoned() {
+  if (!session) return;
+  const duration = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
+  Analytics.track('test_abandoned', {
+    test_session_id: session.sessionId,
+    language: lang,
+    mode: session.mode,
+    question_index: session.index,
+    total_questions: session.list.length,
+    correct_answers: session.good,
+    duration_seconds: duration
+  });
+  session = null;
+}
+
+function show(id){
+  const quizActive = $('quiz')?.classList.contains('active');
+  if (quizActive && id !== 'quiz' && id !== 'result' && session) {
+    trackAbandoned();
+  }
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+}
 function applyTheme(nextTheme){
   theme = nextTheme === 'dark' ? 'dark' : 'light';
   document.body.classList.toggle('dark', theme === 'dark');
@@ -327,6 +349,9 @@ function updateStats(){
 }
 
 function startSession(mode){
+  if (session) {
+    trackAbandoned();
+  }
   let list = [];
   let title = t('learnTitle');
   if(mode === 'exam') { list = shuffle(QUESTIONS).slice(0,40); title = t('examTitle'); }
@@ -356,11 +381,31 @@ function startSession(mode){
     }
     return;
   }
-  session = {mode, title, list, index:0, good:0, bad:0, answered:false};
+  const sessionId = Analytics._generateUUID();
+  session = {
+    mode,
+    title,
+    list,
+    index: 0,
+    good: 0,
+    bad: 0,
+    answered: false,
+    sessionId: sessionId,
+    startTime: Date.now(),
+    firstAnsweredTracked: false,
+    q5ReachedTracked: false,
+    q10ReachedTracked: false,
+    resultScreenViewedTracked: false
+  };
   $('modeTitle').textContent = title;
   show('quiz');
   renderQuestion();
-  Analytics.track('test_started', { mode, question_count: list.length });
+  Analytics.track('test_started', {
+    test_session_id: session.sessionId,
+    language: lang,
+    mode: session.mode,
+    total_questions: session.list.length
+  });
 }
 
 function showToast(message) {
@@ -522,6 +567,24 @@ function renderQuestion(){
   const q = session.list[session.index];
   updateBookmarkVisual();
 
+  // Trigger milestones
+  if (session && session.index === 4 && !session.q5ReachedTracked) {
+    session.q5ReachedTracked = true;
+    Analytics.track('question_5_reached', {
+      test_session_id: session.sessionId,
+      language: lang,
+      mode: session.mode
+    });
+  }
+  if (session && session.index === 9 && !session.q10ReachedTracked) {
+    session.q10ReachedTracked = true;
+    Analytics.track('question_10_reached', {
+      test_session_id: session.sessionId,
+      language: lang,
+      mode: session.mode
+    });
+  }
+
   // Control Favorites Navigation controls
   const isNavMode = ['favorites', 'mistakes', 'lastCorrect', 'lastIncorrect'].includes(session.mode);
   if (isNavMode) {
@@ -622,14 +685,30 @@ function finishAnswer(){
     $('feedback').textContent = `${t('wrong')} ${correctText}${q.explanation ? ' — ' + cleanText(q.explanation) : ''}`;
   }
 
+  const duration = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
   Analytics.track('question_answered', {
+    test_session_id: session.sessionId,
+    language: lang,
     mode: session.mode,
+    question_index: session.index + 1,
+    total_questions: session.list.length,
+    correct_answers: session.good,
+    duration_seconds: duration,
     question_id: q.id,
     selected_answer: [...selected],
     correct_answer: correctIndexes,
     is_correct: isCorrect,
     time_spent: timeSpent
   });
+
+  if (session && !session.firstAnsweredTracked) {
+    session.firstAnsweredTracked = true;
+    Analytics.track('first_question_answered', {
+      test_session_id: session.sessionId,
+      language: lang,
+      mode: session.mode
+    });
+  }
 
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
   $('checkBtn').classList.add('hidden');
@@ -658,11 +737,26 @@ function showResult(){
   updateHome();
 
   if (session) {
+    const duration = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
+    if (!session.resultScreenViewedTracked) {
+      session.resultScreenViewedTracked = true;
+      Analytics.track('result_screen_viewed', {
+        test_session_id: session.sessionId,
+        language: lang,
+        mode: session.mode,
+        correct_answers: session.good,
+        total_questions: session.list.length,
+        duration_seconds: duration
+      });
+    }
+
     Analytics.track('test_finished', {
+      test_session_id: session.sessionId,
+      language: lang,
       mode: session.mode,
-      score: good,
-      total: total,
-      correct_percentage: pct(good, total)
+      total_questions: session.list.length,
+      correct_answers: session.good,
+      duration_seconds: duration
     });
     session = null;
   }
@@ -845,10 +939,6 @@ $('favNextBtn').onclick = () => {
 $('nextBtn').onclick = nextQuestion;
 $('checkBtn').onclick = finishAnswer;
 $('backBtn').onclick = () => {
-  if (session) {
-    Analytics.track('test_abandoned', { mode: session.mode, questions_answered: session.index });
-    session = null;
-  }
   show('mainMenu');
   updateHome();
   updateActiveTab('home');
@@ -870,10 +960,6 @@ $('resetBtn').onclick = () => {
 
 document.querySelectorAll('.logoMark, .miniLogo').forEach(el => {
   el.onclick = () => {
-    if (session) {
-      Analytics.track('test_abandoned', { mode: session.mode, questions_answered: session.index });
-      session = null;
-    }
     onboardingLang = lang || 'de';
     updateOnboardingButtons();
     show('onboarding');
@@ -893,8 +979,15 @@ window.addEventListener('appinstalled', () => {
   Analytics.track('pwa_installed');
 });
 
+// Track page/tab close or refresh during an active test session
+window.addEventListener('pagehide', () => {
+  if (session) {
+    trackAbandoned();
+  }
+});
+
 // Track App Open
-Analytics.track('app_open');
+Analytics.track('app_open', { language: lang || onboardingLang });
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

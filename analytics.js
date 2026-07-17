@@ -68,7 +68,7 @@ class AnalyticsModule {
 
   track(eventName, eventData = {}) {
     try {
-      const payload = {
+      const payload = Object.assign({
         event_name: eventName,
         anonymous_user_id: this.userId,
         session_id: this.sessionId,
@@ -84,7 +84,7 @@ class AnalyticsModule {
         app_version: ANALYTICS_CONFIG.appVersion,
         question_database_version: eventData.question_database_version || 'v2.0',
         metadata: eventData.metadata || {}
-      };
+      }, eventData);
 
       console.log('[Analytics Event]', eventName, payload);
 
@@ -93,7 +93,7 @@ class AnalyticsModule {
 
       // Track via GA4 if configured
       if (ANALYTICS_CONFIG.gaMeasurementId && typeof window.gtag === 'function') {
-        window.gtag('event', eventName, {
+        const gaParams = Object.assign({
           language: payload.language,
           mode: payload.mode,
           question_id: payload.question_id,
@@ -103,7 +103,9 @@ class AnalyticsModule {
           question_database_version: payload.question_database_version,
           device_type: payload.device_type,
           session_id: payload.session_id
-        });
+        }, eventData);
+
+        window.gtag('event', eventName, gaParams);
       }
 
       // If backend is enabled, send to backend
