@@ -21,7 +21,9 @@ const I18N = {
     settingsTitle: 'Einstellungen', settingsLangTitle: 'Sprache', settingsThemeTitle: 'Design', settingsReset: 'Fortschritt zurücksetzen',
     progLabel: 'Fortschritt:',
     resultTitle: 'Ergebnis', resultOf: 'von {total}', resultSuccess: 'Sehr gut!', resultFail: 'Wiederholen',
-    resultSummary: 'Du hast {good} von {total} richtig beantwortet.', resultAgain: 'Wiederholen', resultHome: 'Hauptmenü'
+    resultSummary: 'Du hast {good} von {total} richtig beantwortet.', resultAgain: 'Wiederholen', resultHome: 'Hauptmenü',
+    remaining: 'noch lernen', learned: 'gelernt',
+    allLearnedToast: 'Herzlichen Glückwunsch! Alle Fragen sind gelernt. Wir empfehlen jetzt die Prüfung zu machen.'
   },
   en: {
     code: 'EN', subtitle: 'Code 95 Trainer', continue: 'Learn', exam: 'Exam (40 questions)',
@@ -42,7 +44,9 @@ const I18N = {
     settingsTitle: 'Settings', settingsLangTitle: 'Language', settingsThemeTitle: 'Theme', settingsReset: 'Reset Progress',
     progLabel: 'Progress:',
     resultTitle: 'Result', resultOf: 'of {total}', resultSuccess: 'Excellent!', resultFail: 'Need to repeat',
-    resultSummary: 'You answered {good} of {total} correctly.', resultAgain: 'Repeat', resultHome: 'Main Menu'
+    resultSummary: 'You answered {good} of {total} correctly.', resultAgain: 'Repeat', resultHome: 'Main Menu',
+    remaining: 'remaining', learned: 'learned',
+    allLearnedToast: 'Congratulations! All questions are learned. We now recommend taking the exam.'
   },
   ru: {
     code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Обучение', exam: 'Экзамен (40 вопросов)',
@@ -63,7 +67,9 @@ const I18N = {
     settingsTitle: 'Настройки', settingsLangTitle: 'Язык', settingsThemeTitle: 'Тема', settingsReset: 'Сбросить прогресс',
     progLabel: 'Прогресс:',
     resultTitle: 'Результат', resultOf: 'из {total}', resultSuccess: 'Отлично!', resultFail: 'Нужно повторить',
-    resultSummary: 'Вы ответили правильно на {good} из {total}.', resultAgain: 'Повторить', resultHome: 'Главное меню'
+    resultSummary: 'Вы ответили правильно на {good} из {total}.', resultAgain: 'Повторить', resultHome: 'Главное меню',
+    remaining: 'осталось', learned: 'изучено',
+    allLearnedToast: 'Поздравляем! Все вопросы изучены. Теперь рекомендуем пройти экзамен.'
   },
   es: {
     code: 'ES', subtitle: 'Entrenador de Code 95', continue: 'Estudiar', exam: 'Examen (40 preguntas)',
@@ -84,7 +90,9 @@ const I18N = {
     settingsTitle: 'Ajustes', settingsLangTitle: 'Idioma', settingsThemeTitle: 'Tema', settingsReset: 'Restablecer progreso',
     progLabel: 'Progreso:',
     resultTitle: 'Resultado', resultOf: 'de {total}', resultSuccess: '¡Excelente!', resultFail: 'Necesitas repetir',
-    resultSummary: 'Respondiste correctamente {good} de {total}.', resultAgain: 'Repetir', resultHome: 'Menú principal'
+    resultSummary: 'Respondiste correctamente {good} de {total}.', resultAgain: 'Repetir', resultHome: 'Menú principal',
+    remaining: 'restantes', learned: 'aprendido',
+    allLearnedToast: '¡Felicidades! Todas las preguntas han sido aprendidas. Ahora le recomendamos realizar el examen.'
   },
   pl: {
     code: 'PL', subtitle: 'Trener Code 95', continue: 'Nauka', exam: 'Egzamin (40 pytań)',
@@ -105,7 +113,9 @@ const I18N = {
     settingsTitle: 'Ustawienia', settingsLangTitle: 'Język', settingsThemeTitle: 'Motyw', settingsReset: 'Resetuj postęp',
     progLabel: 'Postęp:',
     resultTitle: 'Wynik', resultOf: 'z {total}', resultSuccess: 'Świetnie!', resultFail: 'Spróbuj ponownie',
-    resultSummary: 'Odpowiedziałeś poprawnie na {good} z {total}.', resultAgain: 'Powtórz', resultHome: 'Menu główne'
+    resultSummary: 'Odpowiedziałeś poprawnie na {good} z {total}.', resultAgain: 'Powtórz', resultHome: 'Menu główne',
+    remaining: 'pozostało', learned: 'nauczone',
+    allLearnedToast: 'Gratulacje! Wszystkie pytania zostały nauczone. Zalecamy teraz przystąpienie do egzaminu.'
   },
   it: {
     code: 'IT', subtitle: 'Simulatore Code 95', continue: 'Studio', exam: 'Esame (40 domande)',
@@ -126,7 +136,9 @@ const I18N = {
     settingsTitle: 'Impostazioni', settingsLangTitle: 'Lingua', settingsThemeTitle: 'Tema', settingsReset: 'Ripristina i progressi',
     progLabel: 'Progresso:',
     resultTitle: 'Risultato', resultOf: 'di {total}', resultSuccess: 'Eccellente!', resultFail: 'Da ripetere',
-    resultSummary: 'Hai risposto correttamente a {good} su {total}.', resultAgain: 'Ripeti', resultHome: 'Menu principale'
+    resultSummary: 'Hai risposto correttamente a {good} su {total}.', resultAgain: 'Ripeti', resultHome: 'Menu principale',
+    remaining: 'rimanenti', learned: 'imparate',
+    allLearnedToast: 'Congratulazioni! Tutte le domande sono state imparate. Ti consigliamo ora di fare l\'esame.'
   },
   tr: {
     code: 'TR', subtitle: 'Code 95 Eğitmeni', continue: 'Çalışma', exam: 'Sınav (40 soru)',
@@ -147,7 +159,9 @@ const I18N = {
     settingsTitle: 'Ayarlar', settingsLangTitle: 'Dil', settingsThemeTitle: 'Tema', settingsReset: 'İlerlemeyi Sıfırla',
     progLabel: 'İlerleme:',
     resultTitle: 'Sonuç', resultOf: '/ {total}', resultSuccess: 'Harika!', resultFail: 'Tekrar edilmeli',
-    resultSummary: '{total} sorudan {good} tanesini doğru cevapladınız.', resultAgain: 'Tekrar et', resultHome: 'Ana menü'
+    resultSummary: '{total} sorudan {good} tanesini doğru cevapladınız.', resultAgain: 'Tekrar et', resultHome: 'Ana menü',
+    remaining: 'kalan', learned: 'öğrenilen',
+    allLearnedToast: 'Tebrikler! Tüm sorular öğrenildi. Şimdi sınavı geçmenizi öneririz.'
   },
   uk: {
     code: 'UK', subtitle: 'Тренажер Code 95', continue: 'Навчання', exam: 'Іспит (40 питань)',
@@ -168,9 +182,11 @@ const I18N = {
     settingsTitle: 'Настройки', settingsLangTitle: 'Мова', settingsThemeTitle: 'Тема', settingsReset: 'Скинути прогрес',
     progLabel: 'Прогрес:',
     resultTitle: 'Результат', resultOf: 'з {total}', resultSuccess: 'Відмінно!', resultFail: 'Потрібно повторити',
-    resultSummary: 'Ви відповіли правильно на {good} з {total}.', resultAgain: 'Повторити', resultHome: 'Головне меню'
+    resultSummary: 'Ви відповіли правильно на {good} з {total}.', resultAgain: 'Повторити', resultHome: 'Головне меню',
+    remaining: 'залишилося', learned: 'вивчено',
+    allLearnedToast: 'Вітаємо! Всі питання вивчені. Тепер рекомендуємо пройти іспит.'
   }
-};
+
 
 const $ = (id) => document.getElementById(id);
 let lang = localStorage.getItem('driver95_lang') || null;
@@ -318,9 +334,10 @@ function getErrorsWord(count) {
 function updateHome(){
   const seenCount = Object.keys(state.seen).length;
   const correctCount = Object.keys(state.correct).length;
+  const remainingCount = QUESTIONS.length - correctCount;
   const p = pct(seenCount, QUESTIONS.length);
   $('homeProgressText').textContent = `${p}%`;
-  $('homeScoreText').textContent = `${correctCount} ${t('correctWord')} / ${QUESTIONS.length}`;
+  $('homeScoreText').textContent = `${remainingCount} ${t('remaining')} (${correctCount} ${t('learned')})`;
   $('homeBar').style.width = `${p}%`;
 
   const progLabel = t('progLabel');
@@ -369,13 +386,20 @@ function startSession(mode){
     const modeKey = mode === 'lastCorrect' ? 'menuCorrectTitle' : 'menuIncorrectTitle';
     title = `${t(modeKey)} (${list.length})`;
   }
-  else { list = QUESTIONS.slice(); title = t('learnTitle'); }
+  else {
+    const prog = getProgress();
+    const qIds = new Set(QUESTIONS.map(q => q.id));
+    list = QUESTIONS.filter(q => !(prog[q.id] && prog[q.id].lastResult === 'correct') && qIds.has(q.id));
+    title = t('learnTitle');
+  }
 
   if(!list.length){
     if (mode === 'favorites') {
       showToast(t('noFavorites') || 'No favorite questions yet.');
     } else if (mode === 'lastCorrect' || mode === 'lastIncorrect') {
       showToast(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
+    } else if (mode === 'learn') {
+      showToast(t('allLearnedToast') || 'Поздравляем! Все вопросы изучены. Теперь рекомендуем пройти экзамен.');
     } else {
       showToast(t('noMistakes'));
     }
@@ -563,6 +587,31 @@ function updateBookmarkVisual() {
   }
 }
 
+function formatRemainingCount(count) {
+  if (lang === 'ru') {
+    return `Осталось ${count} ${getQuestionsWord(count)}`;
+  }
+  if (lang === 'uk') {
+    return `Залишилося ${count} ${getQuestionsWord(count)}`;
+  }
+  if (lang === 'pl') {
+    return `Pozostało ${count} ${getQuestionsWord(count)}`;
+  }
+  if (lang === 'de') {
+    return `Noch ${count} Fragen`;
+  }
+  if (lang === 'es') {
+    return `${count} preguntas restantes`;
+  }
+  if (lang === 'it') {
+    return `${count} domande rimanenti`;
+  }
+  if (lang === 'tr') {
+    return `${count} kalan soru`;
+  }
+  return `${count} remaining`;
+}
+
 function renderQuestion(){
   const q = session.list[session.index];
   updateBookmarkVisual();
@@ -600,7 +649,11 @@ function renderQuestion(){
   selected = new Set();
   session.answered = false;
   session.questionStart = Date.now();
-  $('counter').textContent = `${t('question')} ${session.index + 1} ${t('of')} ${session.list.length}`;
+  if (session.mode === 'learn') {
+    $('counter').textContent = formatRemainingCount(session.list.length - session.index);
+  } else {
+    $('counter').textContent = `${t('question')} ${session.index + 1} ${t('of')} ${session.list.length}`;
+  }
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
   $('quizBar').style.width = `${pct(session.index, session.list.length)}%`;
   const meta = [q.id ? `${t('question')} ${q.id}` : '', q.category || '', q.class || ''].filter(Boolean).join(' · ');
@@ -789,6 +842,34 @@ function nextQuestion(){
       
       const modeKey = session.mode === 'lastCorrect' ? 'menuCorrectTitle' : 'menuIncorrectTitle';
       $('modeTitle').textContent = `${t(modeKey)} (${session.list.length})`;
+      renderQuestion();
+      return;
+    }
+  }
+
+  if (session.mode === 'learn') {
+    const q = session.list[session.index];
+    const prog = getProgress();
+    const card = prog[q.id];
+    const isCorrect = card && card.lastResult === 'correct';
+
+    if (isCorrect) {
+      session.list.splice(session.index, 1);
+      
+      if (session.list.length === 0) {
+        showToast(t('allLearnedToast') || 'Поздравляем! Все вопросы изучены. Теперь рекомендуем пройти экзамен.');
+        session = null;
+        show('mainMenu');
+        updateHome();
+        updateActiveTab('home');
+        updateFavoritesBadge();
+        return;
+      }
+      
+      if (session.index >= session.list.length) {
+        session.index = session.list.length - 1;
+      }
+      
       renderQuestion();
       return;
     }
