@@ -43,3 +43,29 @@
 
 - Работа над интерфейсом ведется поэтапно.
 - После завершения каждого этапа (например, рефакторинг экрана) необходимо останавливаться, демонстрировать diff-код пользователю и фиксировать коммитом перед переходом к следующей задаче.
+
+---
+
+## 📝 Хронология и текущее состояние разработки (Июль 2026)
+
+Для новых сессий AI-ассистентов: текущая архитектура и выполненные работы:
+
+### 1. Поддержка GA4 (Google Analytics 4)
+- **Файл**: [app.js](file:///Users/salenkodimitry/.gemini/antigravity/scratch/code95-trainer/app.js)
+- **Реализация**: Настроен `gtag.js` с хранением Measurement ID (`G-78SW1YDT85`) в переменной конфигурации. Все вызовы `Analytics.track(...)` проксируются в GA4 с кастомными параметрами (`language`, `mode`, `is_correct`, `time_spent`, `app_version`).
+- **События**: `app_open`, `language_selected`, `test_started`, `question_answered`, `test_finished`, `test_abandoned`, `pwa_installed`.
+
+### 2. Динамический прогресс и Избранное
+- **Файлы**: [app.js](file:///Users/salenkodimitry/.gemini/antigravity/scratch/code95-trainer/app.js), [index.html](file:///Users/salenkodimitry/.gemini/antigravity/scratch/code95-trainer/index.html)
+- **Хранилище**: `driver95_progress` в `localStorage` хранит состояние каждого вопроса (`correct`, `incorrect`, `lastResult`, `favorite`, `lastSeen`).
+- **Избранное**: Синхронизировано через функцию `getFavoriteQuestionsForCurrentLanguage()`. Старый ключ `driver95_favorites` мигрирует один раз и удаляется.
+- **Интерфейс**: В меню добавлены карточки «Правильные ответы» ($M$) и «Ошибки» ($N$, заменяет старые «Неправильные ответы»). Вопросы перемещаются между категориями динамически.
+
+### 3. Навигация и UI
+- **Стрелки**: Кнопка `←` в левом верхнем углу используется исключительно для выхода в меню. Для переключения вопросов внутри режимов добавлены шевроны `‹` и `›` в правой части шапки.
+- **Уведомления**: Системные `alert()` заменены на плавные неблокирующие уведомления (тосты) с классом `.toast` (разметка в `index.html`, стили в `style.css`).
+
+### 4. Генератор видео: Driver95 Content-Studio
+- **Папка**: `/Users/salenkodimitry/.gemini/antigravity/scratch/driver95-content-studio`
+- **Технологии**: Проект инициализирован на базе **Remotion** (видео на React). Готов к разработке рендеринга вертикальных видео (Shorts/Reels) 1080×1920 из JSON-базы вопросов.
+- **Команды запуска**: `npm run dev` (превью) и `npx remotion render` (сборка mp4 в `output/`).
