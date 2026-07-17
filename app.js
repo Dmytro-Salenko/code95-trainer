@@ -186,7 +186,7 @@ const I18N = {
     remaining: 'залишилося', learned: 'вивчено',
     allLearnedToast: 'Вітаємо! Всі питання вивчені. Тепер рекомендуємо пройти іспит.'
   }
-
+};
 
 const $ = (id) => document.getElementById(id);
 let lang = localStorage.getItem('driver95_lang') || null;
