@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/login
+Disallow: /api/
+Disallow: /analytics.db
+
+Sitemap: https://driver95.eu/sitemap.xml

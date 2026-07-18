@@ -1,23 +1,56 @@
 {
-  "name": "Driver95",
+  "id": "https://driver95.eu/",
+  "name": "Driver95 — Code 95 Trainer",
   "short_name": "Driver95",
-  "start_url": "./index.html",
+  "description": "Бесплатный офлайн-тренажёр Code 95 на 8 языках. 298 официальных вопросов. Без регистрации.",
+  "lang": "de",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#060b13",
   "theme_color": "#060b13",
+  "categories": ["education", "utilities"],
   "icons": [
     {
       "src": "assets/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "assets/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Driver95 main screen"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start Exam",
+      "url": "/",
+      "description": "Start a Code 95 exam simulation"
     }
   ]
 }

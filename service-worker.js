@@ -1,4 +1,4 @@
-const CACHE_NAME = 'driver95-cache-v16';
+const CACHE_NAME = 'driver95-cache-v17';
 const ASSETS = [
   './',
   './index.html',
@@ -7,6 +7,9 @@ const ASSETS = [
   './data.js',
   './analytics.js',
   './manifest.json',
+  './robots.txt',
+  './sitemap.xml',
+  './favicon.ico',
   './assets/logo-light.png',
   './assets/logo-dark.png',
   './assets/icon-192.png',

@@ -273,8 +273,34 @@ app.get('/api/admin/stats', requireAuth, (req, res) => {
   });
 });
 
-// Serve frontend static assets
-app.use(express.static(path.join(__dirname)));
+// ─── SEO: explicit routes with correct Content-Type ─────────────────────────
+app.get('/robots.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(__dirname, 'favicon.ico'));
+});
+
+// ─── Serve frontend static assets ────────────────────────────────────────────
+app.use(express.static(path.join(__dirname), {
+  setHeaders: (res, filePath) => {
+    // Tell crawlers not to index admin pages
+    if (filePath.includes('admin') || filePath.includes('admin-login')) {
+      res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    }
+    // Cache static assets aggressively (not HTML)
+    if (!filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }
+}));
 
 // Fallback to index.html for SPA routes (if any)
 app.get('*', (req, res) => {

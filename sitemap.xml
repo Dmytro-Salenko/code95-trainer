@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://driver95.eu/</loc>
+    <lastmod>2026-07-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <!-- Multilingual SPA: all 8 languages served from the same URL -->
+    <xhtml:link rel="alternate" hreflang="de" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://driver95.eu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://driver95.eu/"/>
+  </url>
+</urlset>
