@@ -1,6 +1,6 @@
 # Driver95 Analytics — Документация v2.1
 
-> Последнее обновление: 2026-07-19 · Коммит `5ba1b8b`  
+> Последнее обновление: 2026-07-19 · Коммит `(pending)`  
 > Прошла финальный аудит перед публикацией.
 
 ---
@@ -193,31 +193,36 @@ Analytics.disableDebug()  // → перезагрузить страницу →
 
 ## GA4: Что регистрировать
 
-### ✧ Custom Dimensions (текстовые параметры)
+### ✧ Custom Dimensions (5 текстовых параметров)
 
 | Название в GA4 | Параметр события | Область | Примечание |
 |---|---|---|---|
 | App Mode | `mode` | Event | 7 значений |
 | Answer Correct | `is_correct` | Event | `"true"` / `"false"` |
 | Question ID | `question_id` | Event | ⚠️ ~300 значений сейчас — приемлемо; пересмотреть при базе >500 |
-| Question Category | `category` | Event | Если категории добавлены в data.js |
+| Question Category | `category` | Event | Если категории заполнены в data.js |
+| App Version | `app_version` | Event | Передаётся в каждом событии (base payload). Также задан как User Property при инициализации GA4, что позволяет сегментировать пользователей по версии в любом отчёте. |
 
-### ✦ Custom Metrics (числовые параметры для AVG/SUM)
+> `app_version` имеет низкую кардинальность (одно значение на релиз, сейчас `0.3.0`) — безопасно регистрировать как Custom Dimension.
+
+### ✦ Custom Metrics (9 числовых параметров для AVG/SUM)
 
 | Название в GA4 | Параметр события | Единица |
 |---|---|---|
 | Correct Answers | `correct_count` | Штуки |
 | Incorrect Answers | `incorrect_count` | Штуки |
 | Score Percent | `score_pct` | Процент |
-| Duration (sec) | `duration_sec` | Секунды |
+| Test Duration (sec) | `duration_sec` | Секунды |
 | Answer Time (ms) | `answer_time_ms` | Миллисекунды |
 | Questions Seen | `questions_seen` | Штуки |
 | Elapsed Seconds | `elapsed_sec` | Секунды |
 | Learned Count | `learned_count` | Штуки |
 | Favorite Count | `favorite_count` | Штуки |
-| Incorrect Count | `incorrect_count` | Штуки |
 
-### ✗ НЕ регистрировать как Custom Dimension
+> **Лимит GA4:** 50 Custom Dimensions + 50 Custom Metrics на Property.  
+> Мы используем 5 Dimensions и 9 Metrics — запаса достаточно.
+
+### ✗ НЕ регистрировать как Custom Dimension или Metric
 
 | Параметр | Причина |
 |---|---|
@@ -228,8 +233,7 @@ Analytics.disableDebug()  // → перезагрузить страницу →
 | `question_database_version` | Внутренняя версия; регистрировать нет смысла |
 | `total_questions` | Константа (298) — бесполезно как Dimension |
 | `position` | Число 1–40; полезна только как Metric для AVG |
-| `app_version` | Регистрируется как User Property — достаточно |
-| `device_type` | Регистрируется как User Property |
+| `device_type` | GA4 автоматически собирает Device Category из User Agent — дублирование |
 
 ---
 
@@ -247,6 +251,7 @@ Analytics.disableDebug()  // → перезагрузить страницу →
 | Answer Correct | Событие | `is_correct` |
 | Question ID | Событие | `question_id` |
 | Question Category | Событие | `category` |
+| App Version | Событие | `app_version` |
 
 ---
 
@@ -254,8 +259,6 @@ Analytics.disableDebug()  // → перезагрузить страницу →
 
 **GA4 → Администрирование → Пользовательские определения → Пользовательские метрики**
 
-| Название | Параметр события | Единица измерения |
-|---|---|---|
 | Correct Answers | `correct_count` | Стандартное (число) |
 | Incorrect Answers | `incorrect_count` | Стандартное |
 | Score Percent | `score_pct` | Стандартное |
@@ -265,10 +268,9 @@ Analytics.disableDebug()  // → перезагрузить страницу →
 | Elapsed Seconds | `elapsed_sec` | Стандартное |
 | Learned Count | `learned_count` | Стандартное |
 | Favorite Count | `favorite_count` | Стандартное |
-| Incorrect Count (progress) | `incorrect_count` | Стандартное |
 
 > **Лимит GA4:** 50 Custom Dimensions + 50 Custom Metrics на Property.  
-> Мы используем 4 Dimensions и 10 Metrics — запаса достаточно.
+> Мы используем 5 Dimensions и 9 Metrics — запаса достаточно.
 
 ---
 

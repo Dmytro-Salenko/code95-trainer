@@ -133,10 +133,11 @@
     'firebase_event_origin','firebase_screen','firebase_screen_class',
     'firebase_screen_id','firebase_previous_class','firebase_previous_id',
     'firebase_previous_screen','ep.','epn.',
-    'event_name', // we dispatch this via gtag('event', name) — no need to repeat
-    'timestamp',  // GA4 adds its own timestamp — our ISO string is redundant
-    'anonymous_user_id', // user identity handled via user_id config, not event param
-    'question_database_version' // internal; not a GA4 Dimension we register
+    'event_name',               // dispatched via gtag('event', name) — no need to repeat
+    'timestamp',                // GA4 adds its own timestamp — our ISO string is redundant
+    'anonymous_user_id',        // user identity handled via user_id config, not event param
+    'question_database_version',// internal; not a registered GA4 Dimension
+    'device_type'               // GA4 collects Device Category automatically from UA string
   ]);
 
   function _sendToGA4(eventName, params) {
