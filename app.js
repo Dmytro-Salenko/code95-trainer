@@ -197,7 +197,13 @@ let state = null;
 let session = null;
 let selected = new Set();
 
-const Analytics = window.Analytics || { track: () => {} };
+const Analytics = window.Analytics || {
+  track: () => {}, testStarted: () => {}, testFinished: () => {},
+  testAbandoned: () => {}, questionViewed: () => {}, answerSelected: () => {},
+  questionPassed: () => {}, questionFailed: () => {}, favoriteAdded: () => {},
+  favoriteRemoved: () => {}, learningProgress: () => {},
+  maybeTrackDailyProgress: () => {}, generateSessionId: () => Math.random().toString(36).slice(2)
+};
 
 function storageKey(){ return `${BASE_STORAGE_KEY}_${lang}`; }
 function t(key){ return I18N[lang][key]; }
@@ -211,15 +217,13 @@ function saveState(){ localStorage.setItem(storageKey(), JSON.stringify(state));
 function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
 function trackAbandoned() {
   if (!session) return;
-  const duration = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
-  Analytics.track('test_abandoned', {
-    test_session_id: session.sessionId,
-    language: lang,
-    mode: session.mode,
-    question_index: session.index,
-    total_questions: session.list.length,
-    correct_answers: session.good,
-    duration_seconds: duration
+  const elapsed = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
+  Analytics.testAbandoned({
+    session_id:       session.sessionId,
+    mode:             session.mode,
+    language:         lang,
+    current_question: session.index,
+    elapsed_time_sec: elapsed
   });
   session = null;
 }
@@ -405,7 +409,7 @@ function startSession(mode){
     }
     return;
   }
-  const sessionId = Analytics._generateUUID();
+  const sessionId = Analytics.generateSessionId();
   session = {
     mode,
     title,
@@ -424,10 +428,10 @@ function startSession(mode){
   $('modeTitle').textContent = title;
   show('quiz');
   renderQuestion();
-  Analytics.track('test_started', {
-    test_session_id: session.sessionId,
-    language: lang,
-    mode: session.mode,
+  Analytics.testStarted({
+    session_id:      session.sessionId,
+    mode:            session.mode,
+    language:        lang,
     total_questions: session.list.length
   });
 }
@@ -616,22 +620,24 @@ function renderQuestion(){
   const q = session.list[session.index];
   updateBookmarkVisual();
 
-  // Trigger milestones
+  // question_view — every question rendered
+  Analytics.questionViewed({
+    session_id:  session.sessionId,
+    question_id: q.id,
+    language:    lang,
+    category:    q.category || null,
+    mode:        session.mode,
+    position:    session.index + 1
+  });
+
+  // Milestone breadcrumbs (keep for funnel analysis)
   if (session && session.index === 4 && !session.q5ReachedTracked) {
     session.q5ReachedTracked = true;
-    Analytics.track('question_5_reached', {
-      test_session_id: session.sessionId,
-      language: lang,
-      mode: session.mode
-    });
+    Analytics.track('question_5_reached', { session_id: session.sessionId, language: lang, mode: session.mode });
   }
   if (session && session.index === 9 && !session.q10ReachedTracked) {
     session.q10ReachedTracked = true;
-    Analytics.track('question_10_reached', {
-      test_session_id: session.sessionId,
-      language: lang,
-      mode: session.mode
-    });
+    Analytics.track('question_10_reached', { session_id: session.sessionId, language: lang, mode: session.mode });
   }
 
   // Control Favorites Navigation controls
@@ -738,29 +744,26 @@ function finishAnswer(){
     $('feedback').textContent = `${t('wrong')} ${correctText}${q.explanation ? ' — ' + cleanText(q.explanation) : ''}`;
   }
 
-  const duration = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
-  Analytics.track('question_answered', {
-    test_session_id: session.sessionId,
-    language: lang,
-    mode: session.mode,
-    question_index: session.index + 1,
-    total_questions: session.list.length,
-    correct_answers: session.good,
-    duration_seconds: duration,
-    question_id: q.id,
-    selected_answer: [...selected],
-    correct_answer: correctIndexes,
-    is_correct: isCorrect,
-    time_spent: timeSpent
+  // answer_selected — primary per-question event
+  Analytics.answerSelected({
+    session_id:     session.sessionId,
+    question_id:    q.id,
+    correct:        isCorrect,
+    answer_time_ms: timeSpent * 1000,   // timeSpent is in seconds; convert to ms
+    language:       lang,
+    mode:           session.mode
   });
+
+  // question_passed / question_failed — separate events for funnel funnels
+  if (isCorrect) {
+    Analytics.questionPassed({ session_id: session.sessionId, question_id: q.id, language: lang, mode: session.mode });
+  } else {
+    Analytics.questionFailed({ session_id: session.sessionId, question_id: q.id, language: lang, mode: session.mode });
+  }
 
   if (session && !session.firstAnsweredTracked) {
     session.firstAnsweredTracked = true;
-    Analytics.track('first_question_answered', {
-      test_session_id: session.sessionId,
-      language: lang,
-      mode: session.mode
-    });
+    Analytics.track('first_question_answered', { session_id: session.sessionId, language: lang, mode: session.mode });
   }
 
   $('score').textContent = `✓ ${session.good} ✕ ${session.bad}`;
@@ -803,14 +806,21 @@ function showResult(){
       });
     }
 
-    Analytics.track('test_finished', {
-      test_session_id: session.sessionId,
-      language: lang,
-      mode: session.mode,
-      total_questions: session.list.length,
-      correct_answers: session.good,
-      duration_seconds: duration
+    const total   = session.list.length;
+    const correct = session.good;
+    const pct     = total > 0 ? Math.round((correct / total) * 100) : 0;
+    Analytics.testFinished({
+      session_id:      session.sessionId,
+      mode:            session.mode,
+      language:        lang,
+      total_questions: total,
+      correct:         correct,
+      incorrect:       session.bad,
+      percent:         pct,
+      duration_sec:    duration
     });
+    // Snapshot learning progress after every completed session
+    Analytics.maybeTrackDailyProgress(lang, QUESTIONS.length);
     session = null;
   }
 }
@@ -966,6 +976,7 @@ $('bookmarkBtn').onclick = () => {
     prog[q.id].favorite = false;
     saveProgress(prog);
     updateFavoritesBadge();
+    Analytics.favoriteRemoved({ question_id: q.id, language: lang });
 
     if (session.mode === 'favorites') {
       // Remove from active session questions list
@@ -998,6 +1009,7 @@ $('bookmarkBtn').onclick = () => {
     saveProgress(prog);
     updateBookmarkVisual();
     updateFavoritesBadge();
+    Analytics.favoriteAdded({ question_id: q.id, language: lang });
   }
 };
 
@@ -1069,6 +1081,8 @@ window.addEventListener('pagehide', () => {
 
 // Track App Open
 Analytics.track('app_open', { language: lang || onboardingLang });
+// Daily learning progress snapshot (fires at most once per day)
+Analytics.maybeTrackDailyProgress(lang || onboardingLang, QUESTIONS.length);
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
