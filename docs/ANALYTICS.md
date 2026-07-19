@@ -1,178 +1,172 @@
-# Driver95 Analytics — Документация v2.0
+# Driver95 Analytics — Документация v2.1
 
-> Последнее обновление: 2026-07-19 · Коммит `0c973c0`
+> Последнее обновление: 2026-07-19 · Коммит `5ba1b8b`  
+> Прошла финальный аудит перед публикацией.
 
 ---
 
 ## Архитектура
 
 ```
-analytics.js   ← единственный модуль аналитики
+analytics.js   ← единственный модуль аналитики (IIFE, window.Analytics)
     │
-    └── window.Analytics (public API)
-            │
-            ├── testStarted()       \
-            ├── testFinished()       |
-            ├── testAbandoned()      |
-            ├── questionViewed()     |  Named helpers
-            ├── answerSelected()     |  (preferred)
-            ├── questionPassed()     |
-            ├── questionFailed()     |
-            ├── favoriteAdded()      |
-            ├── favoriteRemoved()    |
-            ├── learningProgress()  /
-            │
-            ├── track()             ← legacy shim (backward compat)
-            ├── generateSessionId() ← UUID generator
-            └── maybeTrackDailyProgress()
+    ├── GA4 transport     → gtag('event', name, params)   ← фильтрованные параметры
+    ├── Local queue       → localStorage                  ← полный payload
+    └── Backend (опц.)   → POST /api/analytics            ← полный payload
+
+Правило: app.js вызывает только Analytics.*
+Никакой прямой работы с gtag / localStorage / fetch вне analytics.js.
 ```
 
-**Правило:** app.js вызывает только `Analytics.*`. Никакой прямой работы с `gtag`, `localStorage`, `fetch` внутри app.js.
+**Как заменить GA4 на свой backend:** изменить только функцию `_sendToGA4()` в `analytics.js`. Код `app.js` менять не нужно.
+
+---
+
+## Smoke Test (DevTools)
+
+```javascript
+// 1. Запустить все события с тестовыми данными:
+Analytics.smokeTest()
+
+// 2. Проверить локальную очередь:
+JSON.parse(localStorage.getItem('driver95_analytics_events'))
+
+// 3. Включить GA4 DebugView (временно, без правки кода):
+Analytics.enableDebug()   // → перезагрузить страницу → проверить GA4 DebugView
+Analytics.disableDebug()  // → перезагрузить страницу → выключить
+```
+
+> **Важно:** `enableDebug()` использует `sessionStorage` — флаг автоматически сбрасывается при закрытии вкладки. В production-код не попадает.
 
 ---
 
 ## События (Event Inventory)
 
 ### 1. `app_open`
-Открытие приложения.
+Запуск приложения.
 
-| Параметр | Тип | Описание |
+| Параметр в GA4 | Тип | Описание |
 |---|---|---|
-| `language` | string | Текущий язык интерфейса |
-| `anonymous_user_id` | string | Постоянный UUID пользователя |
+| `language` | string | Язык интерфейса |
+| `app_version` | string | Версия приложения |
 | `device_type` | string | `mobile` / `tablet` / `desktop` |
-| `app_version` | string | `0.3.0` |
 
 ---
 
 ### 2. `test_started`
 Старт любой сессии (Learn, Exam, Mistakes, Favorites, Random).
 
-| Параметр | Тип | Описание |
+| Параметр в GA4 | Тип | Описание |
 |---|---|---|
-| `session_id` | string | UUID сессии |
 | `mode` | string | `learn`, `exam`, `mistakes`, `random`, `favorites`, `lastCorrect`, `lastIncorrect` |
 | `language` | string | Язык |
 | `total_questions` | number | Кол-во вопросов в сессии |
+
+> `session_id` **не передаётся в GA4** (высокая кардинальность — уникальный UUID на каждую сессию). Хранится в локальной очереди.
 
 ---
 
 ### 3. `test_finished`
 Завершение сессии (пользователь дошёл до экрана результатов).
 
-| Параметр | Тип | Описание |
+| Параметр в GA4 | Тип | Описание |
 |---|---|---|
-| `session_id` | string | |
 | `mode` | string | |
 | `language` | string | |
 | `total_questions` | number | |
-| `correct` | number | Правильных ответов |
-| `incorrect` | number | Неправильных |
-| `percent` | number | Процент правильных (0–100) |
-| `duration_sec` | number | Длительность сессии в секундах |
+| `correct_count` | number | ✦ Custom Metric |
+| `incorrect_count` | number | ✦ Custom Metric |
+| `score_pct` | number | ✦ Custom Metric (0–100) |
+| `duration_sec` | number | ✦ Custom Metric |
 
 ---
 
 ### 4. `test_abandoned`
-Выход из сессии до её завершения (кнопка «Назад» или закрытие вкладки).
+Выход из сессии до завершения (кнопка «Назад» или закрытие вкладки).
 
-| Параметр | Тип | Описание |
+| Параметр в GA4 | Тип | Описание |
 |---|---|---|
-| `session_id` | string | |
 | `mode` | string | |
 | `language` | string | |
-| `current_question` | number | Индекс вопроса (0-based) в момент выхода |
-| `elapsed_time_sec` | number | Прошедшее время |
+| `questions_seen` | number | ✦ Custom Metric — сколько вопросов успел увидеть |
+| `elapsed_sec` | number | ✦ Custom Metric — время до выхода |
 
 ---
 
 ### 5. `question_view`
-Просмотр вопроса — срабатывает при каждом рендере вопроса.
+Просмотр вопроса — срабатывает при каждом рендере.
 
-| Параметр | Тип | Описание |
+| Параметр в GA4 | Тип | Описание |
 |---|---|---|
-| `session_id` | string | |
-| `question_id` | number | ID вопроса |
+| `question_id` | number | ✧ Custom Dimension — см. примечание о кардинальности |
 | `language` | string | |
-| `category` | string\|null | Категория вопроса (если задана в data.js) |
+| `category` | string\|null | ✧ Custom Dimension |
 | `mode` | string | |
-| `position` | number | Позиция в сессии (1-based) |
+| `position` | number | ✦ Custom Metric (позиция в сессии) |
 
 ---
 
 ### 6. `answer_selected`
-Ответ пользователя на вопрос. Основное событие воронки обучения.
+Ответ пользователя. Основное событие воронки обучения.
 
-| Параметр | Тип | Описание |
+| Параметр в GA4 | Тип | Описание |
 |---|---|---|
-| `session_id` | string | |
-| `question_id` | number | |
-| `correct` | boolean | Правильный ли ответ |
-| `answer_time_ms` | number | Время обдумывания в миллисекундах |
+| `question_id` | number | ✧ Custom Dimension |
+| `is_correct` | string | ✧ Custom Dimension — `"true"` / `"false"` |
+| `answer_time_ms` | number | ✦ Custom Metric — время обдумывания в мс |
 | `language` | string | |
 | `mode` | string | |
+
+> `is_correct` передаётся как **строка** (`"true"` / `"false"`), не boolean. GA4 Custom Dimensions — текстовые; boolean-значения должны быть строками для корректной работы фильтров.
 
 ---
 
 ### 7. `question_passed`
-Правильный ответ. Удобный фильтр для построения retention-отчётов.
+Правильный ответ. Удобный фильтр для funnel/retention-анализа.
 
-| Параметр | Тип | Описание |
-|---|---|---|
-| `session_id` | string | |
-| `question_id` | number | |
-| `language` | string | |
-| `mode` | string | |
+| Параметр в GA4 | Тип |
+|---|---|
+| `question_id` | number |
+| `language` | string |
+| `mode` | string |
 
 ---
 
 ### 8. `question_failed`
-Неправильный ответ. Позволяет найти самые трудные вопросы.
+Неправильный ответ. Позволяет найти топ трудных вопросов.
 
-| Параметр | Тип | Описание |
-|---|---|---|
-| `session_id` | string | |
-| `question_id` | number | |
-| `language` | string | |
-| `mode` | string | |
-
----
-
-### 9. `favorite_added`
-Пользователь добавил вопрос в избранное.
-
-| Параметр | Тип | Описание |
-|---|---|---|
-| `question_id` | number | |
-| `language` | string | |
+| Параметр в GA4 | Тип |
+|---|---|
+| `question_id` | number |
+| `language` | string |
+| `mode` | string |
 
 ---
 
-### 10. `favorite_removed`
-Пользователь убрал вопрос из избранного.
+### 9. `favorite_added` / `favorite_removed`
+Работа с избранным. Сигнал вовлечённости.
 
-| Параметр | Тип | Описание |
-|---|---|---|
-| `question_id` | number | |
-| `language` | string | |
-
----
-
-### 11. `learning_progress`
-Агрегированный снимок прогресса пользователя.  
-Отправляется **не чаще 1 раза в сутки** и **после каждого завершения теста**.
-
-| Параметр | Тип | Описание |
-|---|---|---|
-| `learned_questions` | number | Вопросов с `lastResult = 'correct'` |
-| `favorite_questions` | number | Вопросов в избранном |
-| `incorrect_questions` | number | Вопросов с `lastResult = 'incorrect'` |
-| `language` | string | |
-| `total_questions` | number | Всего вопросов в базе (298) |
+| Параметр в GA4 | Тип |
+|---|---|
+| `question_id` | number |
+| `language` | string |
 
 ---
 
-### 12. Прочие события (legacy)
+### 10. `learning_progress`
+Агрегированный снимок прогресса. Не чаще 1 раза в сутки + после каждого `test_finished`.
+
+| Параметр в GA4 | Тип | Описание |
+|---|---|---|
+| `learned_count` | number | ✦ Custom Metric |
+| `favorite_count` | number | ✦ Custom Metric |
+| `incorrect_count` | number | ✦ Custom Metric |
+| `language` | string | |
+| `total_questions` | number | Всего вопросов в базе |
+
+---
+
+### 11. Прочие события (legacy)
 
 | Событие | Когда |
 |---|---|
@@ -181,13 +175,13 @@ analytics.js   ← единственный модуль аналитики
 | `question_10_reached` | Пользователь дошёл до 10-го вопроса |
 | `result_screen_viewed` | Экран результатов открыт |
 | `language_selected` | Смена языка |
-| `pwa_installed` | Приложение установлено как PWA |
+| `pwa_installed` | Установка PWA |
 
 ---
 
 ## Пользовательские свойства (User Properties)
 
-Устанавливаются один раз при инициализации GA4. Доступны во всех отчётах.
+Устанавливаются один раз при инициализации GA4.
 
 | Свойство | Значение |
 |---|---|
@@ -197,100 +191,152 @@ analytics.js   ← единственный модуль аналитики
 
 ---
 
-## Custom Dimensions — что нужно добавить вручную в GA4
+## GA4: Что регистрировать
 
-Зайди: **GA4 → Администрирование → Пользовательские определения → Пользовательские параметры**
+### ✧ Custom Dimensions (текстовые параметры)
 
-| Название | Область | Параметр события | Тип |
+| Название в GA4 | Параметр события | Область | Примечание |
 |---|---|---|---|
-| Session ID | Событие | `session_id` | Текст |
-| Question ID | Событие | `question_id` | Число |
-| App Mode | Событие | `mode` | Текст |
-| Answer Correct | Событие | `correct` | Булево |
-| Answer Time (ms) | Событие | `answer_time_ms` | Число |
-| Test Duration (sec) | Событие | `duration_sec` | Число |
-| Test Percent | Событие | `percent` | Число |
-| Learned Questions | Событие | `learned_questions` | Число |
-| Favorite Questions | Событие | `favorite_questions` | Число |
-| Incorrect Questions | Событие | `incorrect_questions` | Число |
-| Question Position | Событие | `position` | Число |
-| Question Category | Событие | `category` | Текст |
+| App Mode | `mode` | Event | 7 значений |
+| Answer Correct | `is_correct` | Event | `"true"` / `"false"` |
+| Question ID | `question_id` | Event | ⚠️ ~300 значений сейчас — приемлемо; пересмотреть при базе >500 |
+| Question Category | `category` | Event | Если категории добавлены в data.js |
 
-> **Важно:** GA4 позволяет до 50 пользовательских параметров (25 числовых + 25 текстовых). Регистрируй только те, по которым планируешь строить отчёты.
+### ✦ Custom Metrics (числовые параметры для AVG/SUM)
+
+| Название в GA4 | Параметр события | Единица |
+|---|---|---|
+| Correct Answers | `correct_count` | Штуки |
+| Incorrect Answers | `incorrect_count` | Штуки |
+| Score Percent | `score_pct` | Процент |
+| Duration (sec) | `duration_sec` | Секунды |
+| Answer Time (ms) | `answer_time_ms` | Миллисекунды |
+| Questions Seen | `questions_seen` | Штуки |
+| Elapsed Seconds | `elapsed_sec` | Секунды |
+| Learned Count | `learned_count` | Штуки |
+| Favorite Count | `favorite_count` | Штуки |
+| Incorrect Count | `incorrect_count` | Штуки |
+
+### ✗ НЕ регистрировать как Custom Dimension
+
+| Параметр | Причина |
+|---|---|
+| `session_id` | UUID — неограниченная кардинальность, разрушает GA4 отчёты |
+| `anonymous_user_id` | UUID — аналогично; передаётся через `user_id` в gtag config, не как event param |
+| `timestamp` | GA4 ставит своё время; наша строка — дублирование |
+| `event_name` | Уже является именем события в gtag |
+| `question_database_version` | Внутренняя версия; регистрировать нет смысла |
+| `total_questions` | Константа (298) — бесполезно как Dimension |
+| `position` | Число 1–40; полезна только как Metric для AVG |
+| `app_version` | Регистрируется как User Property — достаточно |
+| `device_type` | Регистрируется как User Property |
 
 ---
 
-## Рекомендуемые отчёты и Explorations в GA4
+## Пошаговая настройка GA4
 
-### 1. Воронка обучения (Funnel Exploration)
+### Шаг 1. Custom Dimensions
+
+**GA4 → Администрирование → Пользовательские определения → Пользовательские параметры**
+
+Нажать «Создать пользовательский параметр» для каждой строки:
+
+| Название | Область | Параметр события |
+|---|---|---|
+| App Mode | Событие | `mode` |
+| Answer Correct | Событие | `is_correct` |
+| Question ID | Событие | `question_id` |
+| Question Category | Событие | `category` |
+
+---
+
+### Шаг 2. Custom Metrics
+
+**GA4 → Администрирование → Пользовательские определения → Пользовательские метрики**
+
+| Название | Параметр события | Единица измерения |
+|---|---|---|
+| Correct Answers | `correct_count` | Стандартное (число) |
+| Incorrect Answers | `incorrect_count` | Стандартное |
+| Score Percent | `score_pct` | Стандартное |
+| Test Duration (sec) | `duration_sec` | Стандартное |
+| Answer Time (ms) | `answer_time_ms` | Стандартное |
+| Questions Seen | `questions_seen` | Стандартное |
+| Elapsed Seconds | `elapsed_sec` | Стандартное |
+| Learned Count | `learned_count` | Стандартное |
+| Favorite Count | `favorite_count` | Стандартное |
+| Incorrect Count (progress) | `incorrect_count` | Стандартное |
+
+> **Лимит GA4:** 50 Custom Dimensions + 50 Custom Metrics на Property.  
+> Мы используем 4 Dimensions и 10 Metrics — запаса достаточно.
+
+---
+
+### Шаг 3. Отправить Sitemap в GSC
+
+**Google Search Console → Sitemaps → Добавить sitemap:**  
+`https://driver95.eu/sitemap.xml`
+
+---
+
+### Шаг 4. Проверить DebugView
+
+```javascript
+// В DevTools Console на driver95.eu:
+Analytics.enableDebug()
+// Перезагрузить страницу
+// GA4 → DebugView — события появятся через ~10 секунд
+Analytics.disableDebug()  // после проверки
 ```
-test_started → question_view → answer_selected → test_finished
+
+---
+
+### Шаг 5. Настроить Explorations
+
+#### 5.1 Воронка обучения
+`GA4 → Исследования → Воронка`
 ```
-Показывает: на каком вопросе пользователи уходят. Сегментируй по `mode`.
+Шаг 1: test_started
+Шаг 2: question_view
+Шаг 3: answer_selected
+Шаг 4: test_finished
+```
+Разбить по `mode`.
 
----
+#### 5.2 Топ трудных вопросов
+`GA4 → Исследования → Free Form`
+- Строки: Custom Dimension `Question ID`
+- Метрика: `event_count` для `question_failed`
+- Сортировка: убывание
 
-### 2. Топ трудных вопросов (Free Form Exploration)
-- Строки: `question_id`
-- Метрики: `event_count` для `question_failed`
-- Фильтр: event_name = `question_failed`
-- Сортировка: по убыванию
+#### 5.3 Среднее время ответа
+- Метрика: Custom Metric `Answer Time (ms)` → среднее
+- Разбивка по `language` и `mode`
 
-→ Находишь конкретные вопросы с максимальным % ошибок.
-
----
-
-### 3. Среднее время обдумывания (Free Form)
-- Метрика: среднее `answer_time_ms` (через Custom Metric)
-- Сегмент по `mode` и `language`
-
-→ Видишь, какие языковые аудитории читают медленнее.
-
----
-
-### 4. Completion Rate по режимам (Free Form)
-- Метрика: `event_count` (test_finished) / `event_count` (test_started) × 100
+#### 5.4 Completion Rate
+- `event_count(test_finished)` / `event_count(test_started)` × 100
 - Строки: `mode`
 
-→ Какие режимы пользователи бросают чаще.
+#### 5.5 Вовлечённые пользователи
+- Аудитория: пользователи с хотя бы 1 `favorite_added`
+- Сравнить Retention с остальными
 
 ---
 
-### 5. Рост базы (Segment Overlap)
-- Сегмент A: пользователи с `learning_progress` `learned_questions` < 50
-- Сегмент B: пользователи с `learned_questions` > 150
+## Идентификация пользователей
 
-→ Оцениваешь прогресс когорт.
-
----
-
-### 6. Избранное как сигнал вовлечённости
-- Пользователи с хотя бы 1 `favorite_added` — сегмент «вовлечённые»
-- Сравни retention с пользователями без избранного
-
----
-
-## Идентификация пользователя
-
-- `anonymous_user_id` — постоянный UUID, хранится в `localStorage('driver95_anon_user_id')`
-- Передаётся в `user_id` при инициализации GA4
-- Не связан с email / именем — полная анонимность
-- Одинаков между сессиями на одном браузере
+- `anonymous_user_id` — постоянный UUID в `localStorage('driver95_anon_user_id')`
+- Передаётся как `user_id` в `gtag('config', ...)` — используется GA4 для cross-session identity
+- **Не передаётся как event-параметр в GA4** — только в локальную очередь и собственный backend
+- Не содержит email, имени или других персональных данных — GDPR-safe
 
 ---
 
 ## Производительность
 
-- Все события отправляются через `setTimeout(0)` — никогда не блокируют UI
-- Ошибки GA4 глотаются молча (try/catch на всех уровнях)
-- Локальная очередь в `localStorage` (`driver95_analytics_events`, cap 500)
-- `keepalive: true` на fetch к backend — событие отправляется даже при закрытии страницы
-- `debug_mode` отключён в production
-
----
-
-## Как заменить GA4 на свой backend
-
-1. В `analytics.js` найди функцию `_sendToGA4()` — замени тело на `fetch(myEndpoint)`.
-2. Установи `CONFIG.useBackend = true` и `CONFIG.backendEndpoint = '/api/analytics'`.
-3. app.js менять не нужно.
+- Все события: `setTimeout(0)` — не блокируют UI
+- Ошибки: `try/catch` на всех уровнях — аналитика не может сломать приложение
+- GA4 transport: null-фильтрация + удаление зарезервированных/избыточных полей
+- `keepalive: true` на backend fetch — событие отправляется даже при закрытии страницы
+- Локальная очередь: cap 500 событий (~50 KB)
+- `debug_mode`: только через `sessionStorage` — никогда не попадает в production-код
