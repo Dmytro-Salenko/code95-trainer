@@ -3,4 +3,7 @@ node_modules/
 analytics.db
 .DS_Store
 Driver95-v0.2/
+Driver95-v0.2 2/
 Driver95-v0.2.zip
+driver95_multilang_raw.json
+*.log
