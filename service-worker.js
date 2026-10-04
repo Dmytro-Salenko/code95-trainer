@@ -1,4 +1,4 @@
-const CACHE_NAME = 'driver95-cache-v18';
+const CACHE_NAME = 'driver95-cache-v19';
 const ASSETS = [
   './',
   './index.html',
@@ -45,7 +45,7 @@ self.addEventListener('fetch', event => {
     fetch(event.request)
       .then(response => {
         // If network response is valid, clone and save it to cache
-        if (response && response.status === 200) {
+        if (response && (response.status === 200 || response.type === 'opaque')) {
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then(cache => {
             cache.put(event.request, responseToCache);

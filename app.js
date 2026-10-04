@@ -683,11 +683,18 @@ function renderQuestion(){
   $('nextBtn').classList.add('hidden');
   $('checkBtn').classList.add('hidden');
   $('multiHint').classList.add('hidden');
-  $('questionImage').classList.add('hidden');
+  const imgEl = $('questionImage');
+  imgEl.classList.add('hidden');
+  imgEl.src = '';
+  imgEl.onerror = null;
 
-  if(q.image){
-    $('questionImage').src = q.image;
-    $('questionImage').classList.remove('hidden');
+  if(q.image && q.image.trim()){
+    imgEl.alt = cleanText(q.question) || t('question');
+    imgEl.onerror = () => {
+      imgEl.classList.add('hidden');
+    };
+    imgEl.src = q.image.trim();
+    imgEl.classList.remove('hidden');
   }
 
   const isMulti = (q.correctIndexes || []).length > 1;
