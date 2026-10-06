@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.3.1] — 2026-10-06
+
+### Added
+- Local storage for all 10 question images in `images/questions/`
+- Restored 4 previously missing question images across all 7 languages:
+  - 157833 (belt pretension measuring device)
+  - 157790 (Limited Quantities / LQ mark)
+  - 157941 (LQ aviation mark with Y)
+  - 157865 (Center of Gravity mark)
+- Added all 10 question images to Service Worker offline cache (`ASSETS`)
+
+### Changed
+- Replaced all external image URLs in `data.js` with local paths across all 7 language databases (70 references)
+- Service Worker cache bumped to `v20`
+- Question image rendering in `app.js`: reset src before rendering, add onerror handler, add meaningful alt text
+
+---
+
 ## [0.3.0] — 2026-07-19
 
 ### Added

@@ -67,6 +67,8 @@ driver95/
 ├── server.js           # Express-сервер (деплой)
 ├── robots.txt          # SEO-директивы
 ├── sitemap.xml         # Sitemap для Google
+├── images/             # Локальные иллюстрации к вопросам
+│   └── questions/
 ├── assets/             # Иконки приложения
 │   ├── icon-192.png
 │   ├── icon-512.png
@@ -132,7 +134,7 @@ SESSION_SECRET=your_secret_key
 
 ## Версия
 
-**v0.3.0** — стабильная production-версия.
+**v0.3.1** — стабильная production-версия.
 
 ---
 

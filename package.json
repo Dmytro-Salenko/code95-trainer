@@ -1,6 +1,6 @@
 {
   "name": "driver95-trainer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Free Code 95 exam trainer PWA — 8 languages, offline-ready, no registration",
   "main": "server.js",
   "scripts": {

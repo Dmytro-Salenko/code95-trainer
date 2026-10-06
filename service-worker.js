@@ -1,4 +1,4 @@
-const CACHE_NAME = 'driver95-cache-v19';
+const CACHE_NAME = 'driver95-cache-v20';
 const ASSETS = [
   './',
   './index.html',
@@ -10,7 +10,17 @@ const ASSETS = [
   './assets/logo-light.png',
   './assets/logo-dark.png',
   './assets/icon-192.png',
-  './assets/icon-512.png'
+  './assets/icon-512.png',
+  './images/questions/157516.jpg',
+  './images/questions/157723.jpg',
+  './images/questions/157734.jpg',
+  './images/questions/157747.jpg',
+  './images/questions/157770.jpg',
+  './images/questions/157790.svg',
+  './images/questions/157801.jpg',
+  './images/questions/157833.png',
+  './images/questions/157865.svg',
+  './images/questions/157941.svg'
 ];
 
 // Install Event
