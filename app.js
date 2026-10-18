@@ -24,7 +24,11 @@ const I18N = {
     resultSummary: 'Du hast {good} von {total} richtig beantwortet.', resultAgain: 'Wiederholen', resultHome: 'Hauptmenü',
     remaining: 'noch lernen', learned: 'gelernt',
     allLearnedToast: 'Herzlichen Glückwunsch! Alle Fragen sind gelernt. Wir empfehlen jetzt die Prüfung zu machen.',
-    shareTitle: 'Kennst du jemanden, der Code 95 ablegen muss?', shareDesc: 'Wenn dir Driver95 geholfen hat, empfiehl die App deinen Kollegen. Vielleicht hilft sie auch ihnen.', shareBtnShare: 'App teilen', shareBtnDismiss: 'Nicht jetzt', shareCopied: 'Link kopiert!', shareError: 'Link konnte nicht kopiert werden'
+    shareTitle: 'Kennst du jemanden, der Code 95 ablegen muss?', shareDesc: 'Wenn dir Driver95 geholfen hat, empfiehl die App deinen Kollegen. Vielleicht hilft sie auch ihnen.', shareBtnShare: 'App teilen', shareBtnDismiss: 'Nicht jetzt', shareCopied: 'Link kopiert!', shareError: 'Link konnte nicht kopiert werden',
+    navHome: 'Training', navStats: 'Statistik', navFavorites: 'Favoriten', navSettings: 'Einstellungen',
+    themeLight: 'Hell', themeDark: 'Dunkel',
+    onboardingTitle: 'Sprache wählen', onboardingContinue: 'Weiter',
+    resetDone: 'Fortschritt zurückgesetzt', timeLabel: 'Zeit', bestLabel: 'Bestergebnis'
   },
   en: {
     code: 'EN', subtitle: 'Code 95 Trainer', continue: 'Learn', exam: 'Exam (40 questions)',
@@ -48,7 +52,11 @@ const I18N = {
     resultSummary: 'You answered {good} of {total} correctly.', resultAgain: 'Repeat', resultHome: 'Main Menu',
     remaining: 'remaining', learned: 'learned',
     allLearnedToast: 'Congratulations! All questions are learned. We now recommend taking the exam.',
-    shareTitle: 'Know someone who needs to pass Code 95?', shareDesc: 'If Driver95 helped you, share it with your colleagues. It might help them too.', shareBtnShare: 'Share app', shareBtnDismiss: 'Not now', shareCopied: 'Link copied!', shareError: 'Failed to copy link'
+    shareTitle: 'Know someone who needs to pass Code 95?', shareDesc: 'If Driver95 helped you, share it with your colleagues. It might help them too.', shareBtnShare: 'Share app', shareBtnDismiss: 'Not now', shareCopied: 'Link copied!', shareError: 'Failed to copy link',
+    navHome: 'Training', navStats: 'Statistics', navFavorites: 'Favorites', navSettings: 'Settings',
+    themeLight: 'Light', themeDark: 'Dark',
+    onboardingTitle: 'Choose language', onboardingContinue: 'Continue',
+    resetDone: 'Progress reset', timeLabel: 'Time', bestLabel: 'Best result'
   },
   ru: {
     code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Обучение', exam: 'Экзамен (40 вопросов)',
@@ -72,7 +80,11 @@ const I18N = {
     resultSummary: 'Вы ответили правильно на {good} из {total}.', resultAgain: 'Повторить', resultHome: 'Главное меню',
     remaining: 'осталось', learned: 'изучено',
     allLearnedToast: 'Поздравляем! Все вопросы изучены. Теперь рекомендуем пройти экзамен.',
-    shareTitle: 'Есть знакомые, которым скоро сдавать Code 95?', shareDesc: 'Если Driver95 помог вам — поделитесь приложением с коллегами. Возможно, оно поможет и им.', shareBtnShare: 'Поделиться', shareBtnDismiss: 'Не сейчас', shareCopied: 'Ссылка скопирована!', shareError: 'Не удалось скопировать ссылку'
+    shareTitle: 'Есть знакомые, которым скоро сдавать Code 95?', shareDesc: 'Если Driver95 помог вам — поделитесь приложением с коллегами. Возможно, оно поможет и им.', shareBtnShare: 'Поделиться', shareBtnDismiss: 'Не сейчас', shareCopied: 'Ссылка скопирована!', shareError: 'Не удалось скопировать ссылку',
+    navHome: 'Тренировка', navStats: 'Статистика', navFavorites: 'Избранное', navSettings: 'Настройки',
+    themeLight: 'Светлая', themeDark: 'Тёмная',
+    onboardingTitle: 'Выберите язык', onboardingContinue: 'Продолжить',
+    resetDone: 'Прогресс сброшен', timeLabel: 'Время', bestLabel: 'Лучший результат'
   },
   es: {
     code: 'ES', subtitle: 'Entrenador de Code 95', continue: 'Estudiar', exam: 'Examen (40 preguntas)',
@@ -96,7 +108,11 @@ const I18N = {
     resultSummary: 'Respondiste correctamente {good} de {total}.', resultAgain: 'Repetir', resultHome: 'Menú principal',
     remaining: 'restantes', learned: 'aprendido',
     allLearnedToast: '¡Felicidades! Todas las preguntas han sido aprendidas. Ahora le recomendamos realizar el examen.',
-    shareTitle: '¿Conoces a alguien que necesite el Code 95?', shareDesc: 'Si Driver95 te ayudó, comparte la app con tus colegas. Quizás les ayude también.', shareBtnShare: 'Compartir', shareBtnDismiss: 'Ahora no', shareCopied: '¡Enlace copiado!', shareError: 'No se pudo copiar el enlace'
+    shareTitle: '¿Conoces a alguien que necesite el Code 95?', shareDesc: 'Si Driver95 te ayudó, comparte la app con tus colegas. Quizás les ayude también.', shareBtnShare: 'Compartir', shareBtnDismiss: 'Ahora no', shareCopied: '¡Enlace copiado!', shareError: 'No se pudo copiar el enlace',
+    navHome: 'Entrenamiento', navStats: 'Estadísticas', navFavorites: 'Favoritos', navSettings: 'Ajustes',
+    themeLight: 'Claro', themeDark: 'Oscuro',
+    onboardingTitle: 'Elige idioma', onboardingContinue: 'Continuar',
+    resetDone: 'Progreso restablecido', timeLabel: 'Tiempo', bestLabel: 'Mejor resultado'
   },
   pl: {
     code: 'PL', subtitle: 'Trener Code 95', continue: 'Nauka', exam: 'Egzamin (40 pytań)',
@@ -120,7 +136,11 @@ const I18N = {
     resultSummary: 'Odpowiedziałeś poprawnie na {good} z {total}.', resultAgain: 'Powtórz', resultHome: 'Menu główne',
     remaining: 'pozostało', learned: 'nauczone',
     allLearnedToast: 'Gratulacje! Wszystkie pytania zostały nauczone. Zalecamy teraz przystąpienie do egzaminu.',
-    shareTitle: 'Znasz kogoś, kto musi zdać Code 95?', shareDesc: 'Jeśli Driver95 ci pomógł, podziel się aplikacją ze współpracownikami. Może im też pomoże.', shareBtnShare: 'Udostępnij', shareBtnDismiss: 'Nie teraz', shareCopied: 'Link skopiowany!', shareError: 'Nie udało się skopiować linku'
+    shareTitle: 'Znasz kogoś, kto musi zdać Code 95?', shareDesc: 'Jeśli Driver95 ci pomógł, podziel się aplikacją ze współpracownikami. Może im też pomoże.', shareBtnShare: 'Udostępnij', shareBtnDismiss: 'Nie teraz', shareCopied: 'Link skopiowany!', shareError: 'Nie udało się skopiować linku',
+    navHome: 'Trening', navStats: 'Statystyki', navFavorites: 'Ulubione', navSettings: 'Ustawienia',
+    themeLight: 'Jasny', themeDark: 'Ciemny',
+    onboardingTitle: 'Wybierz język', onboardingContinue: 'Dalej',
+    resetDone: 'Postęp zresetowany', timeLabel: 'Czas', bestLabel: 'Najlepszy wynik'
   },
   it: {
     code: 'IT', subtitle: 'Simulatore Code 95', continue: 'Studio', exam: 'Esame (40 domande)',
@@ -144,7 +164,11 @@ const I18N = {
     resultSummary: 'Hai risposto correttamente a {good} su {total}.', resultAgain: 'Ripeti', resultHome: 'Menu principale',
     remaining: 'rimanenti', learned: 'imparate',
     allLearnedToast: 'Congratulazioni! Tutte le domande sono state imparate. Ti consigliamo ora di fare l\'esame.',
-    shareTitle: 'Conosci qualcuno che deve sostenere il Code 95?', shareDesc: 'Se Driver95 ti è stato utile, condividilo con i colleghi. Potrebbe essere utile anche a loro.', shareBtnShare: 'Condividi', shareBtnDismiss: 'Non ora', shareCopied: 'Link copiato!', shareError: 'Impossibile copiare il link'
+    shareTitle: 'Conosci qualcuno che deve sostenere il Code 95?', shareDesc: 'Se Driver95 ti è stato utile, condividilo con i colleghi. Potrebbe essere utile anche a loro.', shareBtnShare: 'Condividi', shareBtnDismiss: 'Non ora', shareCopied: 'Link copiato!', shareError: 'Impossibile copiare il link',
+    navHome: 'Allenamento', navStats: 'Statistiche', navFavorites: 'Preferiti', navSettings: 'Impostazioni',
+    themeLight: 'Chiaro', themeDark: 'Scuro',
+    onboardingTitle: 'Scegli la lingua', onboardingContinue: 'Continua',
+    resetDone: 'Progressi ripristinati', timeLabel: 'Tempo', bestLabel: 'Miglior risultato'
   },
   tr: {
     code: 'TR', subtitle: 'Code 95 Eğitmeni', continue: 'Çalışma', exam: 'Sınav (40 soru)',
@@ -168,13 +192,17 @@ const I18N = {
     resultSummary: '{total} sorudan {good} tanesini doğru cevapladınız.', resultAgain: 'Tekrar et', resultHome: 'Ana menü',
     remaining: 'kalan', learned: 'öğrenilen',
     allLearnedToast: 'Tebrikler! Tüm sorular öğrenildi. Şimdi sınavı geçmenizi öneririz.',
-    shareTitle: 'Code 95\'e hazırlanan biri var mı çevrenizde?', shareDesc: 'Driver95 size yardımcı olduysa uygulamayı meslektaşlarınızla paylaşın. Belki onlara da yardımcı olur.', shareBtnShare: 'Paylaş', shareBtnDismiss: 'Şimdi değil', shareCopied: 'Bağlantı kopyalandı!', shareError: 'Bağlantı kopyalanamadı'
+    shareTitle: 'Code 95\'e hazırlanan biri var mı çevrenizde?', shareDesc: 'Driver95 size yardımcı olduysa uygulamayı meslektaşlarınızla paylaşın. Belki onlara da yardımcı olur.', shareBtnShare: 'Paylaş', shareBtnDismiss: 'Şimdi değil', shareCopied: 'Bağlantı kopyalandı!', shareError: 'Bağlantı kopyalanamadı',
+    navHome: 'Çalışma', navStats: 'İstatistikler', navFavorites: 'Favoriler', navSettings: 'Ayarlar',
+    themeLight: 'Açık', themeDark: 'Koyu',
+    onboardingTitle: 'Dil seçin', onboardingContinue: 'Devam et',
+    resetDone: 'İlerleme sıfırlandı', timeLabel: 'Süre', bestLabel: 'En iyi sonuç'
   },
   uk: {
     code: 'UK', subtitle: 'Тренажер Code 95', continue: 'Навчання', exam: 'Іспит (40 питань)',
     mistakes: 'Повторити помилки', random: 'Випадкові питання', reset: 'Скинути прогрес',
     learnTitle: 'Навчання', examTitle: 'Іспит (40 питань)', mistakesTitle: 'Повторення помилок', randomTitle: 'Випадкові питання',
-    correctWord: 'правильно', question: 'Вопрос', of: 'з', check: 'Перевірити', next: 'Далі →',
+    correctWord: 'правильно', question: 'Питання', of: 'з', check: 'Перевірити', next: 'Далі →',
     noMistakes: 'Помилок поки немає.', resetConfirm: 'Скинути прогрес?',
     favoritesTitle: 'Обране', noFavorites: 'У вас поки немає обраних питань. Натискайте ❤️ під час проходження тестів, щоб зберегти складні питання.', emptyFavorites: 'У вас більше немає обраних питань.',
     menuCorrectTitle: 'Правильні відповіді', menuCorrectSub: 'Питання, вирішені вірно в останній раз', menuIncorrectTitle: 'Неправильні відповіді', menuIncorrectSub: 'Питання, вирішені невірно в останній раз', emptySection: 'Вітаємо! Зараз у цьому розділі більше немає питань.',
@@ -182,17 +210,21 @@ const I18N = {
     multi: 'Можливі кілька правильних відповідей.',
     welcomeTitle: 'Ласкаво просимо!', welcomeSubtitle: 'Продовжуйте навчання та вдосконалюйте свої знання.',
     menuRandomTitle: 'Випадкові питання', menuRandomSub: 'Тренування у випадковому порядку',
-    menuTopicsTitle: 'Тренировка', menuTopicsSub: 'Навчання, іспит та прогрес',
+    menuTopicsTitle: 'Тренування', menuTopicsSub: 'Навчання, іспит та прогрес',
     menuMistakesTitle: 'Помилки', menuMistakesSub: 'Ваші неправильні відповіді',
     menuStatsTitle: 'Статистика', menuStatsSub: 'Ваші результати та прогрес',
     statsTitle: 'Статистика', statsTotalLabel: 'Всього питань', statsSeenLabel: 'Переглянуто питань', statsProgressLabel: 'Прогрес', statsMistakesLabel: 'Помилки',
-    settingsTitle: 'Настройки', settingsLangTitle: 'Мова', settingsThemeTitle: 'Тема', settingsReset: 'Скинути прогрес',
+    settingsTitle: 'Налаштування', settingsLangTitle: 'Мова', settingsThemeTitle: 'Тема', settingsReset: 'Скинути прогрес',
     progLabel: 'Прогрес:',
     resultTitle: 'Результат', resultOf: 'з {total}', resultSuccess: 'Відмінно!', resultFail: 'Потрібно повторити',
     resultSummary: 'Ви відповіли правильно на {good} з {total}.', resultAgain: 'Повторити', resultHome: 'Головне меню',
     remaining: 'залишилося', learned: 'вивчено',
     allLearnedToast: 'Вітаємо! Всі питання вивчені. Тепер рекомендуємо пройти іспит.',
-    shareTitle: 'Є знайомі, яким незабаром складати Code 95?', shareDesc: 'Якщо Driver95 допоміг вам — поділіться застосунком з колегами. Можливо, він допоможе і їм.', shareBtnShare: 'Поділитися', shareBtnDismiss: 'Не зараз', shareCopied: 'Посилання скопійовано!', shareError: 'Не вдалося скопіювати посилання'
+    shareTitle: 'Є знайомі, яким незабаром складати Code 95?', shareDesc: 'Якщо Driver95 допоміг вам — поділіться застосунком з колегами. Можливо, він допоможе і їм.', shareBtnShare: 'Поділитися', shareBtnDismiss: 'Не зараз', shareCopied: 'Посилання скопійовано!', shareError: 'Не вдалося скопіювати посилання',
+    navHome: 'Тренування', navStats: 'Статистика', navFavorites: 'Обране', navSettings: 'Налаштування',
+    themeLight: 'Світла', themeDark: 'Темна',
+    onboardingTitle: 'Оберіть мову', onboardingContinue: 'Продовжити',
+    resetDone: 'Прогрес скинуто', timeLabel: 'Час', bestLabel: 'Кращий результат'
   }
 };
 
@@ -264,6 +296,20 @@ function updateOnboardingButtons(){
   });
   $('themeLight')?.classList.toggle('selected', theme === 'light');
   $('themeDark')?.classList.toggle('selected', theme === 'dark');
+
+  // Localize onboarding screen dynamically according to selected language
+  const obI18n = I18N[onboardingLang] || I18N.de;
+  if ($('onboardingTitle')) $('onboardingTitle').textContent = obI18n.onboardingTitle;
+  if ($('themeTitle')) $('themeTitle').textContent = obI18n.settingsThemeTitle;
+  if ($('onboardingContinue')) $('onboardingContinue').textContent = obI18n.onboardingContinue;
+  if ($('themeLight')) {
+    const lbl = $('themeLight').querySelector('span:last-child');
+    if (lbl) lbl.textContent = obI18n.themeLight;
+  }
+  if ($('themeDark')) {
+    const lbl = $('themeDark').querySelector('span:last-child');
+    if (lbl) lbl.textContent = obI18n.themeDark;
+  }
 }
 function pct(n,d){ return d ? Math.round((n/d)*100) : 0; }
 function sameSet(a,b){ return a.size === b.length && b.every(x => a.has(x)); }
@@ -286,68 +332,118 @@ function selectLanguage(nextLang){
 
 function applyLanguage(){
   document.documentElement.lang = lang;
-  $('langBadge').textContent = t('code');
-  $('homeSubtitle').textContent = t('subtitle');
-  $('continueBtn').textContent = t('continue');
-  $('examBtn').textContent = t('exam');
-  $('mistakesBtn').textContent = t('mistakes');
-  $('randomBtn').textContent = t('random');
-  $('resetBtn').textContent = t('reset');
-  $('checkBtn').textContent = t('check');
-  $('nextBtn').textContent = t('next');
-  $('welcomeTitle').textContent = t('welcomeTitle');
-  $('welcomeSubtitle').textContent = t('welcomeSubtitle');
-  $('menuRandomTitle').textContent = t('menuRandomTitle');
-  $('menuRandomSub').textContent = t('menuRandomSub');
-  $('menuTopicsTitle').textContent = t('menuTopicsTitle');
-  $('menuTopicsSub').textContent = t('menuTopicsSub');
-  $('menuMistakesTitle').textContent = t('menuMistakesTitle');
-  $('menuMistakesSub').textContent = t('menuMistakesSub');
-  $('menuStatsTitle').textContent = t('menuStatsTitle');
-  $('menuStatsSub').textContent = t('menuStatsSub');
+  if ($('langBadge')) $('langBadge').textContent = t('code');
+  if ($('homeSubtitle')) $('homeSubtitle').textContent = t('subtitle');
+  if ($('continueBtn')) $('continueBtn').textContent = t('continue');
+  if ($('examBtn')) $('examBtn').textContent = t('exam');
+  if ($('mistakesBtn')) $('mistakesBtn').textContent = t('mistakes');
+  if ($('randomBtn')) $('randomBtn').textContent = t('random');
+  if ($('resetBtn')) $('resetBtn').textContent = t('reset');
+  if ($('checkBtn')) $('checkBtn').textContent = t('check');
+  if ($('nextBtn')) $('nextBtn').textContent = t('next');
+  if ($('welcomeTitle')) $('welcomeTitle').textContent = t('welcomeTitle');
+  if ($('welcomeSubtitle')) $('welcomeSubtitle').textContent = t('welcomeSubtitle');
+  if ($('menuRandomTitle')) $('menuRandomTitle').textContent = t('menuRandomTitle');
+  if ($('menuRandomSub')) $('menuRandomSub').textContent = t('menuRandomSub');
+  if ($('menuTopicsTitle')) $('menuTopicsTitle').textContent = t('menuTopicsTitle');
+  if ($('menuTopicsSub')) $('menuTopicsSub').textContent = t('menuTopicsSub');
+  if ($('menuMistakesTitle')) $('menuMistakesTitle').textContent = t('menuMistakesTitle');
+  if ($('menuMistakesSub')) $('menuMistakesSub').textContent = t('menuMistakesSub');
+  if ($('menuStatsTitle')) $('menuStatsTitle').textContent = t('menuStatsTitle');
+  if ($('menuStatsSub')) $('menuStatsSub').textContent = t('menuStatsSub');
   if ($('menuCorrectAnswersTitle')) $('menuCorrectAnswersTitle').textContent = t('menuCorrectTitle');
   if ($('menuCorrectAnswersSub')) $('menuCorrectAnswersSub').textContent = t('menuCorrectSub');
   if ($('menuIncorrectAnswersTitle')) $('menuIncorrectAnswersTitle').textContent = t('menuIncorrectTitle');
   if ($('menuIncorrectAnswersSub')) $('menuIncorrectAnswersSub').textContent = t('menuIncorrectSub');
-  // Settings translation
+
+  // Bottom Nav items
+  document.querySelectorAll('.bottomNav .navTabHome small').forEach(el => el.textContent = t('navHome'));
+  document.querySelectorAll('.bottomNav .navTabStats small').forEach(el => el.textContent = t('navStats'));
+  document.querySelectorAll('.bottomNav .navTabFavorites small').forEach(el => el.textContent = t('navFavorites'));
+  document.querySelectorAll('.bottomNav .navTabSettings small').forEach(el => el.textContent = t('navSettings'));
+
+  // Stats screen labels
+  if ($('statsTitle')) $('statsTitle').textContent = t('statsTitle');
+  if ($('statsTotalLabel')) $('statsTotalLabel').textContent = t('statsTotalLabel');
+  if ($('statsSeenLabel')) $('statsSeenLabel').textContent = t('statsSeenLabel');
+  if ($('statsProgressLabel')) $('statsProgressLabel').textContent = t('statsProgressLabel');
+  if ($('statsMistakesLabel')) $('statsMistakesLabel').textContent = t('statsMistakesLabel');
+
+  // Settings screen
   if ($('settingsTitle')) $('settingsTitle').textContent = t('settingsTitle');
   if ($('settingsLangTitle')) $('settingsLangTitle').textContent = t('settingsLangTitle');
   if ($('settingsThemeTitle')) $('settingsThemeTitle').textContent = t('settingsThemeTitle');
+  if ($('settingsThemeLight')) {
+    const lbl = $('settingsThemeLight').querySelector('span:last-child');
+    if (lbl) lbl.textContent = t('themeLight');
+  }
+  if ($('settingsThemeDark')) {
+    const lbl = $('settingsThemeDark').querySelector('span:last-child');
+    if (lbl) lbl.textContent = t('themeDark');
+  }
   if ($('settingsResetBtn')) $('settingsResetBtn').textContent = t('settingsReset');
+
+  // Update active language selection in settings screen
+  ['de', 'en', 'ru', 'es', 'pl', 'it', 'tr', 'uk'].forEach(l => {
+    const el = $('settingsLang' + l.charAt(0).toUpperCase() + l.slice(1));
+    if (el) el.classList.toggle('selected', lang === l);
+  });
+  $('settingsThemeLight')?.classList.toggle('selected', theme === 'light');
+  $('settingsThemeDark')?.classList.toggle('selected', theme === 'dark');
+
+  // Result screen labels
+  if ($('resultTimeLabel')) $('resultTimeLabel').textContent = t('timeLabel');
+  if ($('resultBestLabel')) $('resultBestLabel').textContent = t('bestLabel');
+  if ($('resultGoodLabel')) $('resultGoodLabel').textContent = t('correct');
+  if ($('resultBadLabel')) $('resultBadLabel').textContent = t('errors');
+  if ($('resultAgainBtn')) $('resultAgainBtn').textContent = t('resultAgain');
+  if ($('resultHomeBtn')) $('resultHomeBtn').textContent = t('resultHome');
+
+  // Share card in DOM if rendered
+  if ($('sharePromptTitle')) $('sharePromptTitle').textContent = t('shareTitle');
+  if ($('sharePromptDesc')) $('sharePromptDesc').textContent = t('shareDesc');
+  if ($('sharePromptShareBtn')) $('sharePromptShareBtn').textContent = t('shareBtnShare');
+  if ($('sharePromptDismissBtn')) $('sharePromptDismissBtn').textContent = t('shareBtnDismiss');
 }
 
 function getErrorsWord(count) {
   if (lang === 'ru') {
     const mod10 = count % 10;
     const mod100 = count % 100;
-    if (mod10 === 1 && mod100 !== 11) return 'ошибка';
-    if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return 'ошибки';
+    if (mod100 >= 11 && mod100 <= 14) return 'ошибок';
+    if (mod10 === 1) return 'ошибка';
+    if ([2, 3, 4].includes(mod10)) return 'ошибки';
     return 'ошибок';
   }
   if (lang === 'uk') {
     const mod10 = count % 10;
     const mod100 = count % 100;
-    if (mod10 === 1 && mod100 !== 11) return 'помилка';
-    if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return 'помилки';
+    if (mod100 >= 11 && mod100 <= 14) return 'помилок';
+    if (mod10 === 1) return 'помилка';
+    if ([2, 3, 4].includes(mod10)) return 'помилки';
     return 'помилок';
   }
   if (lang === 'pl') {
     const mod10 = count % 10;
     const mod100 = count % 100;
     if (count === 1) return 'błąd';
-    if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return 'błędy';
+    if (mod100 >= 11 && mod100 <= 14) return 'błędów';
+    if ([2, 3, 4].includes(mod10)) return 'błędy';
     return 'błędów';
   }
-  if (['en', 'es', 'it'].includes(lang)) {
-    if (count === 1) {
-      return lang === 'it' ? 'errore' : 'error';
-    }
-    return lang === 'es' ? 'errores' : (lang === 'it' ? 'errori' : 'errors');
+  if (lang === 'de') {
+    return 'Fehler';
+  }
+  if (lang === 'es') {
+    return count === 1 ? 'error' : 'errores';
+  }
+  if (lang === 'it') {
+    return count === 1 ? 'errore' : 'errori';
   }
   if (lang === 'tr') {
     return 'hata';
   }
-  return t('errors');
+  return count === 1 ? 'error' : 'errors';
 }
 
 function updateHome(){
@@ -395,7 +491,7 @@ function startSession(mode){
   else if(mode === 'random') { list = shuffle(QUESTIONS); title = t('randomTitle'); }
   else if(mode === 'favorites') {
     list = getFavoriteQuestionsForCurrentLanguage();
-    title = `${t('favoritesTitle') || 'Favorites'} (${list.length})`;
+    title = `${t('favoritesTitle')} (${list.length})`;
   }
   else if(mode === 'lastCorrect' || mode === 'lastIncorrect') {
     const prog = getProgress();
@@ -414,11 +510,11 @@ function startSession(mode){
 
   if(!list.length){
     if (mode === 'favorites') {
-      showToast(t('noFavorites') || 'No favorite questions yet.');
+      showToast(t('noFavorites'));
     } else if (mode === 'lastCorrect' || mode === 'lastIncorrect') {
-      showToast(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
+      showToast(t('emptySection'));
     } else if (mode === 'learn') {
-      showToast(t('allLearnedToast') || 'Поздравляем! Все вопросы изучены. Теперь рекомендуем пройти экзамен.');
+      showToast(t('allLearnedToast'));
     } else {
       showToast(t('noMistakes'));
     }
@@ -567,19 +663,21 @@ function updateHomeProgressCards() {
 }
 
 function getQuestionsWord(count) {
-  if (lang === 'ru' || lang === 'uk') {
+  if (lang === 'ru') {
     const lastDigit = count % 10;
     const lastTwoDigits = count % 100;
-    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
-      return lang === 'ru' ? 'вопросов' : 'питань';
-    }
-    if (lastDigit === 1) {
-      return lang === 'ru' ? 'вопрос' : 'питання';
-    }
-    if (lastDigit >= 2 && lastDigit <= 4) {
-      return lang === 'ru' ? 'вопроса' : 'питання';
-    }
-    return lang === 'ru' ? 'вопросов' : 'питань';
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'вопросов';
+    if (lastDigit === 1) return 'вопрос';
+    if (lastDigit >= 2 && lastDigit <= 4) return 'вопроса';
+    return 'вопросов';
+  }
+  if (lang === 'uk') {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'питань';
+    if (lastDigit === 1) return 'питання';
+    if (lastDigit >= 2 && lastDigit <= 4) return 'питання';
+    return 'питань';
   }
   if (lang === 'pl') {
     const lastDigit = count % 10;
@@ -589,7 +687,19 @@ function getQuestionsWord(count) {
     if (lastDigit >= 2 && lastDigit <= 4) return 'pytania';
     return 'pytań';
   }
-  return 'questions';
+  if (lang === 'de') {
+    return count === 1 ? 'Frage' : 'Fragen';
+  }
+  if (lang === 'es') {
+    return count === 1 ? 'pregunta' : 'preguntas';
+  }
+  if (lang === 'it') {
+    return count === 1 ? 'domanda' : 'domande';
+  }
+  if (lang === 'tr') {
+    return 'soru';
+  }
+  return count === 1 ? 'question' : 'questions';
 }
 
 function updateBookmarkVisual() {
@@ -608,7 +718,10 @@ function updateBookmarkVisual() {
 
 function formatRemainingCount(count) {
   if (lang === 'ru') {
-    return `Осталось ${count} ${getQuestionsWord(count)}`;
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+    const prefix = (lastDigit === 1 && lastTwoDigits !== 11) ? 'Остался' : 'Осталось';
+    return `${prefix} ${count} ${getQuestionsWord(count)}`;
   }
   if (lang === 'uk') {
     return `Залишилося ${count} ${getQuestionsWord(count)}`;
@@ -617,18 +730,18 @@ function formatRemainingCount(count) {
     return `Pozostało ${count} ${getQuestionsWord(count)}`;
   }
   if (lang === 'de') {
-    return `Noch ${count} Fragen`;
+    return `Noch ${count} ${getQuestionsWord(count)}`;
   }
   if (lang === 'es') {
-    return `${count} preguntas restantes`;
+    return count === 1 ? '1 pregunta restante' : `${count} preguntas restantes`;
   }
   if (lang === 'it') {
-    return `${count} domande rimanenti`;
+    return count === 1 ? '1 domanda rimanente' : `${count} domande rimanenti`;
   }
   if (lang === 'tr') {
     return `${count} kalan soru`;
   }
-  return `${count} remaining`;
+  return count === 1 ? '1 question remaining' : `${count} questions remaining`;
 }
 
 function renderQuestion(){
@@ -936,7 +1049,7 @@ function nextQuestion(){
       session.list.splice(session.index, 1);
       
       if (session.list.length === 0) {
-        showToast(t('emptySection') || 'Поздравляем! Сейчас в этом разделе больше нет вопросов.');
+        showToast(t('emptySection'));
         session = null;
         show('mainMenu');
         updateHome();
@@ -966,7 +1079,7 @@ function nextQuestion(){
       session.list.splice(session.index, 1);
       
       if (session.list.length === 0) {
-        showToast(t('allLearnedToast') || 'Поздравляем! Все вопросы изучены. Теперь рекомендуем пройти экзамен.');
+        showToast(t('allLearnedToast'));
         session = null;
         show('mainMenu');
         updateHome();
@@ -1045,10 +1158,15 @@ $('settingsResetBtn').onclick = () => {
   if (confirm(t('resetConfirm'))) {
     localStorage.removeItem(storageKey());
     localStorage.removeItem('driver95_progress');
+    localStorage.removeItem('driver95_share_dismissed');
+    sharePromptShownInCurrentSession = false;
+    shareActionHandled = false;
+    lastSharePromptMode = null;
     state = loadState();
     updateHome();
     show('mainMenu');
     updateActiveTab('home');
+    showToast(t('resetDone'));
   }
 };
 ['de', 'en', 'ru', 'es', 'pl', 'it', 'tr', 'uk'].forEach(l => {
@@ -1082,7 +1200,7 @@ $('bookmarkBtn').onclick = () => {
       session.list = session.list.filter(item => item.id !== q.id);
       
       if (session.list.length === 0) {
-        showToast(t('emptyFavorites') || 'У вас больше нет избранных вопросов.');
+        showToast(t('emptyFavorites'));
         session = null;
         show('mainMenu');
         updateHome();
@@ -1097,7 +1215,7 @@ $('bookmarkBtn').onclick = () => {
       }
       
       // Update header count title
-      $('modeTitle').textContent = `${t('favoritesTitle') || 'Favorites'} (${session.list.length})`;
+      $('modeTitle').textContent = `${t('favoritesTitle')} (${session.list.length})`;
       renderQuestion();
     } else {
       updateBookmarkVisual();
@@ -1233,6 +1351,7 @@ $('resetBtn').onclick = () => {
     state = loadState();
     updateHome();
     updateActiveTab('home');
+    showToast(t('resetDone'));
   }
 };
 
