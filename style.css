@@ -725,8 +725,8 @@ body.dark .toast {
 
 /* ── Share Prompt Card ─────────────────────────────────────────────────────── */
 .sharePromptCard {
-  margin-top: 16px;
-  padding: 20px;
+  margin: 14px 0 12px;
+  padding: 16px 18px;
   background: var(--card2);
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -740,22 +740,22 @@ body.dark .toast {
   transform: translateY(0);
 }
 .sharePromptIcon {
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 24px;
+  margin-bottom: 6px;
   line-height: 1;
 }
 .sharePromptTitle {
   font-size: 15px;
   font-weight: 800;
   color: var(--text);
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   line-height: 1.35;
 }
 .sharePromptDesc {
   font-size: 13px;
   color: var(--muted);
-  margin: 0 0 16px;
-  line-height: 1.45;
+  margin: 0 0 12px;
+  line-height: 1.4;
 }
 .sharePromptActions {
   display: grid;
@@ -763,10 +763,28 @@ body.dark .toast {
   gap: 10px;
 }
 .sharePromptActions .primary {
-  padding: 13px 10px;
+  padding: 11px 10px;
   font-size: 14px;
 }
 .sharePromptActions .secondaryBtn {
-  padding: 13px 10px;
+  padding: 11px 10px;
   font-size: 14px;
+}
+
+@media(max-width:760px){
+  .resultPhone .resultCircle { width: 130px; height: 130px; margin: 14px auto 10px; border-width: 10px; }
+  .resultPhone .resultCircle strong { font-size: 44px; }
+  .resultPhone h2 { font-size: 23px; margin: 6px 0 2px; }
+  .resultPhone .subtitle { margin: 0 0 12px; font-size: 13px; }
+  .resultPhone .resultTiles { margin: 10px 0; gap: 8px; }
+  .resultPhone .resultTile { padding: 10px 12px; gap: 10px; border-radius: 14px; }
+  .resultPhone .resultActions { margin-top: 8px; gap: 8px; }
+  .resultPhone .resultActions button { padding: 12px 10px; font-size: 15px; border-radius: 14px; }
+}
+@media(max-width:430px){
+  .sharePromptCard { padding: 12px 14px; margin: 10px 0 8px; border-radius: 16px; }
+  .sharePromptIcon { font-size: 22px; margin-bottom: 4px; }
+  .sharePromptTitle { font-size: 14px; }
+  .sharePromptDesc { font-size: 12px; margin: 0 0 10px; }
+  .sharePromptActions button { padding: 9px 8px; font-size: 13px; border-radius: 12px; }
 }

@@ -24,7 +24,7 @@ const I18N = {
     resultSummary: 'Du hast {good} von {total} richtig beantwortet.', resultAgain: 'Wiederholen', resultHome: 'Hauptmenü',
     remaining: 'noch lernen', learned: 'gelernt',
     allLearnedToast: 'Herzlichen Glückwunsch! Alle Fragen sind gelernt. Wir empfehlen jetzt die Prüfung zu machen.',
-    shareTitle: 'Kennst du jemanden, der Code 95 ablegen muss?', shareDesc: 'Wenn dir Driver95 geholfen hat, empfiehl die App deinen Kollegen. Vielleicht hilft sie auch ihnen.', shareBtnShare: 'App teilen', shareBtnDismiss: 'Nicht jetzt', shareCopied: 'Link kopiert!'
+    shareTitle: 'Kennst du jemanden, der Code 95 ablegen muss?', shareDesc: 'Wenn dir Driver95 geholfen hat, empfiehl die App deinen Kollegen. Vielleicht hilft sie auch ihnen.', shareBtnShare: 'App teilen', shareBtnDismiss: 'Nicht jetzt', shareCopied: 'Link kopiert!', shareError: 'Link konnte nicht kopiert werden'
   },
   en: {
     code: 'EN', subtitle: 'Code 95 Trainer', continue: 'Learn', exam: 'Exam (40 questions)',
@@ -48,7 +48,7 @@ const I18N = {
     resultSummary: 'You answered {good} of {total} correctly.', resultAgain: 'Repeat', resultHome: 'Main Menu',
     remaining: 'remaining', learned: 'learned',
     allLearnedToast: 'Congratulations! All questions are learned. We now recommend taking the exam.',
-    shareTitle: 'Know someone who needs to pass Code 95?', shareDesc: 'If Driver95 helped you, share it with your colleagues. It might help them too.', shareBtnShare: 'Share app', shareBtnDismiss: 'Not now', shareCopied: 'Link copied!'
+    shareTitle: 'Know someone who needs to pass Code 95?', shareDesc: 'If Driver95 helped you, share it with your colleagues. It might help them too.', shareBtnShare: 'Share app', shareBtnDismiss: 'Not now', shareCopied: 'Link copied!', shareError: 'Failed to copy link'
   },
   ru: {
     code: 'RU', subtitle: 'Тренажёр Code 95', continue: 'Обучение', exam: 'Экзамен (40 вопросов)',
@@ -72,7 +72,7 @@ const I18N = {
     resultSummary: 'Вы ответили правильно на {good} из {total}.', resultAgain: 'Повторить', resultHome: 'Главное меню',
     remaining: 'осталось', learned: 'изучено',
     allLearnedToast: 'Поздравляем! Все вопросы изучены. Теперь рекомендуем пройти экзамен.',
-    shareTitle: 'Есть знакомые, которым скоро сдавать Code 95?', shareDesc: 'Если Driver95 помог вам — поделитесь приложением с коллегами. Возможно, оно поможет и им.', shareBtnShare: 'Поделиться', shareBtnDismiss: 'Не сейчас', shareCopied: 'Ссылка скопирована!'
+    shareTitle: 'Есть знакомые, которым скоро сдавать Code 95?', shareDesc: 'Если Driver95 помог вам — поделитесь приложением с коллегами. Возможно, оно поможет и им.', shareBtnShare: 'Поделиться', shareBtnDismiss: 'Не сейчас', shareCopied: 'Ссылка скопирована!', shareError: 'Не удалось скопировать ссылку'
   },
   es: {
     code: 'ES', subtitle: 'Entrenador de Code 95', continue: 'Estudiar', exam: 'Examen (40 preguntas)',
@@ -96,7 +96,7 @@ const I18N = {
     resultSummary: 'Respondiste correctamente {good} de {total}.', resultAgain: 'Repetir', resultHome: 'Menú principal',
     remaining: 'restantes', learned: 'aprendido',
     allLearnedToast: '¡Felicidades! Todas las preguntas han sido aprendidas. Ahora le recomendamos realizar el examen.',
-    shareTitle: '¿Conoces a alguien que necesite el Code 95?', shareDesc: 'Si Driver95 te ayudó, comparte la app con tus colegas. Quizás les ayude también.', shareBtnShare: 'Compartir', shareBtnDismiss: 'Ahora no', shareCopied: '¡Enlace copiado!'
+    shareTitle: '¿Conoces a alguien que necesite el Code 95?', shareDesc: 'Si Driver95 te ayudó, comparte la app con tus colegas. Quizás les ayude también.', shareBtnShare: 'Compartir', shareBtnDismiss: 'Ahora no', shareCopied: '¡Enlace copiado!', shareError: 'No se pudo copiar el enlace'
   },
   pl: {
     code: 'PL', subtitle: 'Trener Code 95', continue: 'Nauka', exam: 'Egzamin (40 pytań)',
@@ -120,7 +120,7 @@ const I18N = {
     resultSummary: 'Odpowiedziałeś poprawnie na {good} z {total}.', resultAgain: 'Powtórz', resultHome: 'Menu główne',
     remaining: 'pozostało', learned: 'nauczone',
     allLearnedToast: 'Gratulacje! Wszystkie pytania zostały nauczone. Zalecamy teraz przystąpienie do egzaminu.',
-    shareTitle: 'Znasz kogoś, kto musi zdać Code 95?', shareDesc: 'Jeśli Driver95 ci pomógł, podziel się aplikacją ze współpracownikami. Może im też pomoże.', shareBtnShare: 'Udostępnij', shareBtnDismiss: 'Nie teraz', shareCopied: 'Link skopiowany!'
+    shareTitle: 'Znasz kogoś, kto musi zdać Code 95?', shareDesc: 'Jeśli Driver95 ci pomógł, podziel się aplikacją ze współpracownikami. Może im też pomoże.', shareBtnShare: 'Udostępnij', shareBtnDismiss: 'Nie teraz', shareCopied: 'Link skopiowany!', shareError: 'Nie udało się skopiować linku'
   },
   it: {
     code: 'IT', subtitle: 'Simulatore Code 95', continue: 'Studio', exam: 'Esame (40 domande)',
@@ -144,7 +144,7 @@ const I18N = {
     resultSummary: 'Hai risposto correttamente a {good} su {total}.', resultAgain: 'Ripeti', resultHome: 'Menu principale',
     remaining: 'rimanenti', learned: 'imparate',
     allLearnedToast: 'Congratulazioni! Tutte le domande sono state imparate. Ti consigliamo ora di fare l\'esame.',
-    shareTitle: 'Conosci qualcuno che deve sostenere il Code 95?', shareDesc: 'Se Driver95 ti è stato utile, condividilo con i colleghi. Potrebbe essere utile anche a loro.', shareBtnShare: 'Condividi', shareBtnDismiss: 'Non ora', shareCopied: 'Link copiato!'
+    shareTitle: 'Conosci qualcuno che deve sostenere il Code 95?', shareDesc: 'Se Driver95 ti è stato utile, condividilo con i colleghi. Potrebbe essere utile anche a loro.', shareBtnShare: 'Condividi', shareBtnDismiss: 'Non ora', shareCopied: 'Link copiato!', shareError: 'Impossibile copiare il link'
   },
   tr: {
     code: 'TR', subtitle: 'Code 95 Eğitmeni', continue: 'Çalışma', exam: 'Sınav (40 soru)',
@@ -168,7 +168,7 @@ const I18N = {
     resultSummary: '{total} sorudan {good} tanesini doğru cevapladınız.', resultAgain: 'Tekrar et', resultHome: 'Ana menü',
     remaining: 'kalan', learned: 'öğrenilen',
     allLearnedToast: 'Tebrikler! Tüm sorular öğrenildi. Şimdi sınavı geçmenizi öneririz.',
-    shareTitle: 'Code 95\'e hazırlanan biri var mı çevrenizde?', shareDesc: 'Driver95 size yardımcı olduysa uygulamayı meslektaşlarınızla paylaşın. Belki onlara da yardımcı olur.', shareBtnShare: 'Paylaş', shareBtnDismiss: 'Şimdi değil', shareCopied: 'Bağlantı kopyalandı!'
+    shareTitle: 'Code 95\'e hazırlanan biri var mı çevrenizde?', shareDesc: 'Driver95 size yardımcı olduysa uygulamayı meslektaşlarınızla paylaşın. Belki onlara da yardımcı olur.', shareBtnShare: 'Paylaş', shareBtnDismiss: 'Şimdi değil', shareCopied: 'Bağlantı kopyalandı!', shareError: 'Bağlantı kopyalanamadı'
   },
   uk: {
     code: 'UK', subtitle: 'Тренажер Code 95', continue: 'Навчання', exam: 'Іспит (40 питань)',
@@ -192,7 +192,7 @@ const I18N = {
     resultSummary: 'Ви відповіли правильно на {good} з {total}.', resultAgain: 'Повторити', resultHome: 'Головне меню',
     remaining: 'залишилося', learned: 'вивчено',
     allLearnedToast: 'Вітаємо! Всі питання вивчені. Тепер рекомендуємо пройти іспит.',
-    shareTitle: 'Є знайомі, яким незабаром складати Code 95?', shareDesc: 'Якщо Driver95 допоміг вам — поділіться застосунком з колегами. Можливо, він допоможе і їм.', shareBtnShare: 'Поділитися', shareBtnDismiss: 'Не зараз', shareCopied: 'Посилання скопійовано!'
+    shareTitle: 'Є знайомі, яким незабаром складати Code 95?', shareDesc: 'Якщо Driver95 допоміг вам — поділіться застосунком з колегами. Можливо, він допоможе і їм.', shareBtnShare: 'Поділитися', shareBtnDismiss: 'Не зараз', shareCopied: 'Посилання скопійовано!', shareError: 'Не вдалося скопіювати посилання'
   }
 };
 
@@ -809,6 +809,11 @@ function showResult(){
   $('resultBad').textContent = bad;
   $('resultAgainBtn').textContent = t('resultAgain');
   $('resultHomeBtn').textContent = t('resultHome');
+  const shareCard = $('sharePromptCard');
+  if (shareCard) {
+    shareCard.classList.remove('sharePromptVisible');
+    shareCard.classList.add('hidden');
+  }
   show('result');
   updateHome();
 
@@ -861,7 +866,7 @@ function _maybeShowSharePrompt(good, total) {
   // Already dismissed or acted upon
   if (localStorage.getItem('driver95_share_dismissed') === '1') return;
   // Only on successful sessions (≥80% correct)
-  if (total < 1 || good / total < 0.8) return;
+  if (total < 1 || good < Math.ceil(total * 0.8)) return;
   // Only after enough cumulative answers
   if (_countAnsweredQuestions() < SHARE_PROMPT_THRESHOLD) return;
 
@@ -883,17 +888,21 @@ function _showSharePrompt() {
   if (shareBtn)  shareBtn.textContent  = t('shareBtnShare');
   if (dismissBtn) dismissBtn.textContent = t('shareBtnDismiss');
 
-  // Reveal with animation (remove hidden, then trigger transition)
+  // Reveal share card
   card.classList.remove('hidden');
-  requestAnimationFrame(() => card.classList.add('sharePromptVisible'));
+  card.classList.add('sharePromptVisible');
 }
 
 function _hideSharePrompt() {
   const card = $('sharePromptCard');
   if (!card) return;
   card.classList.remove('sharePromptVisible');
-  // Wait for transition to finish before hiding
-  card.addEventListener('transitionend', () => card.classList.add('hidden'), { once: true });
+  const onEnd = () => {
+    card.classList.add('hidden');
+    card.removeEventListener('transitionend', onEnd);
+  };
+  card.addEventListener('transitionend', onEnd, { once: true });
+  setTimeout(onEnd, 300);
 }
 
 
@@ -1115,22 +1124,53 @@ $('resultHomeBtn').onclick = () => { show('mainMenu'); updateHome(); updateActiv
 $('resultAgainBtn').onclick = () => { if(session?.mode) startSession(session.mode); else { show('mainMenu'); updateActiveTab('home'); } };
 
 // ── Share prompt button handlers ─────────────────────────────────────
+async function _copyShareLink(url) {
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast(t('shareCopied'));
+      return true;
+    } catch (_) {}
+  }
+  try {
+    const textArea = document.createElement('textarea');
+    textArea.value = url;
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    textArea.style.pointerEvents = 'none';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    const successful = document.execCommand('copy');
+    document.body.removeChild(textArea);
+    if (successful) {
+      showToast(t('shareCopied'));
+      return true;
+    }
+  } catch (_) {}
+
+  showToast(t('shareError'));
+  return false;
+}
+
 $('sharePromptShareBtn').onclick = async () => {
   const shareData = {
     title: 'Driver95',
     text:  t('shareDesc'),
     url:   'https://driver95.eu'
   };
-  try {
-    if (navigator.share) {
+  if (navigator.share) {
+    try {
       await navigator.share(shareData);
-    } else {
-      // Fallback: copy to clipboard
-      await navigator.clipboard.writeText(shareData.url);
-      showToast(t('shareCopied'));
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        await _copyShareLink(shareData.url);
+      }
     }
-  } catch (_) {
-    // User cancelled share or clipboard failed — silently ignore
+  } else {
+    await _copyShareLink(shareData.url);
   }
   // Mark as acted upon regardless of share outcome
   localStorage.setItem('driver95_share_dismissed', '1');
@@ -1148,6 +1188,7 @@ $('resetBtn').onclick = () => {
   if(confirm(t('resetConfirm'))){
     localStorage.removeItem(storageKey());
     localStorage.removeItem('driver95_progress');
+    localStorage.removeItem('driver95_share_dismissed');
     state = loadState();
     updateHome();
     updateActiveTab('home');
