@@ -16,6 +16,10 @@
  *   Analytics.questionFailed(params)
  *   Analytics.questionPassed(params)
  *   Analytics.learningProgress(params)
+ *   Analytics.sharePromptShown(params)
+ *   Analytics.shareClicked(params)
+ *   Analytics.shareDismissed(params)
+ *   Analytics.shareLinkCopied(params)
  *
  * DEBUG MODE (temporary, without code changes):
  *   Open DevTools Console and run:  Analytics.enableDebug()
@@ -346,6 +350,41 @@
     });
   }
 
+  /**
+   * Share prompt funnel events:
+   *   share_prompt_shown — when card becomes visible
+   *   share_clicked      — when user clicks Share
+   *   share_dismissed    — when user closes/dismisses card
+   *   share_link_copied  — only after successful link copy to clipboard
+   */
+  function sharePromptShown(p = {}) {
+    _dispatch('share_prompt_shown', {
+      language: p.language,
+      mode:     p.mode
+    });
+  }
+
+  function shareClicked(p = {}) {
+    _dispatch('share_clicked', {
+      language: p.language,
+      mode:     p.mode
+    });
+  }
+
+  function shareDismissed(p = {}) {
+    _dispatch('share_dismissed', {
+      language: p.language,
+      mode:     p.mode
+    });
+  }
+
+  function shareLinkCopied(p = {}) {
+    _dispatch('share_link_copied', {
+      language: p.language,
+      mode:     p.mode
+    });
+  }
+
   // ─── Daily progress snapshot ──────────────────────────────────────────────
   function _maybeTrackDailyProgress(language, totalQuestions) {
     const today       = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
@@ -420,6 +459,10 @@
       ['test_finished',      () => testFinished({ session_id: fakeSessionId, mode: 'exam', language: 'de', total_questions: 40, correct: 35, incorrect: 5, percent: 88, duration_sec: 312 })],
       ['test_abandoned',     () => testAbandoned({ session_id: _uuid(), mode: 'learn', language: 'ru', current_question: 7, elapsed_time_sec: 145 })],
       ['learning_progress',  () => learningProgress({ learned_questions: 120, favorite_questions: 18, incorrect_questions: 34, language: 'de', total_questions: 298 })],
+      ['share_prompt_shown', () => sharePromptShown({ language: 'de', mode: 'exam' })],
+      ['share_clicked',      () => shareClicked({ language: 'de', mode: 'exam' })],
+      ['share_dismissed',    () => shareDismissed({ language: 'de', mode: 'exam' })],
+      ['share_link_copied',  () => shareLinkCopied({ language: 'de', mode: 'exam' })],
     ];
 
     steps.forEach(([name, fn]) => {
@@ -456,6 +499,10 @@
     favoriteAdded,
     favoriteRemoved,
     learningProgress,
+    sharePromptShown,
+    shareClicked,
+    shareDismissed,
+    shareLinkCopied,
 
     // Utilities
     maybeTrackDailyProgress: _maybeTrackDailyProgress,

@@ -215,6 +215,8 @@ const Analytics = window.Analytics || {
   testAbandoned: () => {}, questionViewed: () => {}, answerSelected: () => {},
   questionPassed: () => {}, questionFailed: () => {}, favoriteAdded: () => {},
   favoriteRemoved: () => {}, learningProgress: () => {},
+  sharePromptShown: () => {}, shareClicked: () => {},
+  shareDismissed: () => {}, shareLinkCopied: () => {},
   maybeTrackDailyProgress: () => {}, generateSessionId: () => Math.random().toString(36).slice(2)
 };
 
@@ -798,6 +800,8 @@ function showResult(){
   const total = session?.list?.length || 0;
   const good = session?.good || 0;
   const bad = session?.bad || 0;
+  const currentMode = session?.mode || null;
+  sharePromptShownInCurrentSession = false;
   $('resultTitle').textContent = t('resultTitle');
   $('resultScoreBig').textContent = good;
   $('resultScoreTotal').textContent = t('resultOf').replace('{total}', total);
@@ -850,10 +854,13 @@ function showResult(){
   }
 
   // Show the share prompt if conditions are met (session is already null now)
-  _maybeShowSharePrompt(good, total);
+  _maybeShowSharePrompt(good, total, currentMode);
 }
 
 // ── Share prompt helpers ──────────────────────────────────────────────────────
+let lastSharePromptMode = null;
+let sharePromptShownInCurrentSession = false;
+let shareActionHandled = false;
 
 function _countAnsweredQuestions() {
   try {
@@ -862,7 +869,7 @@ function _countAnsweredQuestions() {
   } catch (_) { return 0; }
 }
 
-function _maybeShowSharePrompt(good, total) {
+function _maybeShowSharePrompt(good, total, mode) {
   // Already dismissed or acted upon
   if (localStorage.getItem('driver95_share_dismissed') === '1') return;
   // Only on successful sessions (≥80% correct)
@@ -870,12 +877,15 @@ function _maybeShowSharePrompt(good, total) {
   // Only after enough cumulative answers
   if (_countAnsweredQuestions() < SHARE_PROMPT_THRESHOLD) return;
 
-  _showSharePrompt();
+  _showSharePrompt(mode);
 }
 
-function _showSharePrompt() {
+function _showSharePrompt(mode) {
   const card = $('sharePromptCard');
   if (!card) return;
+
+  lastSharePromptMode = mode || null;
+  shareActionHandled = false;
 
   // Populate i18n text
   const titleEl = $('sharePromptTitle');
@@ -891,6 +901,14 @@ function _showSharePrompt() {
   // Reveal share card
   card.classList.remove('hidden');
   card.classList.add('sharePromptVisible');
+
+  if (!sharePromptShownInCurrentSession) {
+    sharePromptShownInCurrentSession = true;
+    Analytics.sharePromptShown({
+      language: lang,
+      mode: lastSharePromptMode
+    });
+  }
 }
 
 function _hideSharePrompt() {
@@ -1125,37 +1143,52 @@ $('resultAgainBtn').onclick = () => { if(session?.mode) startSession(session.mod
 
 // ── Share prompt button handlers ─────────────────────────────────────
 async function _copyShareLink(url) {
+  let copied = false;
   if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
     try {
       await navigator.clipboard.writeText(url);
-      showToast(t('shareCopied'));
-      return true;
+      copied = true;
     } catch (_) {}
   }
-  try {
-    const textArea = document.createElement('textarea');
-    textArea.value = url;
-    textArea.style.top = '0';
-    textArea.style.left = '0';
-    textArea.style.position = 'fixed';
-    textArea.style.opacity = '0';
-    textArea.style.pointerEvents = 'none';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    const successful = document.execCommand('copy');
-    document.body.removeChild(textArea);
-    if (successful) {
-      showToast(t('shareCopied'));
-      return true;
-    }
-  } catch (_) {}
+  if (!copied) {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = url;
+      textArea.style.top = '0';
+      textArea.style.left = '0';
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      textArea.style.pointerEvents = 'none';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      copied = document.execCommand('copy');
+      document.body.removeChild(textArea);
+    } catch (_) {}
+  }
+
+  if (copied) {
+    showToast(t('shareCopied'));
+    Analytics.shareLinkCopied({
+      language: lang,
+      mode: lastSharePromptMode
+    });
+    return true;
+  }
 
   showToast(t('shareError'));
   return false;
 }
 
 $('sharePromptShareBtn').onclick = async () => {
+  if (shareActionHandled) return;
+  shareActionHandled = true;
+
+  Analytics.shareClicked({
+    language: lang,
+    mode: lastSharePromptMode
+  });
+
   const shareData = {
     title: 'Driver95',
     text:  t('shareDesc'),
@@ -1175,13 +1208,18 @@ $('sharePromptShareBtn').onclick = async () => {
   // Mark as acted upon regardless of share outcome
   localStorage.setItem('driver95_share_dismissed', '1');
   _hideSharePrompt();
-  Analytics.track('share_prompt_actioned', { action: 'share', language: lang });
 };
 
 $('sharePromptDismissBtn').onclick = () => {
+  if (shareActionHandled) return;
+  shareActionHandled = true;
+
   localStorage.setItem('driver95_share_dismissed', '1');
   _hideSharePrompt();
-  Analytics.track('share_prompt_actioned', { action: 'dismiss', language: lang });
+  Analytics.shareDismissed({
+    language: lang,
+    mode: lastSharePromptMode
+  });
 };
 
 $('resetBtn').onclick = () => {
@@ -1189,6 +1227,9 @@ $('resetBtn').onclick = () => {
     localStorage.removeItem(storageKey());
     localStorage.removeItem('driver95_progress');
     localStorage.removeItem('driver95_share_dismissed');
+    sharePromptShownInCurrentSession = false;
+    shareActionHandled = false;
+    lastSharePromptMode = null;
     state = loadState();
     updateHome();
     updateActiveTab('home');
