@@ -1,0 +1,82 @@
+/* Driver95 — shared styles for static SEO landing pages (/uk/, /pl/, /de-at/).
+   Visual tokens mirror style.css; this file is intentionally independent so the
+   SPA stylesheet is never touched. Mobile-first. */
+:root{
+  --bg:#f3f4f6;--card:#ffffff;--card2:#f9fafb;--text:#0f172a;--muted:#64748b;
+  --line:rgba(15,23,42,.08);--accent:#1d63ed;--accent2:#3b82f6;--green:#10b981;
+  --shadow:0 20px 50px rgba(15,23,42,.06);--softShadow:0 10px 25px rgba(15,23,42,.04);
+}
+body.dark{
+  --bg:#060b13;--card:#0d1527;--card2:#132038;--text:#ffffff;--muted:#7c8ba1;
+  --line:rgba(255,255,255,.08);--accent2:#2f7bff;
+  --shadow:0 24px 60px rgba(0,0,0,.5);--softShadow:0 12px 30px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.55;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  transition:background .3s ease,color .3s ease}
+a{color:var(--accent)}
+.lp{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 40px}
+
+/* header / brand */
+.lpBrand{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px 14px}
+.lpLogo{display:block;width:84px;height:75px}
+.lpLogo img{width:100%;height:100%;object-fit:contain}
+body.dark .lpLogo .logoLight{display:none}
+body:not(.dark) .lpLogo .logoDark{display:none}
+.lpLangs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;margin:0;padding:0;list-style:none}
+.lpLangs a,.lpLangs span{display:inline-block;padding:7px 11px;border-radius:999px;font-size:13px;font-weight:700;
+  background:var(--card);border:1px solid var(--line);color:var(--text);text-decoration:none}
+.lpLangs span[aria-current]{border-color:var(--accent);color:var(--accent);
+  background:linear-gradient(180deg,rgba(37,99,235,.15),rgba(37,99,235,.08))}
+
+/* cards */
+.lpCard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px 18px;
+  box-shadow:var(--softShadow);margin:0 0 14px}
+.lpHero{box-shadow:var(--shadow)}
+h1{font-size:26px;line-height:1.2;letter-spacing:-.03em;margin:0 0 10px;font-weight:850}
+h2{font-size:20px;line-height:1.25;margin:0 0 12px;font-weight:800;letter-spacing:-.02em}
+h3{font-size:16px;line-height:1.35;margin:18px 0 6px;font-weight:750}
+p{margin:0 0 12px}
+.lpLead{color:var(--muted);font-size:16px}
+.lpNote{color:var(--muted);font-size:13px;margin:12px 0 0}
+
+/* CTA */
+.lpBtn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:15px 18px;
+  border-radius:16px;background:var(--accent);color:#fff;font-weight:750;font-size:17px;text-decoration:none;
+  box-shadow:0 10px 20px rgba(29,99,237,.25);transition:all .2s cubic-bezier(.4,0,.2,1)}
+.lpBtn:hover{background:var(--accent2);transform:translateY(-1px)}
+.lpBtn:focus-visible,.lpLangs a:focus-visible,.lpSuggest button:focus-visible,.lpSuggest a:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.lpHero .lpBtn{margin-top:16px}
+
+/* facts */
+.lpFacts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0;padding:0;list-style:none}
+.lpFacts li{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:12px 12px}
+.lpFacts b{display:block;font-size:22px;letter-spacing:-.03em;color:var(--accent)}
+.lpFacts span{font-size:13px;color:var(--muted)}
+.lpList{margin:0 0 6px;padding-left:20px}
+.lpList li{margin:0 0 6px}
+
+/* sample questions */
+.lpQ{border-top:1px solid var(--line);padding:16px 0 4px}
+.lpQ:first-of-type{border-top:0;padding-top:4px}
+.lpQMeta{font-size:12px;color:var(--muted);margin:0 0 4px}
+.lpQ h3{margin:0 0 10px;font-size:16px}
+.lpA{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:8px}
+.lpA li{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:11px 12px;font-size:15px}
+.lpA li.ok{border-color:var(--green);background:rgba(16,185,129,.10)}
+.lpA li.ok::before{content:"✓ ";color:var(--green);font-weight:800}
+
+.lpFooter{text-align:center;font-size:12px;color:var(--muted);padding:14px 8px 0}
+.lpFooter a{color:var(--accent);text-decoration:none}
+
+@media(min-width:600px){
+  .lp{padding:24px 20px 56px}
+  h1{font-size:34px}
+  .lpCard{padding:26px 26px}
+  .lpFacts{grid-template-columns:repeat(4,1fr)}
+  .lpBtn{width:auto;min-width:320px}
+  .lpHero .lpBtn{display:inline-flex}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}

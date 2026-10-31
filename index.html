@@ -115,10 +115,14 @@
   </script>
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="language-suggestion.css" />
 </head>
 
 <body>
   <main class="app">
+    <aside class="lpSuggest" id="lpSuggest" hidden>
+      <p></p><a href="#"></a><button type="button" aria-label="×">×</button>
+    </aside>
     <section id="onboarding" class="screen active">
       <div class="onboardingLayout">
         <div class="brandBlock">
@@ -525,6 +529,7 @@
   <script src="data.js"></script>
   <script src="analytics.js"></script>
   <script src="app.js"></script>
+  <script src="language-suggestion.js"></script>
 
   <div id="toast" class="toast hidden"></div>
 </body>

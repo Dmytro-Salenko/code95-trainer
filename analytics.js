@@ -144,7 +144,7 @@
     'device_type'               // GA4 collects Device Category automatically from UA string
   ]);
 
-  function _sendToGA4(eventName, params) {
+  function _sendToGA4(eventName, params, options) {
     if (!CONFIG.gaMeasurementId || typeof global.gtag !== 'function') return;
     try {
       const clean = {};
@@ -154,6 +154,11 @@
         if (typeof v === 'string' && v.length > 100) return; // GA4 string limit is 100 chars
         clean[k] = v;
       });
+      // Transport controls must never enter the persisted event queue.
+      if (options && typeof options.onComplete === 'function') {
+        clean.event_callback = options.onComplete;
+        clean.event_timeout = options.timeout || 1200;
+      }
       global.gtag('event', eventName, clean);
     } catch (_) {}
   }
@@ -176,7 +181,7 @@
 
   _initGA4(CONFIG.gaMeasurementId, _userId);
 
-  function _dispatch(eventName, extra = {}) {
+  function _dispatch(eventName, extra = {}, options) {
     // Run async — never blocks the UI thread
     setTimeout(() => {
       try {
@@ -191,7 +196,7 @@
         }, extra);
 
         _enqueue(payload);          // local queue (full payload, fine for own backend)
-        _sendToGA4(eventName, payload);  // GA4 (filtered — strips PII/reserved fields)
+        _sendToGA4(eventName, payload, options);  // GA4 (filtered — strips PII/reserved fields)
         _sendToBackend(payload);
       } catch (_) {}
     }, 0);
@@ -482,8 +487,8 @@
   }
 
   // ─── Legacy shim: Analytics.track() ──────────────────────────────────────
-  function track(eventName, params = {}) {
-    _dispatch(eventName, params);
+  function track(eventName, params = {}, options) {
+    _dispatch(eventName, params, options);
   }
 
   // ─── Expose public API ────────────────────────────────────────────────────

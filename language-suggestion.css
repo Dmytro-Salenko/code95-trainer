@@ -1,0 +1,14 @@
+/* Scoped to the optional banner on the homepage and static landing pages. */
+.lpSuggest{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:12px 12px 12px 14px;
+  border-radius:16px;background:var(--card);color:var(--text);border:1px solid var(--accent);font-size:14px;line-height:1.55}
+.lpSuggest.show{display:flex}
+.lpSuggest[hidden]{display:none}
+.lpSuggest p{margin:0;flex:1 1 180px;font-weight:600}
+.lpSuggest a{display:inline-block;padding:9px 14px;border-radius:12px;background:var(--accent);color:#fff;font-weight:700;text-decoration:none;transition:all .2s ease}
+.lpSuggest a:hover{background:var(--accent2)}
+.lpSuggest button{font:inherit;color:var(--muted);background:none;border:0;cursor:pointer;width:36px;height:36px;min-height:36px;padding:0;
+  border-radius:10px;font-size:20px;line-height:1;transition:all .2s ease}
+.lpSuggest button:hover{background:var(--card2);color:var(--text)}
+.lpSuggest button:focus-visible,.lpSuggest a:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.app>.lpSuggest{width:100%;flex-shrink:0}
+@media(prefers-reduced-motion:reduce){.lpSuggest a,.lpSuggest button{transition:none}}
