@@ -788,3 +788,24 @@ body.dark .toast {
   .sharePromptDesc { font-size: 12px; margin: 0 0 10px; }
   .sharePromptActions button { padding: 9px 8px; font-size: 13px; border-radius: 12px; }
 }
+
+/* Crawlable landing-page links in the onboarding footer. */
+.seoLanguageLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 0 0 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.seoLanguageLinks a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.seoLanguageLinks a:hover,
+.seoLanguageLinks a:focus-visible {
+  color: var(--text);
+}

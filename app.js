@@ -28,6 +28,7 @@ const I18N = {
     navHome: 'Training', navStats: 'Statistik', navFavorites: 'Favoriten', navSettings: 'Einstellungen',
     themeLight: 'Hell', themeDark: 'Dunkel',
     onboardingTitle: 'Sprache wählen', onboardingContinue: 'Weiter',
+    seoLanguagesLabel: 'Tests nach Sprache:',
     resetDone: 'Fortschritt zurückgesetzt', timeLabel: 'Zeit', bestLabel: 'Bestergebnis'
   },
   en: {
@@ -56,6 +57,7 @@ const I18N = {
     navHome: 'Training', navStats: 'Statistics', navFavorites: 'Favorites', navSettings: 'Settings',
     themeLight: 'Light', themeDark: 'Dark',
     onboardingTitle: 'Choose language', onboardingContinue: 'Continue',
+    seoLanguagesLabel: 'Tests by language:',
     resetDone: 'Progress reset', timeLabel: 'Time', bestLabel: 'Best result'
   },
   ru: {
@@ -84,6 +86,7 @@ const I18N = {
     navHome: 'Тренировка', navStats: 'Статистика', navFavorites: 'Избранное', navSettings: 'Настройки',
     themeLight: 'Светлая', themeDark: 'Тёмная',
     onboardingTitle: 'Выберите язык', onboardingContinue: 'Продолжить',
+    seoLanguagesLabel: 'Тесты по языкам:',
     resetDone: 'Прогресс сброшен', timeLabel: 'Время', bestLabel: 'Лучший результат'
   },
   es: {
@@ -112,6 +115,7 @@ const I18N = {
     navHome: 'Entrenamiento', navStats: 'Estadísticas', navFavorites: 'Favoritos', navSettings: 'Ajustes',
     themeLight: 'Claro', themeDark: 'Oscuro',
     onboardingTitle: 'Elige idioma', onboardingContinue: 'Continuar',
+    seoLanguagesLabel: 'Tests por idioma:',
     resetDone: 'Progreso restablecido', timeLabel: 'Tiempo', bestLabel: 'Mejor resultado'
   },
   pl: {
@@ -140,6 +144,7 @@ const I18N = {
     navHome: 'Trening', navStats: 'Statystyki', navFavorites: 'Ulubione', navSettings: 'Ustawienia',
     themeLight: 'Jasny', themeDark: 'Ciemny',
     onboardingTitle: 'Wybierz język', onboardingContinue: 'Dalej',
+    seoLanguagesLabel: 'Testy według języka:',
     resetDone: 'Postęp zresetowany', timeLabel: 'Czas', bestLabel: 'Najlepszy wynik'
   },
   it: {
@@ -168,6 +173,7 @@ const I18N = {
     navHome: 'Allenamento', navStats: 'Statistiche', navFavorites: 'Preferiti', navSettings: 'Impostazioni',
     themeLight: 'Chiaro', themeDark: 'Scuro',
     onboardingTitle: 'Scegli la lingua', onboardingContinue: 'Continua',
+    seoLanguagesLabel: 'Test per lingua:',
     resetDone: 'Progressi ripristinati', timeLabel: 'Tempo', bestLabel: 'Miglior risultato'
   },
   tr: {
@@ -196,6 +202,7 @@ const I18N = {
     navHome: 'Çalışma', navStats: 'İstatistikler', navFavorites: 'Favoriler', navSettings: 'Ayarlar',
     themeLight: 'Açık', themeDark: 'Koyu',
     onboardingTitle: 'Dil seçin', onboardingContinue: 'Devam et',
+    seoLanguagesLabel: 'Dile göre testler:',
     resetDone: 'İlerleme sıfırlandı', timeLabel: 'Süre', bestLabel: 'En iyi sonuç'
   },
   uk: {
@@ -224,6 +231,7 @@ const I18N = {
     navHome: 'Тренування', navStats: 'Статистика', navFavorites: 'Обране', navSettings: 'Налаштування',
     themeLight: 'Світла', themeDark: 'Темна',
     onboardingTitle: 'Оберіть мову', onboardingContinue: 'Продовжити',
+    seoLanguagesLabel: 'Тести за мовами:',
     resetDone: 'Прогрес скинуто', timeLabel: 'Час', bestLabel: 'Кращий результат'
   }
 };
@@ -300,6 +308,7 @@ function updateOnboardingButtons(){
   // Localize onboarding screen dynamically according to selected language
   const obI18n = I18N[onboardingLang] || I18N.de;
   if ($('onboardingTitle')) $('onboardingTitle').textContent = obI18n.onboardingTitle;
+  if ($('seoLanguagesLabel')) $('seoLanguagesLabel').textContent = obI18n.seoLanguagesLabel;
   if ($('themeTitle')) $('themeTitle').textContent = obI18n.settingsThemeTitle;
   if ($('onboardingContinue')) $('onboardingContinue').textContent = obI18n.onboardingContinue;
   if ($('themeLight')) {

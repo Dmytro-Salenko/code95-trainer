@@ -241,6 +241,10 @@ ${q.answers.map((a, j) => `            <li${j === q.correct ? ' class="ok"' : ''
   <meta name="author" content="Driver95" />
   <meta name="theme-color" content="#060b13" />
   <link rel="canonical" href="${url}" />
+  <link rel="alternate" hreflang="de-AT" href="https://driver95.eu/de-at/" />
+  <link rel="alternate" hreflang="pl" href="https://driver95.eu/pl/" />
+  <link rel="alternate" hreflang="uk" href="https://driver95.eu/uk/" />
+  <link rel="alternate" hreflang="x-default" href="https://driver95.eu/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Driver95" />

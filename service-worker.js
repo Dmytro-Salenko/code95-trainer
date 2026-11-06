@@ -1,4 +1,4 @@
-const CACHE_NAME = 'driver95-cache-v23';
+const CACHE_NAME = 'driver95-cache-v24';
 const ASSETS = [
   './',
   './index.html',
