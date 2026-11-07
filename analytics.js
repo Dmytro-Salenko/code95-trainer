@@ -1,5 +1,5 @@
 /**
- * Driver95 Analytics Module v2.1
+ * Driver95 Analytics Module v2.2
  * ─────────────────────────────────────────────────────────────────────────────
  * Single source of truth for all product analytics.
  * Backed by Google Analytics 4 (GA4) via gtag.js.
@@ -37,7 +37,7 @@
   // ─── Configuration ────────────────────────────────────────────────────────
   const CONFIG = {
     gaMeasurementId: 'G-78SW1YDT85',
-    appVersion:      '0.3.0',
+    appVersion:      '0.3.2',
     dbVersion:       'v2.0',
     // debug_mode controlled by sessionStorage flag — never hardcoded true
     debugMode:       sessionStorage.getItem('driver95_debug_analytics') === '1',
@@ -75,6 +75,46 @@
     try { localStorage.setItem(key, value); } catch (_) {}
   }
 
+  // Explicit opt-in on this browser only; never infer staff from IP/country.
+  const query = new URLSearchParams(global.location.search);
+  if (query.get('analytics_test') === '1') _safeSet('driver95_analytics_test', '1');
+  if (query.get('analytics_test') === '0') {
+    try { localStorage.removeItem('driver95_analytics_test'); } catch (_) {}
+  }
+  const isTestTraffic = _safeGet('driver95_analytics_test') === '1' ||
+    ['localhost', '127.0.0.1', '::1'].includes(global.location.hostname);
+  const attempts = new Map();
+  function claimAttempt(id, terminal) {
+    if (!id) return true;
+    const previous = attempts.get(id);
+    if (previous === 'ended' || (!terminal && previous)) return false;
+    attempts.set(id, terminal ? 'ended' : 'started');
+    if (attempts.size > 1000) attempts.delete(attempts.keys().next().value);
+    return true;
+  }
+  // Local calendar days. No cross-device or pre-install history is inferred.
+  function recordPractice(finished) {
+    if (isTestTraffic || CONFIG.debugMode) return {};
+    try {
+      const now = new Date();
+      const today = [now.getFullYear(), String(now.getMonth()+1).padStart(2,'0'), String(now.getDate()).padStart(2,'0')].join('-');
+      const dates = JSON.parse(_safeGet('driver95_practice_days', '[]'));
+      const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate()-29);
+      const recent = dates.filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && new Date(d+'T00:00:00') >= cutoff);
+      const newDay = !recent.includes(today);
+      if (newDay) recent.push(today);
+      _safeSet('driver95_practice_days', JSON.stringify(recent));
+      let completed = Number(_safeGet('driver95_completed_exams', '0')) || 0;
+      if (finished) { completed++; _safeSet('driver95_completed_exams', String(completed)); }
+      const summary = {
+        practice_frequency: recent.length > 1 ? 'multiple_days_30d' : 'one_day_30d',
+        exam_completion_frequency: completed > 1 ? 'multiple' : completed === 1 ? 'one' : 'none'
+      };
+      if (newDay) _dispatch('practice_day', summary);
+      return summary;
+    } catch (_) { return {}; }
+  }
+
   // ─── Identity ─────────────────────────────────────────────────────────────
   function _initUserId() {
     let uid = _safeGet('driver95_anon_user_id');
@@ -87,7 +127,7 @@
 
   // ─── GA4 bootstrap ────────────────────────────────────────────────────────
   function _initGA4(measurementId, userId) {
-    if (!measurementId) return;
+    if (!measurementId || isTestTraffic) return;
     try {
       const s = document.createElement('script');
       s.async = true;
@@ -103,7 +143,8 @@
         user_id:        userId   // anonymous UUID — not PII
       };
       // debug_mode only when explicitly enabled via sessionStorage
-      if (CONFIG.debugMode) cfg.debug_mode = true;
+      if (CONFIG.debugMode || isTestTraffic) cfg.debug_mode = true;
+      if (isTestTraffic) cfg.traffic_type = 'internal';
 
       global.gtag('config', measurementId, cfg);
 
@@ -137,6 +178,7 @@
     'firebase_event_origin','firebase_screen','firebase_screen_class',
     'firebase_screen_id','firebase_previous_class','firebase_previous_id',
     'firebase_previous_screen','ep.','epn.',
+    'session_id', 'test_session_id', // attempt UUIDs stay local, never override GA session IDs
     'event_name',               // dispatched via gtag('event', name) — no need to repeat
     'timestamp',                // GA4 adds its own timestamp — our ISO string is redundant
     'anonymous_user_id',        // user identity handled via user_id config, not event param
@@ -145,14 +187,14 @@
   ]);
 
   function _sendToGA4(eventName, params, options) {
-    if (!CONFIG.gaMeasurementId || typeof global.gtag !== 'function') return;
+    if (isTestTraffic || !CONFIG.gaMeasurementId || typeof global.gtag !== 'function') return;
     try {
       const clean = {};
       Object.entries(params).forEach(([k, v]) => {
         if (v === null || v === undefined) return;
         if (_GA4_RESERVED.has(k)) return;          // strip reserved/noisy params
         if (typeof v === 'string' && v.length > 100) return; // GA4 string limit is 100 chars
-        clean[k] = v;
+        clean[k === 'language' ? 'app_language' : k] = v;
       });
       // Transport controls must never enter the persisted event queue.
       if (options && typeof options.onComplete === 'function') {
@@ -164,7 +206,7 @@
   }
 
   function _sendToBackend(payload) {
-    if (!CONFIG.useBackend) return;
+    if (isTestTraffic || !CONFIG.useBackend) return;
     try {
       fetch(CONFIG.backendEndpoint, {
         method:    'POST',
@@ -182,8 +224,8 @@
   _initGA4(CONFIG.gaMeasurementId, _userId);
 
   function _dispatch(eventName, extra = {}, options) {
-    // Run async — never blocks the UI thread
-    setTimeout(() => {
+    // Queue to gtag synchronously so pagehide is not lost to a deferred timer.
+    (() => {
       try {
         // Base payload for local queue / backend (full data)
         const payload = Object.assign({
@@ -195,11 +237,13 @@
           timestamp:                new Date().toISOString()
         }, extra);
 
+        if (isTestTraffic || CONFIG.debugMode) payload.traffic_type = 'internal';
+        if (isTestTraffic || CONFIG.debugMode) payload.debug_mode = true;
         _enqueue(payload);          // local queue (full payload, fine for own backend)
         _sendToGA4(eventName, payload, options);  // GA4 (filtered — strips PII/reserved fields)
         _sendToBackend(payload);
       } catch (_) {}
-    }, 0);
+    })();
   }
 
   // ─── Named event helpers ──────────────────────────────────────────────────
@@ -212,12 +256,16 @@
    *   mode, language, total_questions, app_version, device_type
    */
   function testStarted(p) {
+    if (!claimAttempt(p.session_id, false)) return;
+    const practice = recordPractice(false);
     _dispatch('test_started', {
+      ...practice,
+      session_id: p.session_id,
       mode:            p.mode,
       language:        p.language,
       total_questions: p.total_questions
       // session_id intentionally excluded — high cardinality UUID,
-      // kept in local queue via _dispatch base but not sent as GA4 event param.
+      // retained in the local queue, not sent as a GA4 event parameter.
     });
   }
 
@@ -233,14 +281,20 @@
    * → register as Custom Metrics in GA4 for SUM/AVG aggregations.
    */
   function testFinished(p) {
+    if (!claimAttempt(p.session_id, true)) return;
+    const practice = recordPractice(p.mode === 'exam');
     _dispatch('test_finished', {
+      ...practice,
+      session_id: p.session_id,
+      completion_reason: 'all_questions_answered',
+      test_result: p.mode === 'exam' ? (p.correct >= Math.ceil(p.total_questions * 0.8) ? 'passed' : 'failed') : 'completed',
       mode:            p.mode,
       language:        p.language,
       total_questions: p.total_questions,
       correct_count:   p.correct,     // renamed: 'correct' alone is ambiguous
       incorrect_count: p.incorrect,
       score_pct:       p.percent,     // renamed: 'percent' alone is ambiguous
-      duration_sec:    p.duration_sec
+      duration_seconds: p.duration_sec
     });
   }
 
@@ -252,7 +306,10 @@
    *   mode, language, questions_seen, elapsed_sec
    */
   function testAbandoned(p) {
+    if (!claimAttempt(p.session_id, true)) return;
     _dispatch('test_abandoned', {
+      session_id: p.session_id,
+      exit_reason: p.reason || 'navigation',
       mode:          p.mode,
       language:      p.language,
       questions_seen: p.current_question,   // renamed: more descriptive
@@ -447,6 +504,10 @@
   // Usage: Analytics.smokeTest()
   // Fires all events with synthetic data. Check local queue in DevTools or GA4 DebugView.
   function smokeTest() {
+    if (!CONFIG.debugMode && !isTestTraffic) {
+      console.warn('Enable debug/test mode and reload before synthetic testing.');
+      return;
+    }
     console.group('[Analytics] Smoke Test');
     const fakeSessionId = _uuid();
     const fakeQId       = 42;
@@ -523,7 +584,8 @@
 
     // Readonly: user identity (for debugging)
     get userId() { return _userId; },
-    get isDebugMode() { return CONFIG.debugMode; }
+    get isDebugMode() { return CONFIG.debugMode; },
+    get isTestTraffic() { return isTestTraffic; }
   };
 
 }(window));

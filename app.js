@@ -270,7 +270,7 @@ function loadState(){
 }
 function saveState(){ localStorage.setItem(storageKey(), JSON.stringify(state)); }
 function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
-function trackAbandoned() {
+function trackAbandoned(reason = 'navigation') {
   if (!session) return;
   const elapsed = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
   Analytics.testAbandoned({
@@ -278,6 +278,7 @@ function trackAbandoned() {
     mode:             session.mode,
     language:         lang,
     current_question: session.index,
+    reason,
     elapsed_time_sec: elapsed
   });
   session = null;
@@ -491,7 +492,7 @@ function updateStats(){
 
 function startSession(mode){
   if (session) {
-    trackAbandoned();
+    trackAbandoned('new_session');
   }
   let list = [];
   let title = t('learnTitle');
@@ -534,6 +535,7 @@ function startSession(mode){
     mode,
     title,
     list,
+    initialTotal: list.length,
     index: 0,
     good: 0,
     bad: 0,
@@ -918,8 +920,31 @@ function finishAnswer(){
 }
 
 
+function finishSessionAnalytics(){
+  if (!session) return;
+  const duration = session.startTime ? Math.round((Date.now() - session.startTime) / 1000) : 0;
+  const total   = session.initialTotal || session.list.length;
+  const correct = session.good;
+  const answered = session.good + session.bad;
+  const denominator = session.mode === 'exam' ? total : answered;
+  const pct = denominator > 0 ? Math.round((correct / denominator) * 100) : 0;
+  Analytics.testFinished({
+    session_id:      session.sessionId,
+    mode:            session.mode,
+    language:        lang,
+    total_questions: total,
+    correct:         correct,
+    incorrect:       session.bad,
+    percent:         pct,
+    duration_sec:    duration
+  });
+  // Snapshot learning progress after every completed session
+  Analytics.maybeTrackDailyProgress(lang, QUESTIONS.length);
+}
+
 function showResult(){
-  const total = session?.list?.length || 0;
+  if (!session) return;
+  const total = session.initialTotal || session.list.length;
   const good = session?.good || 0;
   const bad = session?.bad || 0;
   const currentMode = session?.mode || null;
@@ -952,26 +977,12 @@ function showResult(){
         language: lang,
         mode: session.mode,
         correct_answers: session.good,
-        total_questions: session.list.length,
+        total_questions: session.initialTotal || session.list.length,
         duration_seconds: duration
       });
     }
 
-    const total   = session.list.length;
-    const correct = session.good;
-    const pct     = total > 0 ? Math.round((correct / total) * 100) : 0;
-    Analytics.testFinished({
-      session_id:      session.sessionId,
-      mode:            session.mode,
-      language:        lang,
-      total_questions: total,
-      correct:         correct,
-      incorrect:       session.bad,
-      percent:         pct,
-      duration_sec:    duration
-    });
-    // Snapshot learning progress after every completed session
-    Analytics.maybeTrackDailyProgress(lang, QUESTIONS.length);
+    finishSessionAnalytics();
     session = null;
   }
 
@@ -1059,6 +1070,7 @@ function nextQuestion(){
       
       if (session.list.length === 0) {
         showToast(t('emptySection'));
+        finishSessionAnalytics();
         session = null;
         show('mainMenu');
         updateHome();
@@ -1089,6 +1101,7 @@ function nextQuestion(){
       
       if (session.list.length === 0) {
         showToast(t('allLearnedToast'));
+        finishSessionAnalytics();
         session = null;
         show('mainMenu');
         updateHome();
@@ -1210,6 +1223,7 @@ $('bookmarkBtn').onclick = () => {
       
       if (session.list.length === 0) {
         showToast(t('emptyFavorites'));
+        trackAbandoned('favorites_removed');
         session = null;
         show('mainMenu');
         updateHome();
@@ -1386,9 +1400,9 @@ window.addEventListener('appinstalled', () => {
 });
 
 // Track page/tab close or refresh during an active test session
-window.addEventListener('pagehide', () => {
-  if (session) {
-    trackAbandoned();
+window.addEventListener('pagehide', (event) => {
+  if (session && !event.persisted) {
+    trackAbandoned('page_exit');
   }
 });
 
