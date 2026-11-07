@@ -549,13 +549,13 @@ function startSession(mode){
   };
   $('modeTitle').textContent = title;
   show('quiz');
-  renderQuestion();
   Analytics.testStarted({
     session_id:      session.sessionId,
     mode:            session.mode,
     language:        lang,
     total_questions: session.list.length
   });
+  renderQuestion();
 }
 
 function showToast(message) {

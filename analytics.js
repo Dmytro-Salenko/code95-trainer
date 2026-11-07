@@ -81,7 +81,8 @@
   if (query.get('analytics_test') === '0') {
     try { localStorage.removeItem('driver95_analytics_test'); } catch (_) {}
   }
-  const isTestTraffic = _safeGet('driver95_analytics_test') === '1' ||
+  const isTestTraffic = query.get('analytics_test') === '1' ||
+    (query.get('analytics_test') !== '0' && _safeGet('driver95_analytics_test') === '1') ||
     ['localhost', '127.0.0.1', '::1'].includes(global.location.hostname);
   const attempts = new Map();
   function claimAttempt(id, terminal) {
