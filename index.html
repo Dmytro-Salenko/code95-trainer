@@ -109,6 +109,7 @@
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="language-suggestion.css" />
+  <link rel="stylesheet" href="/ecosystem.css" />
 </head>
 
 <body>
@@ -176,6 +177,7 @@
               <a href="/de-at/" lang="de-AT">Deutsch (Österreich)</a>
             </nav>
             <p style="margin: 0;">© 2026 Driver95. All rights reserved. For business inquiries and feedback: <a href="mailto:driver95.eu@gmail.com" style="color: var(--accent); text-decoration: none;">driver95.eu@gmail.com</a></p>
+            <nav class="projectLinks" data-project-links aria-label="Driver95"></nav>
           </footer>
         </div>
       </div>
@@ -519,6 +521,8 @@
           </div>
         </div>
 
+        <div id="practiceSubscription" class="practiceSubscription" hidden></div>
+
         <div class="resultActions">
           <button id="resultAgainBtn" class="secondaryBtn" type="button">Repeat</button>
           <button id="resultHomeBtn" class="primary" type="button">Home</button>
@@ -533,5 +537,6 @@
   <script src="language-suggestion.js"></script>
 
   <div id="toast" class="toast hidden"></div>
+  <script src="/ecosystem.js"></script>
 </body>
 </html>

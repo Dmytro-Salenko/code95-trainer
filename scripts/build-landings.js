@@ -272,6 +272,7 @@ ${JSON.stringify(jsonld, null, 2)}
 
   <link rel="stylesheet" href="/landing.css" />
   <link rel="stylesheet" href="/language-suggestion.css" />
+  <link rel="stylesheet" href="/ecosystem.css" />
 </head>
 <body data-landing="${slug}" data-app-lang="${P.appLang}">
   <script>try{if(localStorage.getItem('driver95_theme')==='dark')document.body.classList.add('dark')}catch(e){}</script>
@@ -347,11 +348,13 @@ ${P.faq.map(f => `        <h3>${esc(f[0])}</h3>\n        <p>${esc(f[1])}</p>`).j
     <footer class="lpFooter">
       <p>${esc(P.footer)}</p>
       <p>© 2026 Driver95 · <a href="mailto:driver95.eu@gmail.com">driver95.eu@gmail.com</a></p>
+      <nav class="projectLinks" data-project-links aria-label="Driver95"></nav>
     </footer>
   </div>
 
   <script src="/analytics.js"></script>
   <script src="/landing.js"></script>
+  <script src="/ecosystem.js"></script>
   <script src="/language-suggestion.js"></script>
 </body>
 </html>
