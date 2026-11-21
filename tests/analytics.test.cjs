@@ -46,3 +46,15 @@ test('learning completion emits analytics before clearing the session and preser
  vm.runInNewContext(finish+next+'nextQuestion();',ctx);
  assert.equal(calls[0].total_questions,1);assert.equal(calls[0].correct,1);assert.equal(calls[1],'mainMenu');assert.equal(ctx.session,null);
 });
+test('campaign slugs follow practice events without copying personal query data',()=>{
+ const b=boot({query:'?utm_source=facebook&utm_content=pl_group123&utm_term=person%40example.com&fbclid=private-click'});b.api.testStarted(attempt);
+ const p=b.events().find(x=>x.name==='test_started').p;
+ assert.equal(p.acquisition_source,'facebook');assert.equal(p.acquisition_content,'pl_group123');assert.equal(p.acquisition_term,undefined);assert.equal(p.fbclid,undefined);
+});
+test('seven-day repeat practice persists throughout the return day',()=>{
+ const a=boot({day:'2026-11-07T12:00:00'});a.api.testStarted(attempt);
+ const b=boot({store:a.store,day:'2026-11-10T12:00:00'});b.api.testStarted(attempt);b.api.testFinished(attempt);
+ assert.equal(b.events().find(x=>x.name==='test_started').p.returning_practice_7d,true);
+ assert.equal(b.events().find(x=>x.name==='test_finished').p.returning_practice_7d,true);
+ assert.equal(b.events().find(x=>x.name==='test_finished').p.practice_days_7d,2);
+});

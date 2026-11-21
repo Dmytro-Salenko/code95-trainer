@@ -37,7 +37,7 @@
   // ─── Configuration ────────────────────────────────────────────────────────
   const CONFIG = {
     gaMeasurementId: 'G-78SW1YDT85',
-    appVersion:      '0.3.2',
+    appVersion:      '0.3.3',
     dbVersion:       'v2.0',
     // debug_mode controlled by sessionStorage flag — never hardcoded true
     debugMode:       sessionStorage.getItem('driver95_debug_analytics') === '1',
@@ -84,6 +84,12 @@
   const isTestTraffic = query.get('analytics_test') === '1' ||
     (query.get('analytics_test') !== '0' && _safeGet('driver95_analytics_test') === '1') ||
     ['localhost', '127.0.0.1', '::1'].includes(global.location.hostname);
+  // Only campaign slugs are accepted; never copy arbitrary query strings or click IDs.
+  const campaign = {};
+  ['source', 'medium', 'campaign', 'content', 'term'].forEach(key => {
+    const value = query.get('utm_' + key);
+    if (value && /^[a-zA-Z0-9_.-]{1,80}$/.test(value)) campaign['acquisition_' + key] = value;
+  });
   const attempts = new Map();
   function claimAttempt(id, terminal) {
     if (!id) return true;
@@ -103,11 +109,16 @@
       const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate()-29);
       const recent = dates.filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && new Date(d+'T00:00:00') >= cutoff);
       const newDay = !recent.includes(today);
+      const earlierDays = recent.filter(d => d < today);
+      const previousPractice = earlierDays.length ? earlierDays.slice().sort().at(-1) : null;
+      const daysSincePractice = previousPractice ? Math.round((new Date(today+'T00:00:00') - new Date(previousPractice+'T00:00:00')) / 86400000) : null;
       if (newDay) recent.push(today);
       _safeSet('driver95_practice_days', JSON.stringify(recent));
       let completed = Number(_safeGet('driver95_completed_exams', '0')) || 0;
       if (finished) { completed++; _safeSet('driver95_completed_exams', String(completed)); }
       const summary = {
+        practice_days_7d: recent.filter(d => new Date(d+'T00:00:00') >= new Date(now.getFullYear(), now.getMonth(), now.getDate()-6)).length,
+        returning_practice_7d: daysSincePractice !== null && daysSincePractice >= 1 && daysSincePractice <= 7,
         practice_frequency: recent.length > 1 ? 'multiple_days_30d' : 'one_day_30d',
         exam_completion_frequency: completed > 1 ? 'multiple' : completed === 1 ? 'one' : 'none'
       };
@@ -236,7 +247,7 @@
           question_database_version: CONFIG.dbVersion,
           device_type:              _device,
           timestamp:                new Date().toISOString()
-        }, extra);
+        }, campaign, extra);
 
         if (isTestTraffic || CONFIG.debugMode) payload.traffic_type = 'internal';
         if (isTestTraffic || CONFIG.debugMode) payload.debug_mode = true;

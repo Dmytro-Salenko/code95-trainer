@@ -13,6 +13,15 @@
   }
   track('page_view', { language: appLang, landing_page: page, page_type: 'seo_landing' });
   var ctas = document.querySelectorAll('a[data-cta]');
+  var incoming = new URLSearchParams(window.location.search);
+  for (var j = 0; j < ctas.length; j++) {
+    var destination = new URL(ctas[j].href, window.location.href);
+    destination.searchParams.set('start', appLang);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'analytics_test'].forEach(function (key) {
+      if (incoming.has(key)) destination.searchParams.set(key, incoming.get(key));
+    });
+    ctas[j].href = destination.href;
+  }
   var navigating = false;
   var generation = 0;
   var pendingTimer = null;

@@ -300,8 +300,9 @@ ${JSON.stringify(jsonld, null, 2)}
       <section class="lpCard lpHero">
         <h1>${esc(P.h1)}</h1>
         <p class="lpLead">${esc(P.lead)}</p>
-        <a class="lpBtn" href="/" data-cta="hero">${esc(P.cta)}</a>
+        <a class="lpBtn" href="/?start=${P.appLang}" data-cta="hero">${esc(P.cta)}</a>
         <p class="lpNote">${esc(P.ctaNote)}</p>
+        <p class="lpNote">${esc({"pl": "Niezależny trener. Język pytań nie oznacza oficjalnej bazy egzaminacyjnej danego kraju. Wymagania i format sprawdź w swoim ośrodku.", "uk": "Незалежний тренажер. Мова запитань не означає офіційну базу іспиту конкретної країни. Уточнюйте вимоги й формат у своєму навчальному центрі.", "de-at": "Unabhängiger Trainer. Sprache und Prüfungsland sind nicht dasselbe; Anforderungen und Prüfungsformat beim zuständigen Anbieter prüfen."}[slug])}</p>
         <ul class="lpFacts">
 ${P.facts.map(f => `          <li><b>${esc(f[0])}</b><span>${esc(f[1])}</span></li>`).join('\n')}
         </ul>
@@ -341,7 +342,7 @@ ${P.faq.map(f => `        <h3>${esc(f[0])}</h3>\n        <p>${esc(f[1])}</p>`).j
       <section class="lpCard lpHero">
         <h2>${esc(P.bottomH)}</h2>
         <p class="lpLead">${esc(P.bottomP)}</p>
-        <a class="lpBtn" href="/" data-cta="bottom">${esc(P.cta2)}</a>
+        <a class="lpBtn" href="/?start=${P.appLang}" data-cta="bottom">${esc(P.cta2)}</a>
       </section>
     </main>
 

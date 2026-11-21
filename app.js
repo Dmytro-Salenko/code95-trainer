@@ -236,8 +236,11 @@ const I18N = {
   }
 };
 
+const ENTRY_COPY = {"de": ["Driver95 — Code 95 online üben", "Kostenlos und ohne Anmeldung. Lernen, Fehler wiederholen und eine Prüfung üben.", "Unabhängiger Trainer. Sprache und Prüfungsland sind nicht dasselbe; Anforderungen und Prüfungsformat beim zuständigen Anbieter prüfen.", "Suchst du eine Fahrschule für Code 95?", "Ja, ich interessiere mich", "Danke! Dein Interesse wurde anonym erfasst. Es wurde keine Anfrage verschickt."], "pl": ["Driver95 — testy Kod 95 online", "Bezpłatnie i bez rejestracji. Ucz się, powtarzaj błędy i rozwiązuj test próbny.", "Niezależny trener. Język pytań nie oznacza oficjalnej bazy egzaminacyjnej danego kraju. Wymagania i format sprawdź w swoim ośrodku.", "Szukasz ośrodka szkolenia Kod 95?", "Tak, interesuje mnie szkolenie", "Dziękujemy! Zapisano anonimowe zainteresowanie. Nie wysłano zgłoszenia."], "uk": ["Driver95 — тести Код 95 онлайн", "Безплатно й без реєстрації. Навчайтеся, повторюйте помилки та проходьте пробний тест.", "Незалежний тренажер. Мова запитань не означає офіційну базу іспиту конкретної країни. Уточнюйте вимоги й формат у своєму навчальному центрі.", "Шукаєте навчальний центр Код 95?", "Так, цікавить навчання", "Дякуємо! Зафіксовано анонімний інтерес. Заявку нікуди не надіслано."], "ru": ["Driver95 — тесты Код 95 онлайн", "Бесплатно и без регистрации. Учитесь, повторяйте ошибки и проходите пробный тест.", "Независимый тренажёр. Язык вопросов не означает официальную базу экзамена конкретной страны. Уточняйте требования и формат в своём учебном центре.", "Ищете учебный центр Код 95?", "Да, интересует обучение", "Спасибо! Учтён анонимный интерес. Заявка никуда не отправлена."], "en": ["Driver95 — Code 95 online practice", "Free, no registration. Learn, review mistakes and take a practice test.", "Independent practice tool. A question language does not imply an official exam bank for that country. Check requirements and exam format with your training provider.", "Looking for a Code 95 training provider?", "Yes, I am interested", "Thanks! Your anonymous interest was recorded. No enquiry was sent."], "es": ["Driver95 — práctica Código 95 online", "Gratis y sin registro. Aprende, repasa errores y realiza un test de práctica.", "Entrenador independiente. El idioma no implica un banco oficial de examen de ese país. Consulta los requisitos y el formato con tu centro.", "¿Buscas un centro de formación Código 95?", "Sí, me interesa", "Gracias. Se ha registrado tu interés anónimo. No se ha enviado ninguna solicitud."], "it": ["Driver95 — esercizi Codice 95 online", "Gratis, senza registrazione. Studia, ripassa gli errori e svolgi un test di prova.", "Strumento indipendente. La lingua non indica una banca ufficiale di esame per quel paese. Verifica requisiti e formato con il tuo centro.", "Cerchi un centro di formazione Codice 95?", "Sì, mi interessa", "Grazie! Interesse anonimo registrato. Nessuna richiesta è stata inviata."], "tr": ["Driver95 — çevrimiçi Kod 95 alıştırmaları", "Ücretsiz, kayıt gerekmez. Öğrenin, hataları tekrarlayın ve deneme testi çözün.", "Bağımsız alıştırma aracı. Soru dili, o ülkenin resmî sınav soru bankası anlamına gelmez. Koşulları ve sınav biçimini eğitim merkezinizden doğrulayın.", "Kod 95 eğitim merkezi mi arıyorsunuz?", "Evet, ilgileniyorum", "Teşekkürler! Anonim ilginiz kaydedildi. Hiçbir başvuru gönderilmedi."]};
 const $ = (id) => document.getElementById(id);
-let lang = localStorage.getItem('driver95_lang') || null;
+const requestedLanguage = new URLSearchParams(window.location.search).get('start');
+const launchLanguage = Object.prototype.hasOwnProperty.call(I18N, requestedLanguage) ? requestedLanguage : null;
+let lang = launchLanguage || localStorage.getItem('driver95_lang') || null;
 let onboardingLang = lang || 'de';
 let theme = localStorage.getItem('driver95_theme') || 'light';
 let QUESTIONS = [];
@@ -308,6 +311,9 @@ function updateOnboardingButtons(){
 
   // Localize onboarding screen dynamically according to selected language
   const obI18n = I18N[onboardingLang] || I18N.de;
+  const words = ENTRY_COPY[onboardingLang] || ENTRY_COPY.en;
+  if ($('appEntryTitle')) $('appEntryTitle').textContent = words[0];
+  if ($('appEntryDescription')) $('appEntryDescription').textContent = words[1];
   if ($('onboardingTitle')) $('onboardingTitle').textContent = obI18n.onboardingTitle;
   if ($('seoLanguagesLabel')) $('seoLanguagesLabel').textContent = obI18n.seoLanguagesLabel;
   if ($('themeTitle')) $('themeTitle').textContent = obI18n.settingsThemeTitle;
@@ -342,6 +348,12 @@ function selectLanguage(nextLang){
 
 function applyLanguage(){
   document.documentElement.lang = lang;
+  const words = ENTRY_COPY[lang] || ENTRY_COPY.en;
+  document.title = words[0];
+  if ($('materialScope')) $('materialScope').textContent = words[2];
+  if ($('partnerInterestTitle')) $('partnerInterestTitle').textContent = words[3];
+  if ($('partnerInterestBtn')) $('partnerInterestBtn').textContent = words[4];
+  if ($('partnerInterestThanks')) $('partnerInterestThanks').textContent = words[5];
   if ($('langBadge')) $('langBadge').textContent = t('code');
   if ($('homeSubtitle')) $('homeSubtitle').textContent = t('subtitle');
   if ($('continueBtn')) $('continueBtn').textContent = t('continue');
@@ -1390,9 +1402,11 @@ updateFavoritesBadge();
 updateHomeProgressCards();
 applyTheme(theme);
 updateOnboardingButtons();
-// The first screen must always be language + theme selection.
-// We may preselect saved values, but we never skip this screen on startup.
-show('onboarding');
+// A landing CTA is an explicit language choice; ordinary visits keep onboarding.
+if (launchLanguage) {
+  selectLanguage(launchLanguage);
+  Analytics.track('trainer_entry', {language: launchLanguage, entry_type: 'landing_cta'});
+} else { show('onboarding'); }
 
 // Track PWA Installation
 window.addEventListener('appinstalled', () => {
@@ -1418,3 +1432,10 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.error('Service Worker registration failed', err));
   });
 }
+
+// Optional interest measurement only: no contact details and no enquiry sent.
+$('partnerInterestBtn').onclick = () => {
+  Analytics.track('partner_interest', {language: lang, placement: 'test_result', interest_type: 'training_provider'});
+  $('partnerInterestBtn').hidden = true;
+  $('partnerInterestThanks').hidden = false;
+};

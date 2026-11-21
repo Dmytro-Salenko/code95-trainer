@@ -124,7 +124,7 @@
             <img src="assets/logo-light.png" class="logoLight" alt="Driver95 Logo">
             <img src="assets/logo-dark.png" class="logoDark" alt="Driver95 Logo">
           </div>
-          <h1 style="font-size: 24px; line-height: 1.25; margin: 0 0 8px; font-weight: 850; letter-spacing: -0.03em; color: var(--text);">
+          <h1 id="appEntryTitle" style="font-size: 24px; line-height: 1.25; margin: 0 0 8px; font-weight: 850; letter-spacing: -0.03em; color: var(--text);">
             Driver95 — тесты Код 95 онлайн
             <span style="display: block; font-size: 15px; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-top: 6px;">Code 95 online test</span>
           </h1>
@@ -167,7 +167,7 @@
 
           <button id="onboardingContinue" class="primary cta" type="button">Continue</button>
           <footer style="text-align: center; padding: 20px 10px; font-size: 12px; color: #777777; width: 100%; margin-top: auto;">
-            <p style="margin: 0 0 8px; line-height: 1.5; color: var(--muted, #777);">Driver95 — бесплатные тесты Код 95 онлайн (Code 95 online test) для водителей: 245–298 вопросов на 8 языках, тренировка и экзамен. Работает без интернета после первой загрузки.</p>
+            <p style="margin: 0 0 8px; line-height: 1.5; color: var(--muted, #777);" id="appEntryDescription">Driver95 — бесплатные тесты Код 95 онлайн (Code 95 online test) для водителей: 245–298 вопросов на 8 языках, тренировка и экзамен. Работает без интернета после первой загрузки.</p>
             <nav class="seoLanguageLinks" aria-labelledby="seoLanguagesLabel">
               <span id="seoLanguagesLabel">Тесты по языкам:</span>
               <a href="/uk/" lang="uk">Українською</a>
@@ -197,6 +197,7 @@
         <div class="welcomeBlock">
           <h1 id="welcomeTitle">Добро пожаловать!</h1>
           <p id="welcomeSubtitle">Продолжайте обучение и повышайте свои знания.</p>
+      <p id="materialScope" style="max-width:640px;margin:12px auto;padding:0 16px;color:var(--muted);font-size:13px"></p>
         </div>
 
         <div class="menuCards">
@@ -510,6 +511,11 @@
           </div>
         </div>
         
+        <aside style="margin:16px 0;padding:16px;border:1px solid var(--line);border-radius:16px">
+          <p id="partnerInterestTitle"></p>
+          <button id="partnerInterestBtn" class="secondary" type="button"></button>
+          <p id="partnerInterestThanks" hidden aria-live="polite"></p>
+        </aside>
         <!-- Share prompt card — shown once after a successful session -->
         <div id="sharePromptCard" class="sharePromptCard hidden" role="region" aria-live="polite">
           <div class="sharePromptIcon">🤝</div>

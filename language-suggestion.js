@@ -38,6 +38,7 @@
     box.hidden = true;
     box.classList.remove('show');
     var state = read();
+    if (!page && new URLSearchParams(window.location.search).has('start')) return;
     if (state.dismissed) return;
     var saved = supported(state.pref) ? state.pref : null;
     var target = saved || detect();
