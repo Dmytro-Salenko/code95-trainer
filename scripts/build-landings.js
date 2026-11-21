@@ -353,10 +353,10 @@ ${P.faq.map(f => `        <h3>${esc(f[0])}</h3>\n        <p>${esc(f[1])}</p>`).j
     </footer>
   </div>
 
-  <script src="/analytics.js"></script>
-  <script src="/landing.js"></script>
+  <script src="/analytics.js?v=20261121"></script>
+  <script src="/landing.js?v=20261121"></script>
   <script src="/ecosystem.js"></script>
-  <script src="/language-suggestion.js"></script>
+  <script src="/language-suggestion.js?v=20261121"></script>
 </body>
 </html>
 `;

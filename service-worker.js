@@ -1,9 +1,12 @@
-const CACHE_NAME = 'driver95-cache-v27';
+const CACHE_NAME = 'driver95-cache-v28';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
+  './app.js?v=20261121',
+  './analytics.js?v=20261121',
+  './language-suggestion.js?v=20261121',
   './data.js',
   './analytics.js',
   './ecosystem.js',
